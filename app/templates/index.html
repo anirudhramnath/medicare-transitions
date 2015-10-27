@@ -1,10 +1,90 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-</head>
-<body>
 
-</body>
-</html>
+{% include 'header.html' %}
+
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Patient Admission Information</h3>
+    </div>
+    <div class="panel-body">
+      <p>64 year old male admitted for respiratory failure.</p>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Problem list</h3>
+    </div>
+    <div class="panel-body">
+      <p>
+        <ul>
+          <li>Respiratory failure</li>
+          <li>Acute kidney injury</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Vitals</h3>
+    </div>
+    <div class="panel-body">
+      Draw charts here
+    </div>
+  </div>
+
+  <hr/>
+  <div id="body-systems-wrapper">
+    <h2>Body Systems:</h2>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Neurologic</h3>
+      </div>
+      <div class="panel-body row text-center">
+        <div class="col-lg-3">
+            <p class="text-danger"><strong>Physical Exam</strong></p>
+            <div class="text-justify">
+              <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit faucibus diam, porttitor tempus orci aliquet ut. Praesent dignissim ante quam, eget fermentum urna feugiat vel. In semper rutrum ligula sit amet tincidunt. Fusce sed felis ligula. Proin tincidunt leo mauris, in tincidunt sem consectetur et. Nullam purus risus, vestibulum sed lacinia quis, eleifend sit amet sem. Integer vulputate hendrerit elementum.
+              </p>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <p class="text-danger"><strong>Medication</strong></p>
+            <div class="text-justify">
+              <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit faucibus diam, porttitor tempus orci aliquet ut. Praesent dignissim ante quam, eget fermentum urna feugiat vel. In semper rutrum ligula sit amet tincidunt. Fusce sed felis ligula. Proin tincidunt leo mauris, in tincidunt sem consectetur et. Nullam purus risus, vestibulum sed lacinia quis, eleifend sit amet sem. Integer vulputate hendrerit elementum.
+              </p>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <p class="text-danger"><strong>Problems</strong></p>
+            <div class="text-justify">
+              <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit faucibus diam, porttitor tempus orci aliquet ut. Praesent dignissim ante quam, eget fermentum urna feugiat vel. In semper rutrum ligula sit amet tincidunt. Fusce sed felis ligula. Proin tincidunt leo mauris, in tincidunt sem consectetur et. Nullam purus risus, vestibulum sed lacinia quis, eleifend sit amet sem. Integer vulputate hendrerit elementum.
+              </p>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <p class="text-danger"><strong>Resident Plan</strong></p>
+            <div class="text-justify">
+              <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit faucibus diam, porttitor tempus orci aliquet ut. Praesent dignissim ante quam, eget fermentum urna feugiat vel. In semper rutrum ligula sit amet tincidunt. Fusce sed felis ligula. Proin tincidunt leo mauris, in tincidunt sem consectetur et. Nullam purus risus, vestibulum sed lacinia quis, eleifend sit amet sem. Integer vulputate hendrerit elementum.
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div> <!-- /container -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+{% include 'footer.html' %}
+

@@ -31,7 +31,9 @@
       <h3 class="panel-title">Vitals</h3>
     </div>
     <div class="panel-body">
-      Draw charts here
+      PAIN
+	  <div id="PSchart">
+	  </div>
     </div>
   </div>
 
@@ -85,6 +87,62 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<script src="/static/js/circularHeatChart.js"></script>
+<script>
 
+/* Random data */
+
+var data = [];
+for(var i=0; i<168; i++) 
+{
+	if( i== 10)
+		data[i] = {title: "Segment "+i, value: 5};
+	else if (i == 20)
+		data[i] = {title: "Segment "+i, value: 10};
+	else
+		data[i] = {title: "Segment "+i, value: Math.round(Math.random()*75)};
+}
+
+var tooltip = d3.select("#PSchart")
+	.append("div")
+	.style("position", "relative")
+	.style("z-index", "10")
+	.style("visibility", "hidden");
+	
+var chart = circularHeatChart()
+    .innerRadius(20)
+    .range(["#e7e1ef", "#dd1c77"])
+    .radialLabels(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
+    .segmentLabels(["Midnight", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am",
+    "11am", "Midday", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"]);
+
+chart.accessor(function(d) {return d.value;})
+	
+d3.select('#PSchart')
+    .selectAll('svg')
+    .data([data])
+    .enter()
+    .append('svg')
+    .call(chart); 
+	
+d3.selectAll("#PSchart path")
+	.on('mouseover', function() {
+	d3.select(this)
+    .style("stroke","white")
+    .attr("stroke-width",3)
+    this.parentNode.appendChild(this);
+	
+    var d = d3.select(this).data()[0];
+    console.log(d.title + ' has value ' + d.value);
+	
+	return tooltip.style("visibility", "visible")
+					.text("Pain Score: "+d.value);
+	})
+	.on("mouseout", function(){
+	d3.select(this)
+    .style("stroke","none");
+	return tooltip.style("visibility", "hidden");
+	}); 
+</script>
 {% include 'footer.html' %}
 

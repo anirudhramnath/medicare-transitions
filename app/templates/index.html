@@ -31,9 +31,17 @@
       <h3 class="panel-title">Vitals</h3>
     </div>
     <div class="panel-body">
-      PAIN
-	  <div id="PSchart">
+	
+      
+	  <div id="PSchart" class="col-lg-2">
+	  PAIN
 	  </div>
+	  
+	  <div id="BPchart" class="col-lg-2">
+	  Blood Pressure 
+	  <div id="bpchart"></div>
+	  </div>
+	  
     </div>
   </div>
 
@@ -90,29 +98,32 @@
 <script src="/static/js/circularHeatChart.js"></script>
 <script>
 
-/* Random data */
+/* Pain score with random data */
 
 var data = [];
-for(var i=0; i<168; i++) 
+for(var i=0; i<72; i++) 
 {
 	if( i== 10)
 		data[i] = {title: "Segment "+i, value: 5};
 	else if (i == 20)
-		data[i] = {title: "Segment "+i, value: 10};
+		data[i] = {title: "Segment "+i, value: 2};
 	else
-		data[i] = {title: "Segment "+i, value: Math.round(Math.random()*75)};
+		data[i] = {title: "Segment "+i, value: Math.round(Math.random()*5)};
 }
+
 
 var tooltip = d3.select("#PSchart")
 	.append("div")
 	.style("position", "relative")
 	.style("z-index", "10")
+	.style("height","10px")
 	.style("visibility", "hidden");
+	
 	
 var chart = circularHeatChart()
     .innerRadius(20)
     .range(["#e7e1ef", "#dd1c77"])
-    .radialLabels(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
+    .radialLabels(["Day 1", "Day 2", "Day 3"])
     .segmentLabels(["Midnight", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am",
     "11am", "Midday", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"]);
 
@@ -133,7 +144,6 @@ d3.selectAll("#PSchart path")
     this.parentNode.appendChild(this);
 	
     var d = d3.select(this).data()[0];
-    console.log(d.title + ' has value ' + d.value);
 	
 	return tooltip.style("visibility", "visible")
 					.text("Pain Score: "+d.value);
@@ -143,6 +153,198 @@ d3.selectAll("#PSchart path")
     .style("stroke","none");
 	return tooltip.style("visibility", "hidden");
 	}); 
+	
+/* Pain score chart - End*/	
+
+	/* Blood pressure chart */
+
+// Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    width = 600 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+	
+// Parse the date / time
+var parseDate = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+// Parse time for tooltip
+var formatTime = d3.time.format("%e %B %I:%M %p");
+
+// Define color scale
+var color = d3.scale.category10();
+
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(5);
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(5);
+
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.Time); })
+    .y(function(d) { return y(d.DiastolicBP); });
+
+// Define second line
+var valueline2 = d3.svg.line()
+    .x(function(d) { return x(d.Time); })
+    .y(function(d) { return y(d.SystolicBP); });
+	
+// Adds the svg canvas
+var svg = d3.select("#bpchart")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+// Get the data
+d3.csv("../static/data/data.csv", function(error, data) {
+    data.forEach(function(d) {
+        d.Time = parseDate(d.Time);
+        d.DiastolicBP = +d.DiastolicBP;
+		d.SystolicBP = +d.SystolicBP;
+		
+    });
+
+    // Scale the range of the data
+    x.domain([d3.time.hour.offset(d3.min(data, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(data, function(d) { return d.Time; }), +1)]);
+    y.domain([0, d3.max(data, function(d) { return Math.max(d.DiastolicBP, d.SystolicBP); })+70]);
+	
+
+    // Add the valueline path.
+    svg.append("path")
+        .attr("class", "line")
+		.style("stroke", "rgb(255,121,14)")
+		.style("stroke-width",1)
+		.style("fill","none")
+		.attr("d", valueline(data))
+		.attr("data-legend","DiastolicBP");
+		
+	// Add the valueline2 path
+    svg.append("path")
+        .attr("class", "line")
+		.style("stroke", "rgb(31,119,180)")
+		.style("stroke-width",1)	
+		.style("fill","none")		
+		.attr("d", valueline2(data))
+		.attr("data-legend","SystolicBP");
+		
+	//Add tooltip
+	var bptooltip = d3.select("#bpchart").append("div")     
+				.attr("class", "bptooltip")               
+				.style("opacity", 0);	
+
+    // Add the scatterplot for DiastolicBP
+    svg.selectAll("dot")
+        .data(data)
+      .enter().append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d) { return x(d.Time); })
+        .attr("cy", function(d) { return y(d.DiastolicBP); })
+		.style("fill", "rgb(255,121,14)")
+		.on("mouseover", function(d) {  
+		var xPos = x(d.Time);
+		var yPos = y(d.DiastolicBP);
+            bptooltip.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            bptooltip.html(formatTime(d.Time) + "<br/>"+ "DIASTOLIC BP: "+d.DiastolicBP)  
+                .style("left", xPos + "px")     
+                .style("top", yPos-410 + "px");    				
+            })
+		.on("mouseout", function(d) {       
+            bptooltip.transition()        
+                .duration(3000)      
+                .style("opacity", 0);
+
+        });		
+		
+			
+    // Add the scatterplot for SystolicBP
+    svg.selectAll("dot")
+        .data(data)
+      .enter().append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d) { return x(d.Time); })
+        .attr("cy", function(d) { return y(d.SystolicBP); })
+		.style("fill", "rgb(31,119,180)")
+		.on("mouseover", function(d) {  
+		var xPos = x(d.Time);
+		var yPos = y(d.SystolicBP);		
+            bptooltip.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            bptooltip.html(formatTime(d.Time) + "<br/>"+ "SYSTOLIC BP: "+d.SystolicBP)  
+                .style("left", xPos + "px")     
+                .style("top", yPos-410 + "px");    							
+            })
+		.on("mouseout", function(d) {       
+			bptooltip.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+
+        });
+			
+
+    // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+	  .append("text")
+		.attr("class", "label")
+		.attr("x", width)
+		.attr("y", -6)
+		.style("text-anchor", "end")
+		.text("Time");
+
+    // Add the Y Axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("BP");	
+// Applying legend
+var legendRectSize = 18;
+var legendSpacing = 4;
+var legendData = ["SYSTOLIC BP","DIASTOLIC BP"]
+var legend = svg.selectAll('.legend')
+			  .data(legendData)
+			  .enter()
+			  .append('g')
+			  .attr('class', 'legend')
+			  .attr('transform', function(d, i) {
+				var height = legendRectSize + legendSpacing;
+				var offset =  height * 1;
+				var horz = legendRectSize + 10;
+				var vert = i * height - offset + 40;
+				return 'translate(' + horz + ',' + vert + ')';
+			  });
+  
+	  legend.append("circle")
+		.attr("r", 5)
+		.style("fill", color);
+	  
+	  legend.append('text')
+	  .attr('x', 15)
+	  .attr('y', 4)
+	  .text(function(d) { return d; });
+		  
+});
+
+/* Blood pressure chart - End*/
 </script>
 {% include 'footer.html' %}
 

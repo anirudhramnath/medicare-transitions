@@ -2,7 +2,7 @@ function circularHeatChart() {
     var margin = {top: 20, right: 20, bottom: 20, left: 20},
     innerRadius = 50,
     numSegments = 24,
-    segmentHeight = 20,
+    segmentHeight = 50,
     domain = null,
     range = ["white", "red"],
     accessor = function(d) {return d;},
@@ -58,7 +58,7 @@ function circularHeatChart() {
                 .append("text")
                 .append("textPath")
                 .attr("xlink:href", function(d, i) {return "#radial-label-path-"+id+"-"+i;})
-                .style("font-size", 0.6 * segmentHeight + 'px')
+                .style("font-size", 0.4 * segmentHeight + 'px')
                 .text(function(d) {return d;});
 
             //Segment labels

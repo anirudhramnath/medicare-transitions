@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+{% include 'header.html' %}
+
+<div class="container">
+    <h2> Select Filters </h2>
+    <hr/>
+    <div class="row">
+        <form class="form-horizontal" method="POST" action="/showVitals">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend></legend>
+
+        <!-- Multiple Checkboxes -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="checkboxes">Body Systems</label>
+          <div class="col-md-4">
+          <div class="checkbox">
+            <label for="checkboxes-0">
+              <input type="checkbox" name="bodySystem" id="checkboxes-0" value="1">
+              Neurologic
+            </label>
+            </div>
+          <div class="checkbox">
+            <label for="checkboxes-1">
+              <input type="checkbox" name="bodySystem" id="checkboxes-1" value="2">
+              Cardiovascular
+            </label>
+            </div>
+            <div class="checkbox">
+              <label for="checkboxes-2">
+                <input type="checkbox" name="bodySystem" id="checkboxes-2" value="3">
+                Pulmonary
+              </label>
+            </div>
+            <br/>
+            <div>
+              <button id="singlebutton" name="singlebutton" class="btn btn-primary">Go</button>
+          </div>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".patientThumb").click(function(){
+        alert($(this).parent().data("name"));
+    });
+});
+</script>
+
+{% include 'footer.html' %}

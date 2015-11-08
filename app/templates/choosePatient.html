@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+{% include 'header.html' %}
+
+<div class="container">
+    <h2> Choose Patient </h2>
+    <hr/>
+    <div class="row">
+        {% for image in patient_image %}
+            <div class="col-lg-1" data-name="{{ image[1] }}">{{ image[1] }}: <img src="{{ image[0] }}" class="patientThumb"/></div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".patientThumb").click(function(){
+        alert($(this).parent().data("name"));
+    });
+});
+</script>
+
+{% include 'footer.html' %}

@@ -81,6 +81,30 @@
 	  </div>
 	  
     </div>
+	<div class="panel-body">
+		<div id="TempChart" class="col-lg-2" >
+		<div id="tempchart">
+			Temperature
+		</div>
+		</div>
+		<div id="RespChart" class="col-lg-2">
+		<div id="respchart">
+			Respiration Rate
+		</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div id="PulseChart" class="col-lg-2" >
+		<div id="pulsechart">
+			Pulse
+		</div>
+		</div>
+		<div id="PulseOxChart" class="col-lg-2">
+		<div id="poxchart">
+			Pulse Oximetry
+		</div>
+		</div>
+	</div>
   </div>
 
   <hr/>
@@ -447,7 +471,7 @@ d3.csv("../static/data/data.csv", function(error, data) {
 		
 	//Add tooltip
 	var bptooltip = d3.select("#bpchart").append("div")     
-				.attr("class", "bptooltip")               
+				.attr("class", "tooltip")               
 				.style("opacity", 0);	
 
     // Add the scatterplot for DiastolicBP
@@ -554,6 +578,430 @@ var legend = svg.selectAll('.legend')
 });
 
 /* Blood pressure chart - End*/
+
+/* ############################ */
+/* Temperature chart*/
+
+// Set the dimensions of the canvas / graph
+var marginT = {top: 30, right: 20, bottom: 30, left: 50},
+    widthT = 500 - marginT.left - marginT.right,
+    heightT = 350 - marginT.top - marginT.bottom;
+	
+// Parse the date / time
+var parseDateT = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+// Parse time for tooltip
+var formatTimeT = d3.time.format("%e %B %I:%M %p");
+
+// Define color scale
+var colorT = d3.scale.category10();
+
+
+// Set the ranges
+var xT = d3.time.scale().range([0, widthT]);
+var yT = d3.scale.linear().range([heightT, 0]);
+
+
+// Define the axes
+var xAxisT = d3.svg.axis().scale(xT)
+    .orient("bottom").ticks(5);
+
+var yAxisT = d3.svg.axis().scale(yT)
+    .orient("left").ticks(5);
+
+// Define the line
+var valuelineT = d3.svg.line()
+    .x(function(d) { return xT(d.Time); })
+    .y(function(d) { return yT(d.Temperature); });
+	
+// Adds the svg canvas
+var svgT = d3.select("#tempchart")
+    .append("svg")
+        .attr("width", widthT + marginT.left + marginT.right)
+        .attr("height", heightT + marginT.top + marginT.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + marginT.left + "," + marginT.top + ")");
+
+// Get the data
+d3.csv("../static/data/temp.csv", function(error, dataT) {
+    dataT.forEach(function(d) {
+        d.Time = parseDateT(d.Time);
+        d.Temperature = +d.Temperature;
+	
+    });
+
+    // Scale the range of the data
+    xT.domain([d3.time.hour.offset(d3.min(dataT, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataT, function(d) { return d.Time; }), +1)]);
+    yT.domain([0, d3.max(dataT, function(d) { return d.Temperature; }) + 20]);
+	
+	//Add tooltip
+	var tooltipT = d3.select("#tempchart").append("div")     
+				.attr("class", "tooltip")               
+				.style("opacity", 0);		
+	
+
+    // Add the valueline path.
+   /* svgT.append("path")
+        .attr("class", "lineT")
+		.style("stroke", "#f9520c")
+		.style("stroke-width",1)
+		.style("fill","none")
+		.attr("d", valuelineT(dataT));	*/	
+
+    // Add the scatterplot for Temperature
+    svgT.selectAll("rect_temp")
+        .data(dataT)
+      .enter().append("rect")
+		.attr("x", function(d) { return xT(d.Time)-3.5; })
+        .attr("y", function(d) { return yT(d.Temperature)-3.5; })
+		.attr("height",7)
+		.attr("width",7)
+		.style("fill","#f9520c")
+		.on("mouseover", function(d) {  
+		var xPosT = xT(d.Time);
+		var yPosT = yT(d.Temperature);		
+            tooltipT.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            tooltipT.html(formatTime(d.Time) + "<br/>"+ "Temperature: "+d.Temperature)  
+                .style("left", xPosT + "px")     
+                .style("top", yPosT-360 + "px");    							
+            })
+		.on("mouseout", function(d) {       
+			tooltipT.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+
+        });
+		
+	// Add the X Axis
+    svgT.append("g")
+        .attr("class", "x axis T")
+        .attr("transform", "translate(0," + heightT + ")")
+        .call(xAxisT)
+	  .append("text")
+		.attr("class", "label")
+		.attr("x", widthT)
+		.attr("y", -6)
+		.style("text-anchor", "end")
+		.text("Time");
+
+    // Add the Y Axis
+    svgT.append("g")
+        .attr("class", "y axis T")
+        .call(yAxisT)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Temperature (C)");	
+
+// Applying legend
+var legendRectSize = 18;
+var legendSpacing = 4;
+var legendData = ["Temperature"]
+var legend = svgT.selectAll('.legend')
+			  .data(legendData)
+			  .enter()
+			  .append('g')
+			  .attr('class', 'legend')
+			  .attr('transform', function(d, i) {
+				var height = legendRectSize + legendSpacing;
+				var offset =  height * 1;
+				var horz = legendRectSize + 10;
+				var vert = i * height - offset + 40;
+				return 'translate(' + horz + ',' + vert + ')';
+			  });
+  
+	  legend.append("rect")
+		.attr("height",7)
+		.attr("width",7)
+		.style("fill","#f9520c");
+	  
+	  legend.append('text')
+	  .attr('x', 15)
+	  .attr('y', 4)
+	  .text(function(d) { return d; });	  
+		  
+});
+
+/* Temperature chart end*/
+/*#################################*/
+/* Respiration chart*/
+
+// Set the dimensions of the canvas / graph
+var marginR = {top: 30, right: 20, bottom: 30, left: 50},
+    widthR = 500 - marginR.left - marginR.right,
+    heightR = 350 - marginR.top - marginR.bottom;
+
+// Parse the date / time
+var parseDateR = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+// Set the ranges
+var xR = d3.time.scale().range([0, widthR]);
+var yR = d3.scale.linear().range([heightR, 0]);
+
+// Define the axes
+var xAxisR = d3.svg.axis().scale(xR)
+    .orient("bottom").ticks(5);
+var yAxisR = d3.svg.axis().scale(yR)
+    .orient("left").ticks(5);
+	
+// Define the line
+var valuelineR = d3.svg.line()
+    .x(function(d) { return xR(d.Time); })
+    .y(function(d) { return yR(d.RespRate); });
+	
+// Adds the svg canvas
+var svgR = d3.select("#respchart")
+    .append("svg")
+        .attr("width", widthR + marginR.left + marginR.right)
+        .attr("height", heightR + marginR.top + marginR.bottom)
+    .append("g")
+        .attr("transform","translate(" + marginR.left + "," + marginR.top + ")");
+		
+// Get the data
+d3.csv("../static/data/respRate.csv", function(error, dataR) {
+    dataR.forEach(function(d) {
+        d.Time = parseDateR(d.Time);
+        d.RespRate = +d.RespRate;
+    });
+// Scale the range of the data
+xR.domain([d3.time.hour.offset(d3.min(dataR, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataR, function(d) { return d.Time; }), +1)]);
+yR.domain([0, d3.max(dataR, function(d) { return d.RespRate; })+5]);
+			
+// Add the valueline path.
+svgR.append("path")
+	.attr("class", "lineR")
+	.style("stroke", "#f9520c")
+	.style("stroke-width",1)
+	.style("fill","none")
+	.attr("d", valuelineR(dataR));	
+		
+// Add the X Axis
+svgR.append("g")
+	.attr("class", "x axis")
+	.attr("transform", "translate(0," + heightR + ")")
+	.call(xAxisR)
+  .append("text")
+	.attr("class", "label")
+	.attr("x", widthR)
+	.attr("y", -6)
+	.style("text-anchor", "end")
+	.text("Time");
+
+// Add the Y Axis
+svgR.append("g")
+	.attr("class", "y axis")
+	.call(yAxisR)
+.append("text")
+  .attr("class", "label")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end")
+  .text("Respiration rate");
+  
+});  
+/* Respiration chart end */
+/* ################################# */
+/* Pulse chart */
+// Set the dimensions of the canvas / graph
+var marginP = {top: 30, right: 20, bottom: 30, left: 50},
+    widthP = 500 - marginP.left - marginP.right,
+    heightP = 350 - marginP.top - marginP.bottom;
+// Parse the date / time
+var parseDateP = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+//Get the Amount of alerts for tooltip
+var bisectDate = d3.bisector(function(d) {
+	return d.Time;
+}).left;
+		
+// Set the ranges
+var xP = d3.time.scale().range([0, widthP]);
+var yP = d3.scale.linear().range([heightP, 0]);
+// Define the axes
+var xAxisP = d3.svg.axis().scale(xP)
+    .orient("bottom").ticks(5);
+var yAxisP = d3.svg.axis().scale(yP)
+    .orient("left").ticks(5);
+
+// Define area curve
+var areaP = d3.svg.area()
+    .x(function(d) { return xP(d.Time); })
+    .y0(heightP)
+    .y1(function(d) { return yP(d.PulseRate); });
+
+// Adds the svg canvas
+var svgP = d3.select("#pulsechart")
+    .append("svg")
+        .attr("width", widthP + marginP.left + marginP.right)
+        .attr("height", heightP + marginP.top + marginP.bottom)
+    .append("g")
+        .attr("transform","translate(" + marginP.left + "," + marginP.top + ")");
+// Get the data
+d3.csv("../static/data/pulse.csv", function(error, dataP) {
+	if (error) throw error;
+    dataP.forEach(function(d) {
+        d.Time = parseDateP(d.Time);
+        d.PulseRate = +d.PulseRate;
+    });
+	
+ // Sort the data or bisect() won't work right
+      dataP.sort(function(a, b) {return a.Time - b.Time;});	
+// Scale the range of the data
+//xP.domain([d3.time.hour.offset(d3.min(dataP, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataP, function(d) { return d.Time; }), +1)]);
+xP.domain([d3.min(dataP, function(d) { return d.Time; }), d3.max(dataP, function(d) { return d.Time; })]);
+yP.domain([0, d3.max(dataP, function(d) { return d.PulseRate; })+20]);
+			
+// Add the valueline path.
+svgP.append("path")
+	.datum(dataP)
+	.attr("class", "area")
+	.style("fill","#c0c225")
+	.attr("d", areaP);	
+		
+// Add the X Axis
+svgP.append("g")
+	.attr("class", "x axis")
+	.attr("transform", "translate(0," + heightP + ")")
+	.call(xAxisP)
+  .append("text")
+	.attr("class", "label")
+	.attr("x", widthP)
+	.attr("y", -6)
+	.style("text-anchor", "end")
+	.text("Time");
+
+// Add the Y Axis
+svgP.append("g")
+	.attr("class", "y axis")
+	.call(yAxisP)
+.append("text")
+  .attr("class", "label")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end")
+  .text("Pulse rate");
+  
+// Tooltip
+/*
+var focus = svgP.append("g")
+			.attr("class", "focus")
+			.style("display", "none");
+	focus.append("circle")
+                .attr("r", 4.5);
+	focus.append("text")
+                .attr("x", 9)
+                .attr("dy", ".35em");
+	svgP.append("rect")
+                .attr("class", "overlay")
+                .attr("width", widthP)
+                .attr("height", heightP)
+                .on("mouseover", function() {
+					
+                    focus.style("display", null);
+                })
+                .on("mouseout", function() {
+                    focus.style("display", "none");
+                })
+                .on("mousemove", mousemove);
+	
+	function mousemove() {
+                var x0 = xP.invert(event.pageX),
+                    i = bisectDate(dataP, x0, 1),				
+                    d0 = dataP[i - 1],
+                   d1 = dataP[i-],
+                   d = x0 - xP(d0.Time) > xP(d1.Time) - x0 ? d1 : d0; 
+				console.log(d);
+				console.log(xP(d.Time) + "," + yP(d.PulseRate) + " - "+ event.clientX);
+                focus.attr("transform", "translate(" + xP(d.Time) + "," + yP(d.PulseRate) + ")");
+                focus.select("text").text((d.PulseRate) + ' at ' + parseDateP(d.Time));
+            }
+
+	*/			
+});  
+
+/* Pulse chart end */
+/* ################################# */
+/* Pulse Oximetry chart*/
+// Set the dimensions of the canvas / graph
+var marginO = {top: 30, right: 20, bottom: 30, left: 50},
+    widthO = 500 - marginO.left - marginO.right,
+    heightO = 350 - marginO.top - marginO.bottom;
+// Parse the date / time
+var parseDateO = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+// Set the ranges
+var xO = d3.time.scale().range([0, widthO]);
+var yO = d3.scale.linear().range([heightO, 0]);
+// Define the axes
+var xAxisO = d3.svg.axis().scale(xO)
+    .orient("bottom").ticks(5);
+var yAxisO = d3.svg.axis().scale(yO)
+    .orient("left").ticks(5);
+	
+// Define the line
+var valuelineO = d3.svg.line()
+    .x(function(d) { return xO(d.Time); })
+    .y(function(d) { return yO(d.PulseOx); });
+// Adds the svg canvas
+var svgO = d3.select("#poxchart")
+    .append("svg")
+        .attr("width", widthO + marginO.left + marginO.right)
+        .attr("height", heightO + marginO.top + marginO.bottom)
+    .append("g")
+        .attr("transform","translate(" + marginO.left + "," + marginO.top + ")");
+// Get the data
+d3.csv("../static/data/pulseox.csv", function(error, dataO) {
+    dataO.forEach(function(d) {
+        d.Time = parseDateO(d.Time);
+        d.PulseOx = +d.PulseOx;
+    });
+// Scale the range of the data
+xO.domain([d3.time.hour.offset(d3.min(dataO, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataO, function(d) { return d.Time; }), +1)]);
+yO.domain([0, 100]);
+			
+// Add the valueline path.
+svgO.append("path")
+	.attr("class", "lineO")
+	.style("stroke", "#e9d500")
+	.style("stroke-width",1)
+	.style("fill","none")
+	.attr("d", valuelineO(dataO));	
+		
+// Add the X Axis
+svgO.append("g")
+	.attr("class", "x axis")
+	.attr("transform", "translate(0," + heightO + ")")
+	.call(xAxisO)
+  .append("text")
+	.attr("class", "label")
+	.attr("x", widthO)
+	.attr("y", -6)
+	.style("text-anchor", "end")
+	.text("Time");
+
+// Add the Y Axis
+svgO.append("g")
+	.attr("class", "y axis")
+	.call(yAxisO)
+.append("text")
+  .attr("class", "label")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end")
+  .text("Pulse Oximetry %");
+  
+});  
+
+/* Pulse Oximetry chart end */
 </script>
 {% include 'footer.html' %}
 

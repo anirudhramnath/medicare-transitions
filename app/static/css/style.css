@@ -27,7 +27,7 @@ textpath{
     shape-rendering: crispEdges;
 }
 
-div.bptooltip {   
+div.tooltip {   
   position: relative;           
   text-align: center;           
   width: 110px;                  
@@ -51,3 +51,20 @@ div.bptooltip {
   }
 
 /* BP chart end*/
+/* Temperature & Resp chart */
+#RespChart, #TempChart, #PulseChart, #PulseOxChart{
+border:0px solid;
+width:50%;
+height:400px;
+}
+/* Temperature chart end*/
+/* Pulse chart*/
+.overlay {
+        fill: none;
+        pointer-events: all;
+    }
+.focus circle {
+	fill: green;
+	stroke: steelblue;
+}
+/* Pulse chart end*/

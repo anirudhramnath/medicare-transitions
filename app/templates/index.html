@@ -438,7 +438,7 @@ var svg = d3.select("#bpchart")
               "translate(" + margin.left + "," + margin.top + ")");
 
 // Get the data
-d3.csv("../static/data/data.csv", function(error, data) {
+d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
     data.forEach(function(d) {
         d.Time = parseDate(d.Time);
         d.DiastolicBP = +d.DiastolicBP;
@@ -624,7 +624,7 @@ var svgT = d3.select("#tempchart")
               "translate(" + marginT.left + "," + marginT.top + ")");
 
 // Get the data
-d3.csv("../static/data/temp.csv", function(error, dataT) {
+d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT) {
     dataT.forEach(function(d) {
         d.Time = parseDateT(d.Time);
         d.Temperature = +d.Temperature;
@@ -764,7 +764,7 @@ var svgR = d3.select("#respchart")
         .attr("transform","translate(" + marginR.left + "," + marginR.top + ")");
 		
 // Get the data
-d3.csv("../static/data/respRate.csv", function(error, dataR) {
+d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, dataR) {
     dataR.forEach(function(d) {
         d.Time = parseDateR(d.Time);
         d.RespRate = +d.RespRate;
@@ -844,7 +844,7 @@ var svgP = d3.select("#pulsechart")
     .append("g")
         .attr("transform","translate(" + marginP.left + "," + marginP.top + ")");
 // Get the data
-d3.csv("../static/data/pulse.csv", function(error, dataP) {
+d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, dataP) {
 	if (error) throw error;
     dataP.forEach(function(d) {
         d.Time = parseDateP(d.Time);
@@ -958,7 +958,7 @@ var svgO = d3.select("#poxchart")
     .append("g")
         .attr("transform","translate(" + marginO.left + "," + marginO.top + ")");
 // Get the data
-d3.csv("../static/data/pulseox.csv", function(error, dataO) {
+d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, dataO) {
     dataO.forEach(function(d) {
         d.Time = parseDateO(d.Time);
         d.PulseOx = +d.PulseOx;

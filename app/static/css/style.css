@@ -1,3 +1,10 @@
+/* Text Styles*/
+.text-primary{
+color:#795548;
+font-weight:bold;
+
+}
+/**/
 #PSchart{
 	width:500px;
 	height:400px;

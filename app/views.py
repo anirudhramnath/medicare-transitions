@@ -7,18 +7,20 @@ PATH_TO_DATA = os.getcwd()+'/app/static/data'
 
 @app.route('/')
 def index():
-        patient_image = []
+	patient_image = []
+	id = 1
+	patients = os.listdir(PATH_TO_DATA)
+	for patient in patients:
+		patient_image.append( ('static/data/'+patient+'/image.png', patient,id) )
+		id+=1
+	print patient_image
+	return render_template('choosePatient.html', patient_image=patient_image)
 
-        patients = os.listdir(PATH_TO_DATA)
-        for patient in patients:
-            patient_image.append( ('static/data/'+patient+'/image.png', patient) )
-
-        print patient_image
-        return render_template('choosePatient.html', patient_image=patient_image)
-
-@app.route('/vitals/')
+@app.route('/vitals/',methods=['POST'])
 def vitals():
-    return render_template('chooseOptions.html')
+	if request.method == 'POST':
+		print request.form['alignment']
+	return render_template('chooseOptions.html')
    # return render_template('index.html')
 
 @app.route('/showVitals', methods=['POST'])

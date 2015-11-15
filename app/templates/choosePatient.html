@@ -6,20 +6,73 @@
     <h2> Choose Patient </h2>
     <hr/>
     <div class="row">
+	
         {% for image in patient_image %}
-            <div class="col-lg-1" data-name="{{ image[1] }}">{{ image[1] }}: <img src="{{ image[0] }}" class="patientThumb"/></div>
+		
+            <div class="col-lg-2" data-name="{{ image[1] }}">
+				<div class="patient_img" class="col-lg-1">
+				<li class="border">
+				<input type="hidden" class="hiddenId" value="{{image[2]}}" />
+				
+			 <img src="{{ image[0] }}" class="patientThumb"/> 
+			 <span>
+			 <img src = "../static/images/symbol-check-icon.png"/>
+			 </span>
+			 </li>
+			 </div>
+			 <br/>
+			 <div class="patient_details" class="col-lg-1">
+			Name: {{ image[1] }}<br/>
+			ID : {{image[2]}}<br/>
+			LOS : 1 day </br>
+			Summary created : No <br/>
+			Summary created on : N/A <br/>
+			<br/>
+			
+			</div>
+			</div>
+			
         {% endfor %}
+		
+		
+					
     </div>
+	<form action="/vitals/" method="post" onsubmit="return validate();">
+           <input id="patientList" type="hidden" name="alignment" value="" />
+           <button class="btn btn-large btn-info">View</button>
+        </form>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-    $(".patientThumb").click(function(){
-        window.location.replace("/vitals");
+    $(".patient_img li").click(function(){
+			$(this).toggleClass('selected');
     });
+	
 });
+</script>
+<script type="text/javascript">
+    function validate(){
+	var ids = [];
+	$('.selected').each(function(){
+		ids.push($(this).find(".hiddenId").val());
+		
+	});
+	if(ids.length >= 4){
+		alert("Please select atmost three patients.")
+		return false;
+		}
+	else if(ids.length == 0){
+		alert("Please select patient(s).")
+		return false;}
+	else{
+		$("#patientList").val(ids);
+		return true;
+	}
+		}
 </script>
 
 {% include 'footer.html' %}

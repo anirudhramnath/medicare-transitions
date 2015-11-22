@@ -7,17 +7,10 @@ function circularHeatChart() {
     range = ["white", "red"],
     accessor = function(d) {return d;},
     radialLabels = segmentLabels = [];
-	sampleNumerical = [1,2,3,4,5];
-	sampleThreshold=d3.scale.threshold().domain(sampleNumerical).range(["#f1eef6","#d7b5d8","#df65b0","#dd1c77","#980043"]);
-	horizontalLegend = d3.svg.legend().units("Score").cellWidth(40).cellHeight(25).inputScale(sampleThreshold).cellStepping(100);
-  
+
     function chart(selection) {
         selection.each(function(data) {
             var svg = d3.select(this);
-			
-			//Adding legend
-			g = svg.append("g")
-					.attr("transform", "translate(400,50)").attr("class", "legend").call(horizontalLegend);
 			
             var offset = innerRadius + Math.ceil(data.length / numSegments) * segmentHeight;
             g = svg.append("g")

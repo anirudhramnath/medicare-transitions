@@ -25,7 +25,7 @@ d3.svg.legend = function() {
         g.selectAll("g.legendCells").data(legendValues).exit().remove();
         g.selectAll("g.legendCells").select("rect").style("fill", function(d) {return d.color});
         if (orientation == "vertical") {
-            g.selectAll("g.legendCells").select("text.breakLabels").style("display", "block").style("text-anchor", "start").attr("x", cellWidth + cellPadding).attr("y", 5 + (cellHeight / 2)).text(function(d) {if (d.stop[0] == undefined) {d.stop[0] = 0;} return labelFormat(d.stop[0]+1) + (d.stop[1].length > 0 ? " - " + labelFormat(d.stop[1]) : "")})
+            g.selectAll("g.legendCells").select("text.breakLabels").style("display", "block").style("text-anchor", "start").attr("x", cellWidth + cellPadding).attr("y", 5 + (cellHeight / 2)).text(function(d) {if (d.stop[0] == undefined) {d.stop[0] = -1;} return labelFormat(d.stop[0]+1) + (d.stop[1].length > 0 ? " - " + labelFormat(d.stop[1]) : "")})
             g.selectAll("g.legendCells").attr("transform", function(d,i) {return "translate(0," + (i * (cellHeight + cellPadding)) + ")" });
         }
         else {

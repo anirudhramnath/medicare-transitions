@@ -27,8 +27,7 @@ def vitals():
     global patient_id_single_page, num_patients
 
     if request.method == 'POST':
-        print request.form['alignment']
-        plist = request.form['alignment']
+        plist = request.form['pids']
         plist = plist.split(',')
         num_patients = request.form['alignment']
         num_patients = len(num_patients.split(","))

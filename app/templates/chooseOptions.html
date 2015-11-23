@@ -67,7 +67,13 @@
 $(document).ready(function(){
 	$("#home").removeClass("active");
     $("#bsv").addClass("active");
-	
+
+    $('#singlebutton').click(function(){
+      if ($("form").find("input:checked").length == 0) {
+        alert("Please select at least one body system");
+        return false;
+      }
+    });
 });
 </script>
 

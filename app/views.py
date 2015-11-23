@@ -1,9 +1,13 @@
 from app import app
 from flask import render_template
 from flask import request
-import os
+import os, json
+import MySQLdb
 
 PATH_TO_DATA = os.getcwd()+'/app/static/data'
+
+num_patients = 0
+patient_id_single_page = 1
 
 @app.route('/')
 def index():
@@ -18,12 +22,71 @@ def index():
 
 @app.route('/vitals/',methods=['POST'])
 def vitals():
-	if request.method == 'POST':
-		print request.form['alignment']
+    global num_patients, patient_id_single_page
+    if request.method == 'POST':
+        num_patients = request.form['alignment']
+        num_patients = len(num_patients.split(","))
+        if num_patients == 1:
+            patient_id_single_page = int(request.form['alignment'])
 	return render_template('chooseOptions.html')
    # return render_template('index.html')
 
 @app.route('/showVitals', methods=['POST'])
 def showVitals():
     body_system = request.form.getlist("bodySystem")
-    return render_template('index.html', body_system = body_system)
+    global num_patients
+
+    if num_patients > 1:
+        return render_template('show_two.html', body_system = body_system)
+    else:
+        global patient_id_single_page
+        # fetch value for resident plan
+        patient_id = patient_id_single_page
+
+        plan_results = {}
+
+        # Open database connection
+        db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
+
+        # prepare a cursor object using cursor() method
+        cursor = db.cursor()
+
+        # execute SQL query using execute() method.
+        cursor.execute("SELECT body_system,plan1 from body_systems where patient_id="+ str(patient_id))
+
+        # Fetch a single row using fetchone() method.
+        data = cursor.fetchall()
+
+        for row in data:
+            plan_results[row[0]] = row[1].split('^')
+
+        # disconnect from server
+        db.close()
+
+        print plan_results
+
+        return render_template('index.html', body_system = body_system, plan_results = plan_results)
+
+@app.route('/updateResidentPlan',methods=['POST'])
+def updateResidentPlan():
+
+    global patient_id_single_page
+
+    new_plan = request.form['residentplan']
+    body_system = request.form['body_system']
+    new_plan = '^'.join(new_plan.split("\n"))
+
+    db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
+
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+
+    q = "UPDATE body_systems set plan1='%s' WHERE body_system='%s' AND patient_id='%s'" % (
+        new_plan, body_system, patient_id_single_page)
+    cursor.execute(q)
+    db.commit()
+
+    # disconnect from server
+    db.close()
+
+    return json.dumps({'status':'OK'})

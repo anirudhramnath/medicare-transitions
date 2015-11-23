@@ -22,7 +22,7 @@ def index():
     print patient_image
     return render_template('choosePatient.html', patient_image=patient_image)
 
-@app.route('/vitals/',methods=['POST'])
+@app.route('/bfilters/',methods=['POST'])
 def vitals():
     if request.method == 'POST':
         print request.form['alignment']

@@ -7,11 +7,21 @@ font-weight:bold;
 .pdtlsText{
 	text-align:left
 }
+
+#appTitle{
+	text-align:center;
+}
 /* Patient Image and Select */
 .patientThumb{
 	cursor:pointer;
 	height:100px;
 	width:100px;
+}
+.spatientThumb{
+	cursor:pointer;
+	height:100px;
+	width:100px;
+	margin:20px;
 }
 .pdtlsImage{
 	width:100px;

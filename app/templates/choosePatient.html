@@ -3,7 +3,11 @@
 {% include 'header.html' %}
 
 <div class="container">
-    <h2> Choose Patient </h2>
+<a href="/">Home</a>
+<div class="row" id="appTitle">
+<h2><strong>Interface for Medical Care Transitions</strong></h2>
+</div>
+    <h3> Choose Patient </h3>
     <hr/>
     <div class="row">
 	
@@ -12,8 +16,8 @@
             <div class="col-lg-2" data-name="{{ image[1] }}">
 				<div class="patient_img" class="col-lg-1">
 				<li class="border">
-				<input type="hidden" class="hiddenId" value="{{image[0]}}" />
-				
+				<input type="hidden" class="hiddenNam" value="{{image[0]}}" />
+				<input type="hidden" class="hiddenId" value="{{image[2]}}" />
 			 <img src="{{ image[0] }}" class="patientThumb"/> 
 			 <span>
 			 <img src = "../static/images/symbol-check-icon.png"/>
@@ -37,8 +41,9 @@
 		
 					
     </div>
-	<form action="/vitals/" method="post" onsubmit="return validate();">
+	<form action="/bfilters/" method="post" onsubmit="return validate();">
            <input id="patientList" type="hidden" name="alignment" value="" />
+		   <input id="patientNams" type="hidden" name="pids" value="" />
            <button class="btn btn-large btn-info">View</button>
         </form>
 
@@ -57,9 +62,10 @@ $(document).ready(function(){
 <script type="text/javascript">
     function validate(){
 	var ids = [];
+	var pnams = [];
 	$('.selected').each(function(){
 		ids.push($(this).find(".hiddenId").val());
-		
+		pnams.push($(this).find(".hiddenNam").val());
 	});
 	if(ids.length >= 4){
 		alert("Please select atmost three patients.")
@@ -70,6 +76,7 @@ $(document).ready(function(){
 		return false;}
 	else{
 		$("#patientList").val(ids);
+		$("#patientNams").val(ids);
 		return true;
 	}
 		}

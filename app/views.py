@@ -40,7 +40,6 @@ def vitals():
 
 @app.route('/showVitals', methods=['POST'])
 def showVitals():
-<<<<<<< HEAD
     body_system = request.form.getlist("bodySystem")
     if body_system == []:
         body_system = session['tmp']

@@ -3,7 +3,15 @@
 {% include 'header.html' %}
 
 <div class="container">
+<a href="/">Home</a>&nbsp; &gt; &nbsp;<a href="#">Body Systems</a>&nbsp; &gt; &nbsp;<a href="#">Analysis</a>
+<br/>
+<button id="bckbutton" name="bckbutton" class="btn btn-primary btn-xs"
+style="float:left;" onclick="history.go(-1);return false;">Back</button>
+<div class="row" id="appTitle">
+<h2><strong>Interface for Medical Care Transitions</strong></h2>
+</div>
   <div class="panel panel-default">
+  
     <div class="panel-heading">
       <h3 class="panel-title">Patient Admission Information</h3>
     </div>
@@ -71,8 +79,11 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Vitals</h3>
+	<h3 class="panel-title">
+      <a data-toggle="collapse" href="#vitalsList">Vitals</a>
+	  </h3>
     </div>
+	<div id="vitalsList" class="panel panel-collapse collapse">
     <div class="panel-body">
 	<div class="row">
 	<div class="col-lg-12">
@@ -123,14 +134,14 @@
 	
 	{% if '3' in vitals_list %}
 		<div id="TempChart" class="col-lg-6" >
-		<div id="tempchart">
+		<div id="tempchart" class="col-lg-6">
 			Temperature
 		</div>
 		</div>
 		{% endif %}
 		{% if '4' in vitals_list %}
 		<div id="RespChart" class="col-lg-6">
-		<div id="respchart">
+		<div id="respchart" class="col-lg-6">
 			Respiration Rate
 		</div>
 		</div>
@@ -140,20 +151,21 @@
 	
 	{% if '5' in vitals_list %}
 		<div id="PulseChart" class="col-lg-6" >
-		<div id="pulsechart">
+		<div id="pulsechart" class="col-lg-6">
 			Pulse
 		</div>
 		</div>
 		{% endif %}
 		{% if '6' in vitals_list %}
 		<div id="PulseOxChart" class="col-lg-6">
-		<div id="poxchart">
+		<div id="poxchart" class="col-lg-6">
 			Pulse Oximetry
 		</div>
 		</div>
 		{% endif %}
 	</div>
 	
+	</div>
 	</div>
   </div>
 
@@ -1085,6 +1097,14 @@ svgO.append("g")
 });  
 
 /* Pulse Oximetry chart end */
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#home").removeClass("active");
+    $("#bsv").removeClass("active");
+	$("#asis").addClass("active");
+	
+});
 </script>
 {% include 'footer.html' %}
 

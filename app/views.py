@@ -24,7 +24,7 @@ def index():
 
 @app.route('/bfilters/',methods=['POST'])
 def vitals():
-    global patient_id_single_page
+    global patient_id_single_page, num_patients
 
     if request.method == 'POST':
         print request.form['alignment']

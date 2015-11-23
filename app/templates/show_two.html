@@ -1110,7 +1110,7 @@ var yAxis2 = d3.svg.axis().scale(y2)
     .orient("left").ticks(5);
 
 // Define the line
-var valueline2 = d3.svg.line()
+var valueline2d = d3.svg.line()
     .x(function(d) { return x2(d.Time); })
     .y(function(d) { return y2(d.DiastolicBP); });
 
@@ -1148,7 +1148,7 @@ d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data2) {
     .style("stroke", "rgb(255,121,14)")
     .style("stroke-width",1)
     .style("fill","none")
-    .attr("d", valueline2(data2))
+    .attr("d", valueline2d(data2))
     .attr("data-legend","DiastolicBP");
     
   // Add the valueline2 path
@@ -1200,8 +1200,8 @@ d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data2) {
         .attr("cy", function(d) { return y2(d.SystolicBP); })
     .style("fill", "rgb(31,119,180)")
     .on("mouseover", function(d) {  
-    var xPos = x(d.Time);
-    var yPos = y(d.SystolicBP);   
+    var xPos = x2(d.Time);
+    var yPos = y2(d.SystolicBP);   
             bptooltip2.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
@@ -1421,63 +1421,63 @@ var legend = svgT.selectAll('.legend')
 
 /* Temperature chart end*/
 /*#################################*/
-/* Temperature chart*/
+/* Temperature chart 2 */
 
 // Set the dimensions of the canvas / graph
-var marginT = {top: 30, right: 20, bottom: 30, left: 50},
-    widthT = 500 - marginT.left - marginT.right,
-    heightT = 350 - marginT.top - marginT.bottom;
+var marginT2 = {top: 30, right: 20, bottom: 30, left: 50},
+    widthT2 = 500 - marginT2.left - marginT2.right,
+    heightT2 = 350 - marginT2.top - marginT2.bottom;
   
 // Parse the date / time
-var parseDateT = d3.time.format("%d-%b-%y %I:%M%p").parse;
+var parseDateT2 = d3.time.format("%d-%b-%y %I:%M%p").parse;
 
 // Parse time for tooltip
-var formatTimeT = d3.time.format("%e %B %I:%M %p");
+var formatTimeT2 = d3.time.format("%e %B %I:%M %p");
 
 // Define color scale
-var colorT = d3.scale.category10();
+var colorT2 = d3.scale.category10();
 
 
 // Set the ranges
-var xT = d3.time.scale().range([0, widthT]);
-var yT = d3.scale.linear().range([heightT, 0]);
+var xT2 = d3.time.scale().range([0, widthT2]);
+var yT2 = d3.scale.linear().range([heightT2, 0]);
 
 
 // Define the axes
-var xAxisT = d3.svg.axis().scale(xT)
+var xAxisT2 = d3.svg.axis().scale(xT2)
     .orient("bottom").ticks(5);
 
-var yAxisT = d3.svg.axis().scale(yT)
+var yAxisT2 = d3.svg.axis().scale(yT2)
     .orient("left").ticks(5);
 
 // Define the line
-var valuelineT = d3.svg.line()
-    .x(function(d) { return xT(d.Time); })
-    .y(function(d) { return yT(d.Temperature); });
+var valuelineT2 = d3.svg.line()
+    .x(function(d) { return xT2(d.Time); })
+    .y(function(d) { return yT2(d.Temperature); });
   
 // Adds the svg canvas
-var svgT = d3.select("#tempchart2")
+var svgT2 = d3.select("#tempchart2")
     .append("svg")
-        .attr("width", widthT + marginT.left + marginT.right)
-        .attr("height", heightT + marginT.top + marginT.bottom)
+        .attr("width", widthT2 + marginT2.left + marginT2.right)
+        .attr("height", heightT2 + marginT2.top + marginT2.bottom)
     .append("g")
         .attr("transform", 
-              "translate(" + marginT.left + "," + marginT.top + ")");
+              "translate(" + marginT2.left + "," + marginT2.top + ")");
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT) {
-    dataT.forEach(function(d) {
-        d.Time = parseDateT(d.Time);
+d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT2) {
+    dataT2.forEach(function(d) {
+        d.Time = parseDateT2(d.Time);
         d.Temperature = +d.Temperature;
   
     });
 
     // Scale the range of the data
-    xT.domain([d3.time.hour.offset(d3.min(dataT, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataT, function(d) { return d.Time; }), +1)]);
-    yT.domain([0, d3.max(dataT, function(d) { return d.Temperature; }) + 20]);
+    xT2.domain([d3.time.hour.offset(d3.min(dataT2, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataT2, function(d) { return d.Time; }), +1)]);
+    yT2.domain([0, d3.max(dataT2, function(d) { return d.Temperature; }) + 20]);
   
   //Add tooltip
-  var tooltipT = d3.select("#tempchart2").append("div")     
+  var tooltipT2 = d3.select("#tempchart2").append("div")     
         .attr("class", "tooltip")               
         .style("opacity", 0);   
   
@@ -1491,47 +1491,47 @@ d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT) {
     .attr("d", valuelineT(dataT));  */  
 
     // Add the scatterplot for Temperature
-    svgT.selectAll("rect_temp")
-        .data(dataT)
+    svgT2.selectAll("rect_temp")
+        .data(dataT2)
       .enter().append("rect")
-    .attr("x", function(d) { return xT(d.Time)-3.5; })
-        .attr("y", function(d) { return yT(d.Temperature)-3.5; })
+    .attr("x", function(d) { return xT2(d.Time)-3.5; })
+        .attr("y", function(d) { return yT2(d.Temperature)-3.5; })
     .attr("height",7)
     .attr("width",7)
     .style("fill","#f9520c")
     .on("mouseover", function(d) {  
-    var xPosT = xT(d.Time);
-    var yPosT = yT(d.Temperature);    
-            tooltipT.transition()        
+    var xPosT2 = xT2(d.Time);
+    var yPosT2 = yT2(d.Temperature);    
+            tooltipT2.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
-            tooltipT.html(formatTime(d.Time) + "<br/>"+ "Temperature: "+d.Temperature)  
-                .style("left", xPosT + "px")     
-                .style("top", yPosT-360 + "px");                  
+            tooltipT2.html(formatTimeT2(d.Time) + "<br/>"+ "Temperature: "+d.Temperature)  
+                .style("left", xPosT2 + "px")     
+                .style("top", yPosT2-360 + "px");                  
             })
     .on("mouseout", function(d) {       
-      tooltipT.transition()        
+      tooltipT2.transition()        
                 .duration(500)      
                 .style("opacity", 0);   
 
         });
     
   // Add the X Axis
-    svgT.append("g")
+    svgT2.append("g")
         .attr("class", "x axis T")
-        .attr("transform", "translate(0," + heightT + ")")
-        .call(xAxisT)
+        .attr("transform", "translate(0," + heightT2 + ")")
+        .call(xAxisT2)
     .append("text")
     .attr("class", "label")
-    .attr("x", widthT)
+    .attr("x", widthT2)
     .attr("y", -6)
     .style("text-anchor", "end")
     .text("Time");
 
     // Add the Y Axis
-    svgT.append("g")
+    svgT2.append("g")
         .attr("class", "y axis T")
-        .call(yAxisT)
+        .call(yAxisT2)
     .append("text")
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
@@ -1544,7 +1544,7 @@ d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT) {
 var legendRectSize = 18;
 var legendSpacing = 4;
 var legendData = ["Temperature"]
-var legend = svgT.selectAll('.legend')
+var legend = svgT2.selectAll('.legend')
         .data(legendData)
         .enter()
         .append('g')
@@ -1638,6 +1638,85 @@ svgR.append("g")
 svgR.append("g")
   .attr("class", "y axis")
   .call(yAxisR)
+.append("text")
+  .attr("class", "label")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end")
+  .text("Respiration rate");
+  
+});  
+/* Respiration chart end */
+
+
+/* Respiration chart 2 */
+
+// Set the dimensions of the canvas / graph
+var marginR2 = {top: 30, right: 20, bottom: 30, left: 50},
+    widthR2 = 500 - marginR2.left - marginR2.right,
+    heightR2 = 350 - marginR2.top - marginR2.bottom;
+
+// Parse the date / time
+var parseDateR2 = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+// Set the ranges
+var xR2 = d3.time.scale().range([0, widthR2]);
+var yR2 = d3.scale.linear().range([heightR2, 0]);
+
+// Define the axes
+var xAxisR2 = d3.svg.axis().scale(xR2)
+    .orient("bottom").ticks(5);
+var yAxisR2 = d3.svg.axis().scale(yR2)
+    .orient("left").ticks(5);
+  
+// Define the line
+var valuelineR2 = d3.svg.line()
+    .x(function(d) { return xR2(d.Time); })
+    .y(function(d) { return yR2(d.RespRate); });
+  
+// Adds the svg canvas
+var svgR2 = d3.select("#respchart2")
+    .append("svg")
+        .attr("width", widthR2 + marginR2.left + marginR2.right)
+        .attr("height", heightR2 + marginR2.top + marginR2.bottom)
+    .append("g")
+        .attr("transform","translate(" + marginR2.left + "," + marginR2.top + ")");
+    
+// Get the data
+d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, dataR2) {
+    dataR2.forEach(function(d) {
+        d.Time = parseDateR2(d.Time);
+        d.RespRate = +d.RespRate;
+    });
+// Scale the range of the data
+xR2.domain([d3.time.hour.offset(d3.min(dataR2, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataR2, function(d) { return d.Time; }), +1)]);
+yR2.domain([0, d3.max(dataR2, function(d) { return d.RespRate; })+5]);
+      
+// Add the valueline path.
+svgR2.append("path")
+  .attr("class", "lineR")
+  .style("stroke", "#f9520c")
+  .style("stroke-width",1)
+  .style("fill","none")
+  .attr("d", valuelineR2(dataR2));  
+    
+// Add the X Axis
+svgR2.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + heightR2 + ")")
+  .call(xAxisR2)
+  .append("text")
+  .attr("class", "label")
+  .attr("x", widthR2)
+  .attr("y", -6)
+  .style("text-anchor", "end")
+  .text("Time");
+
+// Add the Y Axis
+svgR2.append("g")
+  .attr("class", "y axis")
+  .call(yAxisR2)
 .append("text")
   .attr("class", "label")
   .attr("transform", "rotate(-90)")

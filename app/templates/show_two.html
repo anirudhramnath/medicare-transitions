@@ -341,51 +341,12 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
       </div>
     </div>
     {% endif %}
-
-    <!-- <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a data-toggle="collapse" href="#endocrineAccordian">Endocrine</a>
-        </h3>
-      </div>
-      <div id="endocrineAccordian" class="panel panel-collapse collapse">
-        <div class="panel-body row text-center">
-          <div class="col-lg-3">
-              <p class=""><strong>Physical Exam</strong></p>
-              <div class="text-justify">
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit faucibus diam, porttitor tempus orci aliquet ut. Praesent dignissim ante quam, eget fermentum urna feugiat vel. In semper rutrum ligula sit amet tincidunt. Fusce sed felis ligula. Proin tincidunt leo mauris, in tincidunt sem consectetur et. Nullam purus risus, vestibulum sed lacinia quis, eleifend sit amet sem. Integer vulputate hendrerit elementum.
-                </p>
-              </div>
-          </div>
-          <div class="col-lg-3">
-              <p class=""><strong>Medication</strong></p>
-              <div class="text-justify">
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit faucibus diam, porttitor tempus orci aliquet ut. Praesent dignissim ante quam, eget fermentum urna feugiat vel. In semper rutrum ligula sit amet tincidunt. Fusce sed felis ligula. Proin tincidunt leo mauris, in tincidunt sem consectetur et. Nullam purus risus, vestibulum sed lacinia quis, eleifend sit amet sem. Integer vulputate hendrerit elementum.
-                </p>
-              </div>
-          </div>
-          <div class="col-lg-3">
-              <p class=""><strong>Problems</strong></p>
-              <div class="text-justify">
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit faucibus diam, porttitor tempus orci aliquet ut. Praesent dignissim ante quam, eget fermentum urna feugiat vel. In semper rutrum ligula sit amet tincidunt. Fusce sed felis ligula. Proin tincidunt leo mauris, in tincidunt sem consectetur et. Nullam purus risus, vestibulum sed lacinia quis, eleifend sit amet sem. Integer vulputate hendrerit elementum.
-                </p>
-              </div>
-          </div>
-          <div class="col-lg-3">
-              <p class=""><strong>Resident Plan</strong></p>
-              <div class="text-justify">
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit faucibus diam, porttitor tempus orci aliquet ut. Praesent dignissim ante quam, eget fermentum urna feugiat vel. In semper rutrum ligula sit amet tincidunt. Fusce sed felis ligula. Proin tincidunt leo mauris, in tincidunt sem consectetur et. Nullam purus risus, vestibulum sed lacinia quis, eleifend sit amet sem. Integer vulputate hendrerit elementum.
-                </p>
-              </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
+  </div>
+  <div class="text-center">
+    <form method="POST" action="/createsummary">
+      <input type="hidden" name="patient_id" value="0" />
+      <input type="submit" class='btn btn-primary' value="Create Summary"></input>
+    </form>
   </div>
   </div>
   <div class="col-md-6">
@@ -762,6 +723,12 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
       </div>
     </div> -->
 
+  </div>
+  <div class="text-center">
+    <form method="POST" action="/createsummary">
+      <input type="hidden" name="patient_id" value="1" />
+      <input type="submit" class='btn btn-primary' value="Create Summary"></input>
+    </form>
   </div>
   </div>
 </div> <!-- /container -->

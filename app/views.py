@@ -43,12 +43,15 @@ def vitals():
         print plist
         plist = plist.split(',')
         num_patients = request.form['alignment']
+        alignment = request.form['alignment']
+        alignment = alignment.split(",")
         print num_patients
         num_patients = len(num_patients.split(","))
         if num_patients == 1:
             patient_id_single_page = int(request.form['alignment'])
             session['onepp']= request.form['pids']
         else:
+            session['multiple_ids'] = (alignment[0],alignment[1])
             session['onepp'] = plist[0]
             session['twopp'] = plist[1]
     patient_image = []
@@ -133,6 +136,26 @@ def createSummary():
 
     q = "UPDATE patients set summary=NOW() WHERE id='%s'" % (
         patient_id_single_page)
+    cursor.execute(q)
+    db.commit()
+
+    # disconnect from server
+    db.close()
+
+    return redirect(url_for('index'))
+
+@app.route('/createsummary',methods=['POST'])
+def createsummary():
+    pid = int(request.form['patient_id'])
+
+    db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
+
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+
+    q = "UPDATE patients set summary=NOW() WHERE id='%s'" % (
+        session['multiple_ids'][pid])
+    print 'patient ID is : '+str(session['multiple_ids'][pid])
     cursor.execute(q)
     db.commit()
 

@@ -35,6 +35,10 @@ def vitals():
         num_patients = len(num_patients.split(","))
         if num_patients == 1:
             patient_id_single_page = int(request.form['alignment'])
+            session['onepp']= request.form['pids']
+        else:
+            session['onepp'] = plist[0]
+            session['twopp'] = plist[1]
     patient_image = []
     for patient in plist:
         patient_image.append(('../'+patient))
@@ -55,7 +59,9 @@ def showVitals():
     global num_patients
 
     if num_patients > 1:
-        return render_template('show_two.html', body_system = body_system)
+        ppath1 = session['onepp']
+        ppath2 = session['twopp']
+        return render_template('show_two.html', body_system = body_system,ppath1 = ppath1, ppath2=ppath2)
     else:
         global patient_id_single_page
         # fetch value for resident plan
@@ -82,8 +88,10 @@ def showVitals():
         db.close()
 
         print plan_results
+        ppath = session['onepp']
+        print '########',ppath
         return render_template('index.html', body_system = body_system, vitals_list = vitals_list,
-            plan_results = plan_results)
+            plan_results = plan_results,ppath = ppath)
 
 @app.route('/updateResidentPlan',methods=['POST'])
 def updateResidentPlan():

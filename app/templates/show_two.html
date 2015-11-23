@@ -3,6 +3,13 @@
 {% include 'header.html' %}
 
 <div class="container-fluid">
+  <a href="/">Home</a>&nbsp; &gt; &nbsp;<a href="#">Body Systems</a>&nbsp; &gt; &nbsp;<a href="#">Analysis</a>
+<br/>
+<button id="bckbutton" name="bckbutton" class="btn btn-primary btn-xs"
+style="float:left;" onclick="history.go(-1);return false;">Back</button>
+<div class="row" id="appTitle">
+<h2><strong>Interface for Medical Care Transitions</strong></h2>
+</div>
 <div class="col-md-6">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -13,7 +20,7 @@
         <div class="panel-body text-center">
     <div class="row">
     <div class="col-lg-2">
-    <img class="pdtlsImage" src="../static/data/Deora Baes/image.png" alt="patient image"/>
+    <img class="pdtlsImage" src="{{ppath1}}" alt="patient image"/>
     </div>
     <div class="col-lg-8">
     <div class="row">
@@ -137,15 +144,8 @@
     <div id="PSchart">
     PAIN
     </div>
-    
-    <div id="BPchart">
-    Blood Pressure 
-    <div id="bpchart"></div>
-    </div>
-    
-    </div>
-  <div class="row">
-    <div id="TempChart" >
+    <div id="bpchart">Blood Pressure </div>
+    <div id="TempChart">
     <div id="tempchart">
       Temperature
     </div>
@@ -155,8 +155,7 @@
       Respiration Rate
     </div>
     </div>
-  </div>
-  <div class="row">
+  
     <div id="PulseChart" >
     <div id="pulsechart">
       Pulse
@@ -399,7 +398,7 @@
         <div class="panel-body text-center">
     <div class="row">
     <div class="col-lg-2">
-    <img class="pdtlsImage" src="../static/data/Deora Baes/image.png" alt="patient image"/>
+    <img class="pdtlsImage" src="{{ppath2}}" alt="patient image"/>
     </div>
     <div class="col-lg-8">
     <div class="row">
@@ -516,41 +515,35 @@
     <br/>
     </div>
     <br/>
+
     <div class="row">
-    <div id="PSchart" class="col-lg-12">
+    <div id="PSchart2">
     PAIN
     </div>
-    
-    <div id="BPchart" class="col-lg-12">
-    Blood Pressure 
-    <div id="bpchart"></div>
-    </div>
-    
-    </div>
-  <div class="row">
-    <div id="TempChart" class="col-lg-12" >
-    <div id="tempchart">
+    <div id="bpchart2">Blood Pressure </div>
+    <div id="TempChart2">
+    <div id="tempchart2">
       Temperature
     </div>
     </div>
-    <div id="RespChart" class="col-lg-12">
-    <div id="respchart">
+    <div id="RespChart2">
+    <div id="respchart2">
       Respiration Rate
     </div>
     </div>
-  </div>
-  <div class="row">
-    <div id="PulseChart" class="col-lg-12" >
-    <div id="pulsechart">
+  
+    <div id="PulseChart2" >
+    <div id="pulsechart2">
       Pulse
     </div>
     </div>
-    <div id="PulseOxChart" class="col-lg-12">
-    <div id="poxchart">
+    <div id="PulseOxChart2">
+    <div id="poxchart2">
       Pulse Oximetry
     </div>
     </div>
   </div>
+
   </div>
   </div>
 
@@ -781,7 +774,7 @@
 <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
 <script>
 
-/* Pain score with random data */
+/* Pain score with random data 1 */
 
 var data = [];
 for(var i=0; i<72; i++) 
@@ -837,6 +830,63 @@ d3.selectAll("#PSchart path")
   }); 
   
 /* Pain score chart - End*/ 
+/* $$$$$$$$$$$$$$$$$$$$$$ */
+/* Pain score with random data 2 */
+
+var data = [];
+for(var i=0; i<72; i++) 
+{
+  if( i== 10)
+    data[i] = {title: "Segment "+i, value: 5};
+  else if (i == 20)
+    data[i] = {title: "Segment "+i, value: 2};
+  else
+    data[i] = {title: "Segment "+i, value: Math.round(Math.random()*5)};
+}
+
+var tooltip = d3.select("#PSchart2")
+  .append("div")
+  .style("position", "relative")
+  .style("z-index", "10")
+  .style("height","10px")
+  .style("visibility", "hidden");
+  
+  
+var chart = circularHeatChart()
+    .innerRadius(20)
+    .range(["#f1eef6", "#980043"])
+    .radialLabels(["Day 1", "Day 2", "Day 3"])
+    .segmentLabels(["Midnight", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am",
+    "11am", "Midday", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"]);
+
+chart.accessor(function(d) {return d.value;})
+  
+d3.select('#PSchart2')
+    .selectAll('svg')
+    .data([data])
+    .enter()
+    .append('svg')
+    .call(chart); 
+  
+d3.selectAll("#PSchart2 path")
+  .on('mouseover', function() {
+  d3.select(this)
+    .style("stroke","white")
+    .attr("stroke-width",3)
+    this.parentNode.appendChild(this);
+  
+    var d = d3.select(this).data()[0];
+  
+  return tooltip.style("visibility", "visible")
+          .text("Pain Score: "+d.value);
+  })
+  .on("mouseout", function(){
+  d3.select(this)
+    .style("stroke","none");
+  return tooltip.style("visibility", "hidden");
+  }); 
+  
+/* Pain score chart 2- End*/ 
 
   /* Blood pressure chart */
 
@@ -1028,6 +1078,198 @@ var legend = svg.selectAll('.legend')
 
 /* Blood pressure chart - End*/
 
+/*$$$$$$$$$$$$$$$$$$$$ */
+
+  /* Blood pressure chart 2 */
+
+// Set the dimensions of the canvas / graph
+var margin2 = {top: 30, right: 20, bottom: 30, left: 50},
+    width2 = 500 - margin2.left - margin2.right,
+    height2 = 350 - margin2.top - margin2.bottom;
+  
+// Parse the date / time
+var parseDate2 = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+// Parse time for tooltip
+var formatTime2 = d3.time.format("%e %B %I:%M %p");
+
+// Define color scale
+var color2 = d3.scale.category10();
+
+
+// Set the ranges
+var x2 = d3.time.scale().range([0, width2]);
+var y2 = d3.scale.linear().range([height2, 0]);
+
+
+// Define the axes
+var xAxis2 = d3.svg.axis().scale(x2)
+    .orient("bottom").ticks(5);
+
+var yAxis2 = d3.svg.axis().scale(y2)
+    .orient("left").ticks(5);
+
+// Define the line
+var valueline2 = d3.svg.line()
+    .x(function(d) { return x2(d.Time); })
+    .y(function(d) { return y2(d.DiastolicBP); });
+
+// Define second line
+var valueline22 = d3.svg.line()
+    .x(function(d) { return x2(d.Time); })
+    .y(function(d) { return y2(d.SystolicBP); });
+  
+// Adds the svg canvas
+var svg2 = d3.select("#bpchart2")
+    .append("svg")
+        .attr("width", width2 + margin2.left + margin2.right)
+        .attr("height", height2+ margin2.top + margin2.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin2.left + "," + margin2.top + ")");
+
+// Get the data
+d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data2) {
+    data2.forEach(function(d) {
+        d.Time = parseDate2(d.Time);
+        d.DiastolicBP = +d.DiastolicBP;
+    d.SystolicBP = +d.SystolicBP;
+    
+    });
+
+    // Scale the range of the data
+    x.domain([d3.time.hour.offset(d3.min(data2, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(data2, function(d) { return d.Time; }), +1)]);
+    y.domain([0, d3.max(data2, function(d) { return Math.max(d.DiastolicBP, d.SystolicBP); })+70]);
+  
+
+    // Add the valueline path.
+    svg2.append("path")
+        .attr("class", "line")
+    .style("stroke", "rgb(255,121,14)")
+    .style("stroke-width",1)
+    .style("fill","none")
+    .attr("d", valueline2(data2))
+    .attr("data-legend","DiastolicBP");
+    
+  // Add the valueline2 path
+    svg2.append("path")
+        .attr("class", "line")
+    .style("stroke", "rgb(31,119,180)")
+    .style("stroke-width",1)  
+    .style("fill","none")   
+    .attr("d", valueline22(data2))
+    .attr("data-legend","SystolicBP");
+    
+  //Add tooltip
+  var bptooltip2 = d3.select("#bpchart2").append("div")     
+        .attr("class", "tooltip")               
+        .style("opacity", 0); 
+
+    // Add the scatterplot for DiastolicBP
+    svg2.selectAll("dot")
+        .data(data2)
+      .enter().append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d) { return x2(d.Time); })
+        .attr("cy", function(d) { return y2(d.DiastolicBP); })
+    .style("fill", "rgb(255,121,14)")
+    .on("mouseover", function(d) {  
+    var xPos = x2(d.Time);
+    var yPos = y2(d.DiastolicBP);
+            bptooltip2.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            bptooltip2.html(formatTime2(d.Time) + "<br/>"+ "DIASTOLIC BP: "+d.DiastolicBP)  
+                .style("left", xPos + "px")     
+                .style("top", yPos-370 + "px");           
+            })
+    .on("mouseout", function(d) {       
+            bptooltip2.transition()        
+                .duration(3000)      
+                .style("opacity", 0);
+
+        });   
+    
+      
+    // Add the scatterplot for SystolicBP
+    svg2.selectAll("dot")
+        .data(data2)
+      .enter().append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d) { return x2(d.Time); })
+        .attr("cy", function(d) { return y2(d.SystolicBP); })
+    .style("fill", "rgb(31,119,180)")
+    .on("mouseover", function(d) {  
+    var xPos = x(d.Time);
+    var yPos = y(d.SystolicBP);   
+            bptooltip2.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            bptooltip2.html(formatTime2(d.Time) + "<br/>"+ "SYSTOLIC BP: "+d.SystolicBP)  
+                .style("left", xPos + "px")     
+                .style("top", yPos-370 + "px");                 
+            })
+    .on("mouseout", function(d) {       
+      bptooltip2.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+
+        });
+      
+
+    // Add the X Axis
+    svg2.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+    .append("text")
+    .attr("class", "label")
+    .attr("x", width)
+    .attr("y", -6)
+    .style("text-anchor", "end")
+    .text("Time");
+
+    // Add the Y Axis
+    svg2.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("BP");  
+// Applying legend
+var legendRectSize2 = 18;
+var legendSpacing2 = 4;
+var legendData2 = ["SYSTOLIC BP","DIASTOLIC BP"]
+var legend2 = svg2.selectAll('.legend')
+        .data(legendData2)
+        .enter()
+        .append('g')
+        .attr('class', 'legend')
+        .attr('transform', function(d, i2) {
+        var height2 = legendRectSize2 + legendSpacing2;
+        var offset2 =  height * 1;
+        var horz2 = legendRectSize2 + 10;
+        var vert2 = i2 * height2 - offset2 + 40;
+        return 'translate(' + horz2 + ',' + vert2 + ')';
+        });
+  
+    legend2.append("circle")
+    .attr("r", 5)
+    .style("fill", color);
+    
+    legend2.append('text')
+    .attr('x', 15)
+    .attr('y', 4)
+    .text(function(d) { return d; });
+      
+});
+
+/* Blood pressure chart - End*/
+
 /* ############################ */
 /* Temperature chart*/
 
@@ -1179,6 +1421,156 @@ var legend = svgT.selectAll('.legend')
 
 /* Temperature chart end*/
 /*#################################*/
+/* Temperature chart*/
+
+// Set the dimensions of the canvas / graph
+var marginT = {top: 30, right: 20, bottom: 30, left: 50},
+    widthT = 500 - marginT.left - marginT.right,
+    heightT = 350 - marginT.top - marginT.bottom;
+  
+// Parse the date / time
+var parseDateT = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+// Parse time for tooltip
+var formatTimeT = d3.time.format("%e %B %I:%M %p");
+
+// Define color scale
+var colorT = d3.scale.category10();
+
+
+// Set the ranges
+var xT = d3.time.scale().range([0, widthT]);
+var yT = d3.scale.linear().range([heightT, 0]);
+
+
+// Define the axes
+var xAxisT = d3.svg.axis().scale(xT)
+    .orient("bottom").ticks(5);
+
+var yAxisT = d3.svg.axis().scale(yT)
+    .orient("left").ticks(5);
+
+// Define the line
+var valuelineT = d3.svg.line()
+    .x(function(d) { return xT(d.Time); })
+    .y(function(d) { return yT(d.Temperature); });
+  
+// Adds the svg canvas
+var svgT = d3.select("#tempchart2")
+    .append("svg")
+        .attr("width", widthT + marginT.left + marginT.right)
+        .attr("height", heightT + marginT.top + marginT.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + marginT.left + "," + marginT.top + ")");
+
+// Get the data
+d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT) {
+    dataT.forEach(function(d) {
+        d.Time = parseDateT(d.Time);
+        d.Temperature = +d.Temperature;
+  
+    });
+
+    // Scale the range of the data
+    xT.domain([d3.time.hour.offset(d3.min(dataT, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataT, function(d) { return d.Time; }), +1)]);
+    yT.domain([0, d3.max(dataT, function(d) { return d.Temperature; }) + 20]);
+  
+  //Add tooltip
+  var tooltipT = d3.select("#tempchart2").append("div")     
+        .attr("class", "tooltip")               
+        .style("opacity", 0);   
+  
+
+    // Add the valueline path.
+   /* svgT.append("path")
+        .attr("class", "lineT")
+    .style("stroke", "#f9520c")
+    .style("stroke-width",1)
+    .style("fill","none")
+    .attr("d", valuelineT(dataT));  */  
+
+    // Add the scatterplot for Temperature
+    svgT.selectAll("rect_temp")
+        .data(dataT)
+      .enter().append("rect")
+    .attr("x", function(d) { return xT(d.Time)-3.5; })
+        .attr("y", function(d) { return yT(d.Temperature)-3.5; })
+    .attr("height",7)
+    .attr("width",7)
+    .style("fill","#f9520c")
+    .on("mouseover", function(d) {  
+    var xPosT = xT(d.Time);
+    var yPosT = yT(d.Temperature);    
+            tooltipT.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            tooltipT.html(formatTime(d.Time) + "<br/>"+ "Temperature: "+d.Temperature)  
+                .style("left", xPosT + "px")     
+                .style("top", yPosT-360 + "px");                  
+            })
+    .on("mouseout", function(d) {       
+      tooltipT.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+
+        });
+    
+  // Add the X Axis
+    svgT.append("g")
+        .attr("class", "x axis T")
+        .attr("transform", "translate(0," + heightT + ")")
+        .call(xAxisT)
+    .append("text")
+    .attr("class", "label")
+    .attr("x", widthT)
+    .attr("y", -6)
+    .style("text-anchor", "end")
+    .text("Time");
+
+    // Add the Y Axis
+    svgT.append("g")
+        .attr("class", "y axis T")
+        .call(yAxisT)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Temperature (C)"); 
+
+// Applying legend
+var legendRectSize = 18;
+var legendSpacing = 4;
+var legendData = ["Temperature"]
+var legend = svgT.selectAll('.legend')
+        .data(legendData)
+        .enter()
+        .append('g')
+        .attr('class', 'legend')
+        .attr('transform', function(d, i) {
+        var height = legendRectSize + legendSpacing;
+        var offset =  height * 1;
+        var horz = legendRectSize + 10;
+        var vert = i * height - offset + 40;
+        return 'translate(' + horz + ',' + vert + ')';
+        });
+  
+    legend.append("rect")
+    .attr("height",7)
+    .attr("width",7)
+    .style("fill","#f9520c");
+    
+    legend.append('text')
+    .attr('x', 15)
+    .attr('y', 4)
+    .text(function(d) { return d; });   
+      
+});
+
+/* Temperature chart 2 end*/
+
 /* Respiration chart*/
 
 // Set the dimensions of the canvas / graph

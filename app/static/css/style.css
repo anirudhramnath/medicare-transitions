@@ -75,6 +75,17 @@ font-weight:bold;
 	border:0px dashed;
 	margin-top:2px;
 }
+#PSchart2{
+	width:500px;
+	height:400px;
+	border:0px solid;
+}
+#PSchart2 svg{
+	width:500px;
+	height:400px;
+	border:0px dashed;
+	margin-top:2px;
+}
 textpath{
 	font-size:0.7em;
 }
@@ -83,7 +94,13 @@ textpath{
 #bpchart{
 	width:600px;
 	height:500px;
-	border:0px solid;
+	border:1px solid;
+	
+}
+#bpchart2{
+	width:600px;
+	height:500px;
+	border:1px solid;
 	
 }
 .axis path {
@@ -119,6 +136,11 @@ div.tooltip {
 /* BP chart end*/
 /* Temperature & Resp chart */
 #RespChart, #TempChart, #PulseChart, #PulseOxChart{
+border:0px solid;
+width:50%;
+height:400px;
+}
+#RespChart2, #TempChart2, #PulseChart2, #PulseOxChart2{
 border:0px solid;
 width:50%;
 height:400px;

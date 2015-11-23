@@ -3,37 +3,53 @@ from flask import render_template
 from flask import request
 import os, json
 import MySQLdb
+from flask import Flask, session
 
 PATH_TO_DATA = os.getcwd()+'/app/static/data'
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 num_patients = 0
 patient_id_single_page = 1
 
 @app.route('/')
 def index():
-	patient_image = []
-	id = 1
-	patients = os.listdir(PATH_TO_DATA)
-	for patient in patients:
-		patient_image.append( ('static/data/'+patient+'/image.png', patient,id) )
-		id+=1
-	print patient_image
-	return render_template('choosePatient.html', patient_image=patient_image)
+    patient_image = []
+    id = 1
+    patients = os.listdir(PATH_TO_DATA)
+    for patient in patients:
+        patient_image.append( ('static/data/'+patient+'/image.png', patient,id) )
+        id+=1
+    print patient_image
+    return render_template('choosePatient.html', patient_image=patient_image)
 
 @app.route('/vitals/',methods=['POST'])
 def vitals():
-    global num_patients, patient_id_single_page
     if request.method == 'POST':
+        print request.form['alignment']
+        plist = request.form['alignment']
+        plist = plist.split(',')
         num_patients = request.form['alignment']
         num_patients = len(num_patients.split(","))
         if num_patients == 1:
             patient_id_single_page = int(request.form['alignment'])
-	return render_template('chooseOptions.html')
-   # return render_template('index.html')
+    patient_image = []
+    for patient in plist:
+        patient_image.append(('../'+patient))
+    return render_template('chooseOptions.html', patient_image=patient_image)
+
 
 @app.route('/showVitals', methods=['POST'])
 def showVitals():
+<<<<<<< HEAD
     body_system = request.form.getlist("bodySystem")
+    if body_system == []:
+        body_system = session['tmp']
+        vitals_list = []
+        vitals_list = request.form.getlist("vitals")
+    else:
+        session['tmp'] = body_system
+        vitals_list = ['1','2','3','4','5','6']
+
     global num_patients
 
     if num_patients > 1:
@@ -64,8 +80,8 @@ def showVitals():
         db.close()
 
         print plan_results
-
-        return render_template('index.html', body_system = body_system, plan_results = plan_results)
+        return render_template('index.html', body_system = body_system, vitals_list = vitals_list,
+            plan_results = plan_results)
 
 @app.route('/updateResidentPlan',methods=['POST'])
 def updateResidentPlan():

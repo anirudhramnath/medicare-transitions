@@ -33,33 +33,9 @@
 			<div><span class="text-primary">Line Day #:</span> 3</div>
 		</div>
 		</div>
-        <!--  <div class="row">
-          <div class="col-lg-2"><span class="text-primary">Name:</span> John Doe</div>
-          <div class="col-lg-2"><span class="text-primary">Age:</span> 35</div>
-          <div class="col-lg-2"><span class="text-primary">Gender:</span> Male</div>
-          <div class="col-lg-2"><span class="text-primary">Code Status:</span> WF</div>
-		  <div class="col-lg-4"><span class="text-primary">Code Status:</span> WF</div>
-          </div> -->
+       
         </div>
       </div>
-
-     <!-- <div class="panel panel-default">
-        <div class="panel-body text-center">
-          <div><span class="text-primary">MICU Day#:</span> 1</div>
-          <div><span class="text-primary">Vent Day #:</span> 2</div>
-          <div><span class="text-primary">Line Day #:</span> 3</div>
-        </div>
-      </div>-->
-
-      <!-- <div class="panel panel-default">
-        <div class="panel-body text-center">
-          <div class="row">
-          <div class="col-lg-6"><span class="text-primary">Illness Severity:</span> Watcher</div>
-          <div class="col-lg-6"><span class="text-primary">Allergies:</span> Peanuts, Seafood</div>
-          </div>
-        </div>
-      </div> -->
-
 
       <div class="panel panel-default">
         <div class="panel-body text-justified">
@@ -102,24 +78,25 @@
 	<div class="col-lg-12">
 	
 	<div id="chkVitals">
-		<form method="post">
+		<form id="frmFilter" name="frmFilter"  method="post" method="POST" action="/showVitals" onsubmit="return validate();">
         <fieldset>
                 <legend>Filter vitals</legend>
 				<div class="row">
 				<div class="col-lg-1">
-                        <input type="checkbox" name="vitals" value="pain" />&nbsp;Pain </div>
+						
+                        <input type="checkbox" name="vitals" value="1" {% if '1' in vitals_list %} checked{% endif %} />&nbsp;Pain </div>
 						<div class="col-lg-2">
-                        <input type="checkbox" name="vitals" value="bp" />&nbsp;Blood Pressure</div>
+                        <input type="checkbox" name="vitals" value="2" {% if '2' in vitals_list %} checked{% endif %} />&nbsp;Blood Pressure</div>
 						<div class="col-lg-2">
-                        <input type="checkbox" name="vitals" value="temp" />&nbsp;Temperature</div>
+                        <input type="checkbox" name="vitals" value="3" {% if '3' in vitals_list %} checked{% endif %}/>&nbsp;Temperature</div>
 						<div class="col-lg-2">
-						<input type="checkbox" name="vitals" value="rr" />&nbsp;Respiration rate</div>
+						<input type="checkbox" name="vitals" value="4" {% if '4' in vitals_list %} checked{% endif %}/>&nbsp;Respiration rate</div>
 						<div class="col-lg-1">
-						<input type="checkbox" name="vitals" value="pulse" />&nbsp;Pulse</div>
+						<input type="checkbox" name="vitals" value="5" {% if '5' in vitals_list %} checked{% endif %}/>&nbsp;Pulse</div>
 						<div class="col-lg-2">
-						<input type="checkbox" name="vitals" value="pulseOx" />&nbsp;Pulse Oximetry</div>
+						<input type="checkbox" name="vitals" value="6" {% if '6' in vitals_list %} checked{% endif %}/>&nbsp;Pulse Oximetry</div>
 						<div class="col-lg-2">
-                        <button type="submit" class="btn btn-primary btn-sm">&nbsp;Show</button></div>
+                        <button type="submit" class="btn btn-primary btn-sm">&nbsp;Filter</button></div>
 						</div>
         </fieldset>
 	</form>
@@ -130,47 +107,60 @@
 	  </div>
 	  <br/>
 	  <div class="row">
+	  {% if '1' in vitals_list %}
 	  <div id="PSchart" class="col-lg-6">
 	  PAIN
 	  </div>
+	  {% endif %}
+	  {% if '2' in vitals_list %}
 	  
-	  <div id="BPchart" class="col-lg-6">
+	  
+	  <div id="bpchart" class="col-lg-6">
 	  Blood Pressure 
-	  <div id="bpchart"></div>
 	  </div>
-	  
-    </div>
-	<div class="row">
+	  {% endif %}
+    
+	
+	{% if '3' in vitals_list %}
 		<div id="TempChart" class="col-lg-6" >
 		<div id="tempchart">
 			Temperature
 		</div>
 		</div>
+		{% endif %}
+		{% if '4' in vitals_list %}
 		<div id="RespChart" class="col-lg-6">
 		<div id="respchart">
 			Respiration Rate
 		</div>
 		</div>
-	</div>
-	<div class="row">
+		{% endif %}
+	
+	
+	
+	{% if '5' in vitals_list %}
 		<div id="PulseChart" class="col-lg-6" >
 		<div id="pulsechart">
 			Pulse
 		</div>
 		</div>
+		{% endif %}
+		{% if '6' in vitals_list %}
 		<div id="PulseOxChart" class="col-lg-6">
 		<div id="poxchart">
 			Pulse Oximetry
 		</div>
 		</div>
+		{% endif %}
 	</div>
+	
 	</div>
   </div>
 
   <hr/>
   <div id="body-systems-wrapper">
     <h2>Body Systems:</h2>
-
+	
   {% if '1' in body_system %}
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -413,6 +403,16 @@
 <script src="/static/js/circularHeatChart.js"></script>
 <script src="/static/js/legend.js"></script>
 <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script type="text/javascript">
+    function validate(){
+			 var checked = $("#frmFilter input:checked").length > 0;
+			if (!checked){
+				alert("Please check at least one checkbox");
+				return false;
+			}
+		}
+</script>
+
 <script>
 
 /* Pain score with random data */
@@ -438,7 +438,7 @@ var tooltip = d3.select("#PSchart")
 	
 var chart = circularHeatChart()
     .innerRadius(20)
-    .range(["#f1eef6", "#980043"])
+    .range(["#f1eef6","#980043"])
     .radialLabels(["Day 1", "Day 2", "Day 3"])
     .segmentLabels(["Midnight", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am",
     "11am", "Midday", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"]);

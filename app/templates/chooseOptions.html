@@ -3,14 +3,18 @@
 {% include 'header.html' %}
 
 <div class="container">
-    <h2> Select Filters </h2>
+    <h2> Selected Patients</h2>
     <hr/>
+	{% for image in patient_image %}
+		<img src="{{image}}" class="patientThumb"/> 
+	{% endfor %}
+	
     <div class="row">
         <form class="form-horizontal" method="POST" action="/showVitals">
         <fieldset>
 
         <!-- Form Name -->
-        <legend></legend>
+        <legend>Select Filters</legend>
 
         <!-- Multiple Checkboxes -->
         <div class="form-group">
@@ -36,12 +40,14 @@
             </div>
             <br/>
             <div>
+			<button id="bckbutton" name="bckbutton" class="btn btn-primary" onclick="history.go(-1);return false;">Back</button> &nbsp;
               <button id="singlebutton" name="singlebutton" class="btn btn-primary">Go</button>
           </div>
           </div>
         </div>
 
         </fieldset>
+		<input id="vitalsLow" type="hidden" name="vitals" value="0" />
         </form>
 
     </div>

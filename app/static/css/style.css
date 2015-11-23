@@ -94,13 +94,13 @@ textpath{
 #bpchart{
 	width:600px;
 	height:500px;
-	border:1px solid;
+	border:0px solid;
 	
 }
 #bpchart2{
 	width:600px;
 	height:500px;
-	border:1px solid;
+	border:0px solid;
 	
 }
 .axis path {

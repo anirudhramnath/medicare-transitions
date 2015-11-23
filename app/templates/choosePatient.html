@@ -73,8 +73,8 @@ $(document).ready(function(){
 		ids.push($(this).find(".hiddenId").val());
 		pnams.push($(this).find(".hiddenNam").val());
 	});
-	if(ids.length >= 4){
-		alert("Please select atmost three patients.")
+	if(ids.length >= 3){
+		alert("Please select atmost two patients.")
 		return false;
 		}
 	else if(ids.length == 0){

@@ -129,9 +129,9 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
             <input type="checkbox" name="vitals" value="pulse" class="filterChkBox" checked="checked"/>&nbsp;Pulse</div>
             <div class="col-lg-2">
             <input type="checkbox" name="vitals" value="pulseOx" class="filterChkBox" checked="checked"/>&nbsp;Pulse Oximetry</div>
-            <div class="col-lg-2">
+            <!--<div class="col-lg-2">
                         <button type="submit" class="btn btn-primary btn-sm">&nbsp;Show</button></div>
-            </div>
+            </div>-->
         </fieldset>
   </form>
   To view detailed information, place the pointer in respective position.
@@ -144,7 +144,8 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
     <div id="PSchart">
     PAIN
     </div>
-    <div id="bpchart">Blood Pressure </div>
+    <div id="BPchart">Blood Pressure
+    <div id="bpchart"> </div></div>
     <div id="TempChart">
     <div id="tempchart">
       Temperature
@@ -219,7 +220,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                <textarea rows="10" cols="30">Daily Interruption of Sedation
+                <textarea rows="10" cols="15">Daily Interruption of Sedation
 *Contativan fentanyl for sedation while intubated
 *Will give sedation on holiday in attempt to extubate this morning
 *Geodon 10mg IV 9bh pm agitation
@@ -276,7 +277,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                <textarea rows="10" cols="30">*Metoprolol 12.5mg 9/2h
+                <textarea rows="10" cols="15">*Metoprolol 12.5mg 9/2h
 *heparin gH for a fib
 *Goal: Net even -> lasix daily
                 </textarea>
@@ -329,7 +330,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                  <textarea rows="15" cols="30">*Spontanoes breathing trial Wean Fio2 to keep sats >92%
+                  <textarea rows="15" cols="15">*Spontanoes breathing trial Wean Fio2 to keep sats >92%
 *steroids for COPD exacerbation
 *reubtubated due to Co2 retention
 *weaken steroids to 30mg
@@ -463,11 +464,11 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" href="#problemList">Problem list</a>
+        <a data-toggle="collapse" href="#problemList2">Problem list</a>
 
     </h3>
     </div>
-  <div id="problemList" class="panel panel-collapse collapse">
+  <div id="problemList2" class="panel panel-collapse collapse">
     <div class="panel-body">
       <p>
         <ul>
@@ -481,13 +482,17 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Vitals</h3>
+      <h3 class="panel-title">
+        
+         <a data-toggle="collapse" href="#vitalsList2">Vitals</a>
+      </h3>
     </div>
+<div id="vitalsList2" class="panel panel-collapse collapse">
     <div class="panel-body">
   <div class="row">
   <div class="col-lg-12">
   
-  <div id="chkVitals">
+  <!--<div id="chkVitals">
     <form method="post">
         <fieldset>
                 <legend>Filter vitals</legend>
@@ -510,6 +515,30 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
         </fieldset>
   </form>
   To view detailed information, place the pointer in respective position.
+  </div> -->
+   <div id="chkVitals2">
+    <form method="post">
+        <fieldset>
+                <legend>Filter vitals</legend>
+        <div class="row">
+        <div class="col-lg-1">
+                        <input type="checkbox" name="vitals" value="pain2" class="filterChkBox2" checked="checked" />&nbsp;Pain </div>
+            <div class="col-lg-2">
+                        <input type="checkbox" name="vitals" value="bp2" class="filterChkBox2" checked="checked"/>&nbsp;Blood Pressure</div>
+            <div class="col-lg-2">
+                        <input type="checkbox" name="vitals" value="temp2" class="filterChkBox2" checked="checked"/>&nbsp;Temperature</div>
+            <div class="col-lg-2">
+            <input type="checkbox" name="vitals" value="rr2" class="filterChkBox2" checked="checked"/>&nbsp;Respiration rate</div>
+            <div class="col-lg-1">
+            <input type="checkbox" name="vitals" value="pulse2" class="filterChkBox2" checked="checked"/>&nbsp;Pulse</div>
+            <div class="col-lg-2">
+            <input type="checkbox" name="vitals" value="pulseOx2" class="filterChkBox2" checked="checked"/>&nbsp;Pulse Oximetry</div>
+            <!--<div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary btn-sm">&nbsp;Show</button></div>
+            </div>-->
+        </fieldset>
+  </form>
+  To view detailed information, place the pointer in respective position.
   </div>
       </div>
     <br/>
@@ -520,7 +549,9 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
     <div id="PSchart2">
     PAIN
     </div>
-    <div id="bpchart2">Blood Pressure </div>
+    <div id="BPchart2">
+    Blood Pressure
+    <div id="bpchart2"> </div></div>
     <div id="TempChart2">
     <div id="tempchart2">
       Temperature
@@ -545,6 +576,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
   </div>
 
   </div>
+</div>
   </div>
 
   <hr/>
@@ -555,10 +587,10 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <a data-toggle="collapse" href="#neurologicAccordian">Neurologic</a>
+          <a data-toggle="collapse" href="#neurologicAccordian2">Neurologic</a>
         </h3>
       </div>
-      <div id="neurologicAccordian" class="panel-collapse collapse">
+      <div id="neurologicAccordian2" class="panel-collapse collapse">
         <div class="panel-body row text-center">
           <div class="col-lg-3">
               <p class=""><strong>Physical Exam</strong></p>
@@ -595,7 +627,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                <textarea rows="10" cols="30">Daily Interruption of Sedation
+                <textarea rows="10" cols="15">Daily Interruption of Sedation
 *Contativan fentanyl for sedation while intubated
 *Will give sedation on holiday in attempt to extubate this morning
 *Geodon 10mg IV 9bh pm agitation
@@ -611,10 +643,10 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <a data-toggle="collapse" href="#cardiovascularAccordian">Cardiovascular</a>
+          <a data-toggle="collapse" href="#cardiovascularAccordian2">Cardiovascular</a>
           </h3>
       </div>
-      <div id="cardiovascularAccordian" class="panel panel-collapse collapse">
+      <div id="cardiovascularAccordian2" class="panel panel-collapse collapse">
         <div class="panel-body row text-center">
           <div class="col-lg-3">
               <p class=""><strong>Physical Exam</strong></p>
@@ -635,7 +667,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
                 <ul>
                     <li>Aminodarone 200mg</li>
                     <li>ASA 325mg</li>
-                    <li>Lasix 20mg 9/20</li>
+                    <li>Lasix 20mg 9/15</li>
                     <li>Metoprolol 12.5mg 9/2h</li>
                 </ul>
                 </p>
@@ -652,7 +684,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                <textarea rows="10" cols="30">*Metoprolol 12.5mg 9/2h
+                <textarea rows="10" cols="15">*Metoprolol 12.5mg 9/2h
 *heparin gH for a fib
 *Goal: Net even -> lasix daily
                 </textarea>
@@ -667,10 +699,10 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <a data-toggle="collapse" href="#pulmonaryAccordian">Pulmonary</a>
+          <a data-toggle="collapse" href="#pulmonaryAccordian2">Pulmonary</a>
         </h3>
       </div>
-      <div id="pulmonaryAccordian" class="panel panel-collapse collapse">
+      <div id="pulmonaryAccordian2" class="panel panel-collapse collapse">
         <div class="panel-body row text-center">
           <div class="col-lg-3">
               <p class=""><strong>Physical Exam</strong></p>
@@ -705,7 +737,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                  <textarea rows="15" cols="30">*Spontanoes breathing trial Wean Fio2 to keep sats >92%
+                  <textarea rows="15" cols="15">*Spontanoes breathing trial Wean Fio2 to keep sats >92%
 *steroids for COPD exacerbation
 *reubtubated due to Co2 retention
 *weaken steroids to 30mg
@@ -844,7 +876,7 @@ for(var i=0; i<72; i++)
     data[i] = {title: "Segment "+i, value: Math.round(Math.random()*5)};
 }
 
-var tooltip = d3.select("#PSchart2")
+var tooltip2 = d3.select("#PSchart2")
   .append("div")
   .style("position", "relative")
   .style("z-index", "10")
@@ -877,13 +909,13 @@ d3.selectAll("#PSchart2 path")
   
     var d = d3.select(this).data()[0];
   
-  return tooltip.style("visibility", "visible")
+  return tooltip2.style("visibility", "visible")
           .text("Pain Score: "+d.value);
   })
   .on("mouseout", function(){
   d3.select(this)
     .style("stroke","none");
-  return tooltip.style("visibility", "hidden");
+  return tooltip2.style("visibility", "hidden");
   }); 
   
 /* Pain score chart 2- End*/ 
@@ -1083,108 +1115,108 @@ var legend = svg.selectAll('.legend')
   /* Blood pressure chart 2 */
 
 // Set the dimensions of the canvas / graph
-var margin2 = {top: 30, right: 20, bottom: 30, left: 50},
-    width2 = 500 - margin2.left - margin2.right,
-    height2 = 350 - margin2.top - margin2.bottom;
+var marginb2 = {top: 30, right: 20, bottom: 30, left: 50},
+    widthb2 = 500 - marginb2.left - marginb2.right,
+    heightb2 = 350 - marginb2.top - marginb2.bottom;
   
 // Parse the date / time
-var parseDate2 = d3.time.format("%d-%b-%y %I:%M%p").parse;
+var parseDateb2 = d3.time.format("%d-%b-%y %I:%M%p").parse;
 
 // Parse time for tooltip
-var formatTime2 = d3.time.format("%e %B %I:%M %p");
+var formatTimeb2 = d3.time.format("%e %B %I:%M %p");
 
 // Define color scale
-var color2 = d3.scale.category10();
+var colorb2 = d3.scale.category10();
 
 
 // Set the ranges
-var x2 = d3.time.scale().range([0, width2]);
-var y2 = d3.scale.linear().range([height2, 0]);
+var xb2 = d3.time.scale().range([0, widthb2]);
+var yb2 = d3.scale.linear().range([heightb2, 0]);
 
 
 // Define the axes
-var xAxis2 = d3.svg.axis().scale(x2)
+var xAxisb2 = d3.svg.axis().scale(xb2)
     .orient("bottom").ticks(5);
 
-var yAxis2 = d3.svg.axis().scale(y2)
+var yAxisb2 = d3.svg.axis().scale(yb2)
     .orient("left").ticks(5);
 
 // Define the line
-var valueline2d = d3.svg.line()
-    .x(function(d) { return x2(d.Time); })
-    .y(function(d) { return y2(d.DiastolicBP); });
+var valuelineb2 = d3.svg.line()
+    .x(function(d) { return xb2(d.Time); })
+    .y(function(d) { return yb2(d.DiastolicBP); });
 
 // Define second line
-var valueline22 = d3.svg.line()
-    .x(function(d) { return x2(d.Time); })
-    .y(function(d) { return y2(d.SystolicBP); });
+var valueline2b2 = d3.svg.line()
+    .x(function(d) { return xb2(d.Time); })
+    .y(function(d) { return yb2(d.SystolicBP); });
   
 // Adds the svg canvas
-var svg2 = d3.select("#bpchart2")
+var svgb2 = d3.select("#bpchart2")
     .append("svg")
-        .attr("width", width2 + margin2.left + margin2.right)
-        .attr("height", height2+ margin2.top + margin2.bottom)
+        .attr("width", widthb2 + marginb2.left + marginb2.right)
+        .attr("height", heightb2 + marginb2.top + marginb2.bottom)
     .append("g")
         .attr("transform", 
-              "translate(" + margin2.left + "," + margin2.top + ")");
+              "translate(" + marginb2.left + "," + marginb2.top + ")");
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data2) {
-    data2.forEach(function(d) {
-        d.Time = parseDate2(d.Time);
+d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, datab2) {
+    datab2.forEach(function(d) {
+        d.Time = parseDateb2(d.Time);
         d.DiastolicBP = +d.DiastolicBP;
     d.SystolicBP = +d.SystolicBP;
     
     });
 
     // Scale the range of the data
-    x.domain([d3.time.hour.offset(d3.min(data2, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(data2, function(d) { return d.Time; }), +1)]);
-    y.domain([0, d3.max(data2, function(d) { return Math.max(d.DiastolicBP, d.SystolicBP); })+70]);
+    xb2.domain([d3.time.hour.offset(d3.min(datab2, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(datab2, function(d) { return d.Time; }), +1)]);
+    yb2.domain([0, d3.max(datab2, function(d) { return Math.max(d.DiastolicBP, d.SystolicBP); })+70]);
   
 
     // Add the valueline path.
-    svg2.append("path")
+    svgb2.append("path")
         .attr("class", "line")
     .style("stroke", "rgb(255,121,14)")
     .style("stroke-width",1)
     .style("fill","none")
-    .attr("d", valueline2d(data2))
+    .attr("d", valuelineb2(datab2))
     .attr("data-legend","DiastolicBP");
     
   // Add the valueline2 path
-    svg2.append("path")
+    svgb2.append("path")
         .attr("class", "line")
     .style("stroke", "rgb(31,119,180)")
     .style("stroke-width",1)  
     .style("fill","none")   
-    .attr("d", valueline22(data2))
+    .attr("d", valueline2b2(datab2))
     .attr("data-legend","SystolicBP");
     
   //Add tooltip
-  var bptooltip2 = d3.select("#bpchart2").append("div")     
+  var bptooltipb2 = d3.select("#bpchart2").append("div")     
         .attr("class", "tooltip")               
         .style("opacity", 0); 
 
     // Add the scatterplot for DiastolicBP
-    svg2.selectAll("dot")
-        .data(data2)
+    svgb2.selectAll("dot")
+        .data(datab2)
       .enter().append("circle")
         .attr("r", 3)
-        .attr("cx", function(d) { return x2(d.Time); })
-        .attr("cy", function(d) { return y2(d.DiastolicBP); })
+        .attr("cx", function(d) { return xb2(d.Time); })
+        .attr("cy", function(d) { return yb2(d.DiastolicBP); })
     .style("fill", "rgb(255,121,14)")
     .on("mouseover", function(d) {  
-    var xPos = x2(d.Time);
-    var yPos = y2(d.DiastolicBP);
-            bptooltip2.transition()        
+    var xPosb2 = xb2(d.Time);
+    var yPosb2 = yb2(d.DiastolicBP);
+            bptooltipb2.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
-            bptooltip2.html(formatTime2(d.Time) + "<br/>"+ "DIASTOLIC BP: "+d.DiastolicBP)  
-                .style("left", xPos + "px")     
-                .style("top", yPos-370 + "px");           
+            bptooltipb2.html(formatTimeb2(d.Time) + "<br/>"+ "DIASTOLIC BP: "+d.DiastolicBP)  
+                .style("left", xPosb2 + "px")     
+                .style("top", yPosb2-370 + "px");           
             })
     .on("mouseout", function(d) {       
-            bptooltip2.transition()        
+            bptooltipb2.transition()        
                 .duration(3000)      
                 .style("opacity", 0);
 
@@ -1192,25 +1224,25 @@ d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data2) {
     
       
     // Add the scatterplot for SystolicBP
-    svg2.selectAll("dot")
-        .data(data2)
+    svgb2.selectAll("dot")
+        .data(datab2)
       .enter().append("circle")
         .attr("r", 3)
-        .attr("cx", function(d) { return x2(d.Time); })
-        .attr("cy", function(d) { return y2(d.SystolicBP); })
+        .attr("cx", function(d) { return xb2(d.Time); })
+        .attr("cy", function(d) { return yb2(d.SystolicBP); })
     .style("fill", "rgb(31,119,180)")
     .on("mouseover", function(d) {  
-    var xPos = x2(d.Time);
-    var yPos = y2(d.SystolicBP);   
-            bptooltip2.transition()        
+    var xPosb2 = xb2(d.Time);
+    var yPosb2 = yb2(d.SystolicBP);   
+            bptooltipb2.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
-            bptooltip2.html(formatTime2(d.Time) + "<br/>"+ "SYSTOLIC BP: "+d.SystolicBP)  
-                .style("left", xPos + "px")     
-                .style("top", yPos-370 + "px");                 
+            bptooltipb2.html(formatTimeb2(d.Time) + "<br/>"+ "SYSTOLIC BP: "+d.SystolicBP)  
+                .style("left", xPosb2 + "px")     
+                .style("top", yPosb2-370 + "px");                 
             })
     .on("mouseout", function(d) {       
-      bptooltip2.transition()        
+      bptooltipb2.transition()        
                 .duration(500)      
                 .style("opacity", 0);   
 
@@ -1218,21 +1250,21 @@ d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data2) {
       
 
     // Add the X Axis
-    svg2.append("g")
+    svgb2.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
+        .attr("transform", "translate(0," + heightb2 + ")")
+        .call(xAxisb2)
     .append("text")
     .attr("class", "label")
-    .attr("x", width)
+    .attr("x", widthb2)
     .attr("y", -6)
     .style("text-anchor", "end")
     .text("Time");
 
     // Add the Y Axis
-    svg2.append("g")
+    svgb2.append("g")
         .attr("class", "y axis")
-        .call(yAxis)
+        .call(yAxisb2)
     .append("text")
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
@@ -1241,27 +1273,27 @@ d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data2) {
       .style("text-anchor", "end")
       .text("BP");  
 // Applying legend
-var legendRectSize2 = 18;
-var legendSpacing2 = 4;
-var legendData2 = ["SYSTOLIC BP","DIASTOLIC BP"]
-var legend2 = svg2.selectAll('.legend')
-        .data(legendData2)
+var legendRectSizeb2 = 18;
+var legendSpacingb2 = 4;
+var legendDatab2 = ["SYSTOLIC BP","DIASTOLIC BP"]
+var legendb2 = svgb2.selectAll('.legend')
+        .data(legendDatab2)
         .enter()
         .append('g')
         .attr('class', 'legend')
-        .attr('transform', function(d, i2) {
-        var height2 = legendRectSize2 + legendSpacing2;
-        var offset2 =  height * 1;
-        var horz2 = legendRectSize2 + 10;
-        var vert2 = i2 * height2 - offset2 + 40;
-        return 'translate(' + horz2 + ',' + vert2 + ')';
+        .attr('transform', function(d, i) {
+        var heightb2 = legendRectSizeb2 + legendSpacingb2;
+        var offsetb2 =  heightb2 * 1;
+        var horzb2 = legendRectSizeb2 + 10;
+        var vertb2 = i * heightb2 - offsetb2 + 40;
+        return 'translate(' + horzb2 + ',' + vertb2 + ')';
         });
   
-    legend2.append("circle")
+    legendb2.append("circle")
     .attr("r", 5)
     .style("fill", color);
     
-    legend2.append('text')
+    legendb2.append('text')
     .attr('x', 15)
     .attr('y', 4)
     .text(function(d) { return d; });
@@ -1728,6 +1760,7 @@ svgR2.append("g")
 });  
 /* Respiration chart end */
 /* ################################# */
+
 /* Pulse chart */
 // Set the dimensions of the canvas / graph
 var marginP = {top: 30, right: 20, bottom: 30, left: 50},
@@ -1848,7 +1881,129 @@ var focus = svgP.append("g")
 });  
 
 /* Pulse chart end */
+
+/* Pulse chart 2 */
+// Set the dimensions of the canvas / graph
+var marginP2 = {top: 30, right: 20, bottom: 30, left: 50},
+    widthP2 = 500 - marginP2.left - marginP2.right,
+    heightP2 = 350 - marginP2.top - marginP2.bottom;
+// Parse the date / time
+var parseDateP2 = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+//Get the Amount of alerts for tooltip
+var bisectDate = d3.bisector(function(d) {
+  return d.Time;
+}).left;
+    
+// Set the ranges
+var xP2 = d3.time.scale().range([0, widthP2]);
+var yP2 = d3.scale.linear().range([heightP2, 0]);
+// Define the axes
+var xAxisP2 = d3.svg.axis().scale(xP2)
+    .orient("bottom").ticks(5);
+var yAxisP2 = d3.svg.axis().scale(yP2)
+    .orient("left").ticks(5);
+
+// Define area curve
+var areaP2 = d3.svg.area()
+    .x(function(d) { return xP2(d.Time); })
+    .y0(heightP2)
+    .y1(function(d) { return yP2(d.PulseRate); });
+
+// Adds the svg canvas
+var svgP2 = d3.select("#pulsechart2")
+    .append("svg")
+        .attr("width", widthP2 + marginP2.left + marginP2.right)
+        .attr("height", heightP2 + marginP2.top + marginP2.bottom)
+    .append("g")
+        .attr("transform","translate(" + marginP2.left + "," + marginP2.top + ")");
+// Get the data
+d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, dataP2) {
+  if (error) throw error;
+    dataP2.forEach(function(d) {
+        d.Time = parseDateP2(d.Time);
+        d.PulseRate = +d.PulseRate;
+    });
+  
+ // Sort the data or bisect() won't work right
+      dataP2.sort(function(a, b) {return a.Time - b.Time;}); 
+// Scale the range of the data
+//xP.domain([d3.time.hour.offset(d3.min(dataP, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataP, function(d) { return d.Time; }), +1)]);
+xP2.domain([d3.min(dataP2, function(d) { return d.Time; }), d3.max(dataP2, function(d) { return d.Time; })]);
+yP2.domain([0, d3.max(dataP2, function(d) { return d.PulseRate; })+20]);
+      
+// Add the valueline path.
+svgP2.append("path")
+  .datum(dataP2)
+  .attr("class", "area")
+  .style("fill","#c0c225")
+  .attr("d", areaP2);  
+    
+// Add the X Axis
+svgP2.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + heightP2 + ")")
+  .call(xAxisP2)
+  .append("text")
+  .attr("class", "label")
+  .attr("x", widthP2)
+  .attr("y", -6)
+  .style("text-anchor", "end")
+  .text("Time");
+
+// Add the Y Axis
+svgP2.append("g")
+  .attr("class", "y axis")
+  .call(yAxisP2)
+.append("text")
+  .attr("class", "label")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end")
+  .text("Pulse rate");
+  
+// Tooltip
+/*
+var focus = svgP.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
+  focus.append("circle")
+                .attr("r", 4.5);
+  focus.append("text")
+                .attr("x", 9)
+                .attr("dy", ".35em");
+  svgP.append("rect")
+                .attr("class", "overlay")
+                .attr("width", widthP)
+                .attr("height", heightP)
+                .on("mouseover", function() {
+          
+                    focus.style("display", null);
+                })
+                .on("mouseout", function() {
+                    focus.style("display", "none");
+                })
+                .on("mousemove", mousemove);
+  
+  function mousemove() {
+                var x0 = xP.invert(event.pageX),
+                    i = bisectDate(dataP, x0, 1),       
+                    d0 = dataP[i - 1],
+                   d1 = dataP[i-],
+                   d = x0 - xP(d0.Time) > xP(d1.Time) - x0 ? d1 : d0; 
+        console.log(d);
+        console.log(xP(d.Time) + "," + yP(d.PulseRate) + " - "+ event.clientX);
+                focus.attr("transform", "translate(" + xP(d.Time) + "," + yP(d.PulseRate) + ")");
+                focus.select("text").text((d.PulseRate) + ' at ' + parseDateP(d.Time));
+            }
+
+  */      
+});  
+
+/* Pulse chart end */
 /* ################################# */
+
 /* Pulse Oximetry chart*/
 // Set the dimensions of the canvas / graph
 var marginO = {top: 30, right: 20, bottom: 30, left: 50},
@@ -1922,6 +2077,80 @@ svgO.append("g")
 });  
 
 /* Pulse Oximetry chart end */
+
+/* Pulse Oximetry chart 2 */
+// Set the dimensions of the canvas / graph
+var marginO2 = {top: 30, right: 20, bottom: 30, left: 50},
+    widthO2 = 500 - marginO2.left - marginO2.right,
+    heightO2 = 350 - marginO2.top - marginO2.bottom;
+// Parse the date / time
+var parseDateO2 = d3.time.format("%d-%b-%y %I:%M%p").parse;
+
+// Set the ranges
+var xO2 = d3.time.scale().range([0, widthO2]);
+var yO2 = d3.scale.linear().range([heightO2, 0]);
+// Define the axes
+var xAxisO2 = d3.svg.axis().scale(xO2)
+    .orient("bottom").ticks(5);
+var yAxisO2 = d3.svg.axis().scale(yO2)
+    .orient("left").ticks(5);
+  
+// Define the line
+var valuelineO2 = d3.svg.line()
+    .x(function(d) { return xO2(d.Time); })
+    .y(function(d) { return yO2(d.PulseOx); });
+// Adds the svg canvas
+var svgO2 = d3.select("#poxchart2")
+    .append("svg")
+        .attr("width", widthO2 + marginO2.left + marginO2.right)
+        .attr("height", heightO2 + marginO2.top + marginO2.bottom)
+    .append("g")
+        .attr("transform","translate(" + marginO2.left + "," + marginO2.top + ")");
+// Get the data
+d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, dataO2) {
+    dataO2.forEach(function(d) {
+        d.Time = parseDateO2(d.Time);
+        d.PulseOx = +d.PulseOx;
+    });
+// Scale the range of the data
+xO2.domain([d3.time.hour.offset(d3.min(dataO2, function(d) { return d.Time; }), -1), d3.time.hour.offset(d3.max(dataO2, function(d) { return d.Time; }), +1)]);
+yO2.domain([0, 100]);
+      
+// Add the valueline path.
+svgO2.append("path")
+  .attr("class", "lineO")
+  .style("stroke", "#e9d500")
+  .style("stroke-width",1)
+  .style("fill","none")
+  .attr("d", valuelineO2(dataO2));  
+    
+// Add the X Axis
+svgO2.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + heightO2 + ")")
+  .call(xAxisO2)
+  .append("text")
+  .attr("class", "label")
+  .attr("x", widthO2)
+  .attr("y", -6)
+  .style("text-anchor", "end")
+  .text("Time");
+
+// Add the Y Axis
+svgO2.append("g")
+  .attr("class", "y axis")
+  .call(yAxisO2)
+.append("text")
+  .attr("class", "label")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", ".71em")
+  .style("text-anchor", "end")
+  .text("Pulse Oximetry %");
+  
+});  
+
+/* Pulse Oximetry chart 2end */
 </script>
 {% include 'footer.html' %}
 

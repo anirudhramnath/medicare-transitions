@@ -3,7 +3,7 @@ from flask import render_template
 from flask import request
 import os, json
 import MySQLdb
-from flask import Flask, session
+from flask import Flask, session, redirect, url_for
 
 PATH_TO_DATA = os.getcwd()+'/app/static/data'
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
@@ -14,13 +14,25 @@ patient_id_single_page = 1
 @app.route('/')
 def index():
     patient_image = []
+    patient_summary = {}
     id = 1
     patients = os.listdir(PATH_TO_DATA)
     for patient in patients:
         patient_image.append( ('static/data/'+patient+'/image.png', patient,id) )
         id+=1
-    print patient_image
-    return render_template('choosePatient.html', patient_image=patient_image)
+
+    db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
+    cursor = db.cursor()
+    cursor.execute("SELECT id, summary from patients");
+    data = cursor.fetchall()
+
+    for row in data:
+        patient_summary[row[0]] = row[1]
+
+    db.close()
+
+    return render_template('choosePatient.html', patient_image=patient_image,
+        patient_summary=patient_summary)
 
 @app.route('/bfilters/',methods=['POST'])
 def vitals():
@@ -63,16 +75,9 @@ def showVitals():
 
         plan_results = {}
 
-        # Open database connection
         db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
-
-        # prepare a cursor object using cursor() method
         cursor = db.cursor()
-
-        # execute SQL query using execute() method.
         cursor.execute("SELECT body_system,plan1 from body_systems where patient_id="+ str(patient_id))
-
-        # Fetch a single row using fetchone() method.
         data = cursor.fetchall()
 
         for row in data:
@@ -108,3 +113,22 @@ def updateResidentPlan():
     db.close()
 
     return json.dumps({'status':'OK'})
+
+@app.route('/createSummary',methods=['POST'])
+def createSummary():
+    global patient_id_single_page
+
+    db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
+
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+
+    q = "UPDATE patients set summary=NOW() WHERE id='%s'" % (
+        patient_id_single_page)
+    cursor.execute(q)
+    db.commit()
+
+    # disconnect from server
+    db.close()
+
+    return redirect(url_for('index'))

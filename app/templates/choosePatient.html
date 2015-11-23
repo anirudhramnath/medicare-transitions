@@ -29,8 +29,14 @@
 			Name: {{ image[1] }}<br/>
 			ID : {{image[2]}}<br/>
 			LOS : 1 day </br>
-			Summary created : No <br/>
-			Summary created on : N/A <br/>
+            {% if patient_summary.get(image[2]) != None %}
+			Summary created : Yes <br/>
+			Summary created on : {{patient_summary.get(image[2])}} <br/>
+            {% endif %}
+            {% if patient_summary.get(image[2]) == None %}
+            Summary created : No <br/>
+            Summary created on : N/A <br/>
+            {% endif %}
 			<br/>
 			
 			</div>

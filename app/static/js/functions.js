@@ -1,10 +1,12 @@
 $(document).ready(function () {
 
     $(".filterChkBox").click(function(){
+
         var t = $(this);
         if (t.val() == 'pain') {
             if(t.is(':checked')) {
                 $("#PSchart").show();
+                consloe.log('fdf');
             }
             else {
                 $("#PSchart").hide();
@@ -48,6 +50,58 @@ $(document).ready(function () {
             }
             else {
                 $("#PulseOxChart").hide();
+            }
+        }
+    });
+
+    $(".filterChkBox2").click(function(){
+        var t = $(this);
+        if (t.val() == 'pain2') {
+            if(t.is(':checked')) {
+                $("#PSchart2").show();
+            }
+            else {
+                $("#PSchart2").hide();
+            }
+        }
+        else if (t.val() == 'bp2') {
+            if(t.is(':checked')) {
+                $("#BPchart2").show();
+            }
+            else {
+                $("#BPchart2").hide();
+            }
+        }
+        else if (t.val() == 'temp2') {
+            if(t.is(':checked')) {
+                $("#TempChart2").show();
+            }
+            else {
+                $("#TempChart2").hide();
+            }
+        }
+        else if (t.val() == 'rr2') {
+            if(t.is(':checked')) {
+                $("#RespChart2").show();
+            }
+            else {
+                $("#RespChart2").hide();
+            }
+        }
+        else if (t.val() == 'pulse2') {
+            if(t.is(':checked')) {
+                $("#PulseChart2").show();
+            }
+            else {
+                $("#PulseChart2").hide();
+            }
+        }
+        else if (t.val() == 'pulseOx2') {
+            if(t.is(':checked')) {
+                $("#PulseOxChart2").show();
+            }
+            else {
+                $("#PulseOxChart2").hide();
             }
         }
     });

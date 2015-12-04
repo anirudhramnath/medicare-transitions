@@ -968,6 +968,17 @@ var svg = d3.select("#bpchart")
     .append("g")
         .attr("transform", 
               "translate(" + margin.left + "," + margin.top + ")");
+//Clinician Alert function
+d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
+data.forEach(function(d){
+      if( parseInt(d.DiastolicBP) < 30)
+        alert("Diastolic BP is low : " + d.DiastolicBP);
+
+      if( parseInt(d.SystolicBP) > 120)
+        alert("Systolic BP is high : " + d.SystolicBP);
+    });
+    
+});
 
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
@@ -1160,6 +1171,18 @@ var svgb2 = d3.select("#bpchart2")
     .append("g")
         .attr("transform", 
               "translate(" + marginb2.left + "," + marginb2.top + ")");
+
+//Clinician Alert function
+d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
+data.forEach(function(d){
+      if( parseInt(d.DiastolicBP) < 30)
+        alert("Diastolic BP is low : " + d.DiastolicBP);
+
+      if( parseInt(d.SystolicBP) > 120)
+        alert("Systolic BP is high : " + d.SystolicBP);
+    });
+    
+});
 
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, datab2) {

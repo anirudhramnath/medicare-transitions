@@ -34,6 +34,15 @@ def index():
     return render_template('choosePatient.html', patient_image=patient_image,
         patient_summary=patient_summary)
 
+
+@app.route('/bfilters/',methods=['GET'])
+def vitalsGet():
+    plist = [session['onepp'], session['twopp']] if session['num_ids']==2 else [session['onepp']]
+    patient_image = []
+    for patient in plist:
+        patient_image.append(('../'+patient))
+    return render_template('chooseOptions.html', patient_image=patient_image)
+
 @app.route('/bfilters/',methods=['POST'])
 def vitals():
     global patient_id_single_page, num_patients
@@ -50,10 +59,12 @@ def vitals():
         if num_patients == 1:
             patient_id_single_page = int(request.form['alignment'])
             session['onepp']= request.form['pids']
+            session['num_ids'] = 1
         else:
             session['multiple_ids'] = (alignment[0],alignment[1])
             session['onepp'] = plist[0]
             session['twopp'] = plist[1]
+            session['num_ids'] = 2
     patient_image = []
     for patient in plist:
         patient_image.append(('../'+patient))

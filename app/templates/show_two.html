@@ -1778,10 +1778,9 @@ var yAxisP = d3.svg.axis().scale(yP)
     .orient("left").ticks(5);
 
 // Define area curve
-var areaP = d3.svg.area()
+var valuelineP = d3.svg.line()
     .x(function(d) { return xP(d.Time); })
-    .y0(heightP)
-    .y1(function(d) { return yP(d.PulseRate); });
+    .y(function(d) { return yP(d.PulseRate); });
 
 // Adds the svg canvas
 var svgP = d3.select("#pulsechart")
@@ -1807,10 +1806,11 @@ yP.domain([0, d3.max(dataP, function(d) { return d.PulseRate; })+20]);
       
 // Add the valueline path.
 svgP.append("path")
-  .datum(dataP)
-  .attr("class", "area")
-  .style("fill","#c0c225")
-  .attr("d", areaP);  
+  .attr("class", "lineO")
+  .style("stroke", "#c0c225")
+  .style("stroke-width",1)
+  .style("fill","none")
+  .attr("d", valuelineP(dataP));   
     
 // Add the X Axis
 svgP.append("g")
@@ -1899,10 +1899,9 @@ var yAxisP2 = d3.svg.axis().scale(yP2)
     .orient("left").ticks(5);
 
 // Define area curve
-var areaP2 = d3.svg.area()
+var valuelineP2 = d3.svg.line()
     .x(function(d) { return xP2(d.Time); })
-    .y0(heightP2)
-    .y1(function(d) { return yP2(d.PulseRate); });
+    .y(function(d) { return yP2(d.PulseRate); });
 
 // Adds the svg canvas
 var svgP2 = d3.select("#pulsechart2")
@@ -1928,10 +1927,11 @@ yP2.domain([0, d3.max(dataP2, function(d) { return d.PulseRate; })+20]);
       
 // Add the valueline path.
 svgP2.append("path")
-  .datum(dataP2)
-  .attr("class", "area")
-  .style("fill","#c0c225")
-  .attr("d", areaP2);  
+  .attr("class", "lineO")
+  .style("stroke", "#c0c225")
+  .style("stroke-width",1)
+  .style("fill","none")
+  .attr("d", valuelineP2(dataP2));  
     
 // Add the X Axis
 svgP2.append("g")

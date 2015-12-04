@@ -41,13 +41,12 @@
             {% endif %}
 			<br/>
 			Diagnosis : <button class="btn btn-xs btn-info">Quick View</button>
+
 			</div>
 			</div>
-			
+
         {% endfor %}
-		
-		
-					
+
     </div>
 </br>
     <div class="row">
@@ -55,7 +54,9 @@
 	<form action="/bfilters/" method="post" onsubmit="return validate();">
            <input id="patientList" type="hidden" name="alignment" value="" />
 		   <input id="patientNams" type="hidden" name="pids" value="" />
-           <button class="btn btn-lg btn-large btn-info" id="viewPatients">View</button>
+
+           <button class="btn btn-lg btn-large btn-primary" id="viewPatients">View</button>
+
         </form>
     </div>
     </div>

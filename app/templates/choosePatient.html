@@ -38,19 +38,17 @@
             Summary created on : N/A <br/>
             {% endif %}
 			<br/>
-			
+
 			</div>
 			</div>
-			
+
         {% endfor %}
-		
-		
-					
+
     </div>
 	<form action="/bfilters/" method="post" onsubmit="return validate();">
            <input id="patientList" type="hidden" name="alignment" value="" />
 		   <input id="patientNams" type="hidden" name="pids" value="" />
-           <button class="btn btn-large btn-info">View</button>
+           <button class="btn btn-large btn-primary">View</button>
         </form>
 
 </div>

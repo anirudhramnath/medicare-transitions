@@ -134,4 +134,8 @@ $(document).ready(function () {
         spanElement.toggleClass('hide');
         setTimeout(function(){ spanElement.toggleClass('hide');}, 3000);
     });
+
+    $("#bodySystemsPopover a").popover({
+        title : 'Default Title Text'
+    });
 });

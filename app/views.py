@@ -59,7 +59,6 @@ def vitals():
         patient_image.append(('../'+patient))
     return render_template('chooseOptions.html', patient_image=patient_image)
 
-
 @app.route('/showVitals', methods=['POST'])
 def showVitals():
     body_system = request.form.getlist("bodySystem")

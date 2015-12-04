@@ -162,3 +162,7 @@ def createsummary():
     db.close()
 
     return redirect(url_for('index'))
+
+@app.route('/quickView',methods=['POST'])
+def quickView():
+    return render_template('quickView.html')

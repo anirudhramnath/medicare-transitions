@@ -24,7 +24,9 @@
 			 </li>
 			 </div>
 			 <br/>
+			 <br/>
 			 <div class="patient_details" class="col-lg-1">
+
 			Name: {{ image[1] }}<br/>
 			ID : {{image[2]}}<br/>
 			LOS : 1 day </br>
@@ -37,6 +39,7 @@
             Summary created on : N/A <br/>
             {% endif %}
 			<br/>
+			Diagnosis : <button class="btn btn-xs btn-info">Quick View</button>
 
 			</div>
 			</div>
@@ -44,21 +47,30 @@
         {% endfor %}
 
     </div>
+</br>
+    <div class="row">
+    	<div class="alignCenter col-lg-12">
 	<form action="/bfilters/" method="post" onsubmit="return validate();">
            <input id="patientList" type="hidden" name="alignment" value="" />
 		   <input id="patientNams" type="hidden" name="pids" value="" />
-           <button class="btn btn-large btn-primary">View</button>
-        </form>
 
+           <button class="btn btn-lg btn-large btn-primary" id="viewPatients">View</button>
+
+        </form>
+    </div>
+    </div>
 </div>
 
 <script type="text/javascript">
+
 $(document).ready(function(){
     $(".patient_img li").click(function(){
 			$(this).toggleClass('selected');
     });
 	
+    
 });
+
 </script>
 <script type="text/javascript">
     function validate(){

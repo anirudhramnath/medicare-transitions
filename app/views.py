@@ -75,7 +75,40 @@ def showVitals():
     if num_patients > 1:
         ppath1 = session['onepp']
         ppath2 = session['twopp']
-        return render_template('show_two.html', body_system = body_system,ppath1 = ppath1, ppath2=ppath2)
+
+        patient_id = session['multiple_ids'][0]
+
+        plan_results1 = {}
+
+        db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
+        cursor = db.cursor()
+        cursor.execute("SELECT body_system,plan1 from body_systems where patient_id="+ str(patient_id))
+        data = cursor.fetchall()
+
+        for row in data:
+            plan_results1[row[0]] = row[1].split('^')
+
+        # disconnect from server
+        db.close()
+
+        patient_id = session['multiple_ids'][1]
+
+        plan_results2 = {}
+
+        db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
+        cursor = db.cursor()
+        cursor.execute("SELECT body_system,plan1 from body_systems where patient_id="+ str(patient_id))
+        data = cursor.fetchall()
+
+        for row in data:
+            plan_results2[row[0]] = row[1].split('^')
+
+        # disconnect from server
+        db.close()
+
+        return render_template('show_two.html', body_system = body_system,
+                               ppath1 = ppath1, ppath2=ppath2,
+                               plan_results1 = plan_results1,plan_results2 = plan_results2)
     else:
         global patient_id_single_page
         # fetch value for resident plan
@@ -94,7 +127,6 @@ def showVitals():
         # disconnect from server
         db.close()
 
-        print plan_results
         ppath = session['onepp']
         print '########',ppath
         return render_template('index.html', body_system = body_system, vitals_list = vitals_list,

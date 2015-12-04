@@ -4,15 +4,16 @@
 
 <div class="container">
 <div class="bodySystemsPopover">
-<a href="#" class="btn btn-default" data-toggle="popover"
-data-content="This is a link without title attribute. The title text of this popover is defined in JavaScript.">Popover
-</a>
+<button class="btn btn-warning" data-toggle="popover"><span class="glyphicon glyphicon-chevron-right" 
+style="font-size: 1.5em;"></span>
+</button>
 </div>
-
-<a href="/">Home</a>&nbsp; &gt; &nbsp;<a href="#">Body Systems</a>&nbsp; &gt; &nbsp;<a href="#">Analysis</a>
+<ol class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="#">Body Systems</a></li>
+  <li class="active">Details</li>
+</ol>
 <br/>
-<button id="bckbutton" name="bckbutton" class="btn btn-primary btn-xs"
-style="float:left;" onclick="history.go(-1);return false;">Back</button>
 <div class="row" id="appTitle">
 <h2><strong>Interface for Medical Care Transitions</strong></h2>
 </div>
@@ -95,30 +96,29 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
 	<div class="col-lg-12">
 	
 	<div id="chkVitals">
-		<form id="frmFilter" name="frmFilter"  method="post" method="POST" action="/showVitals" onsubmit="return validate();">
+    <form method="post">
         <fieldset>
                 <legend>Filter vitals</legend>
-				<div class="row">
-				<div class="col-lg-1">
-						
-                        <input type="checkbox" name="vitals" value="1" {% if '1' in vitals_list %} checked{% endif %} />&nbsp;Pain </div>
-						<div class="col-lg-2">
-                        <input type="checkbox" name="vitals" value="2" {% if '2' in vitals_list %} checked{% endif %} />&nbsp;Blood Pressure</div>
-						<div class="col-lg-2">
-                        <input type="checkbox" name="vitals" value="3" {% if '3' in vitals_list %} checked{% endif %}/>&nbsp;Temperature</div>
-						<div class="col-lg-2">
-						<input type="checkbox" name="vitals" value="4" {% if '4' in vitals_list %} checked{% endif %}/>&nbsp;Respiration rate</div>
-						<div class="col-lg-1">
-						<input type="checkbox" name="vitals" value="5" {% if '5' in vitals_list %} checked{% endif %}/>&nbsp;Pulse</div>
-						<div class="col-lg-2">
-						<input type="checkbox" name="vitals" value="6" {% if '6' in vitals_list %} checked{% endif %}/>&nbsp;Pulse Oximetry</div>
-						<div class="col-lg-2">
-                        <button type="submit" class="btn btn-primary btn-sm">&nbsp;Filter</button></div>
-						</div>
+        <div class="row">
+        <div class="col-lg-1">
+                        <label><input type="checkbox" name="vitals" value="pain" class="filterChkBox" checked="checked">&nbsp;Pain</label> </div>
+            <div class="col-lg-2">
+                        <label><input type="checkbox" name="vitals" value="bp" class="filterChkBox" checked="checked"/>&nbsp;Blood Pressure</label></div>
+            <div class="col-lg-2">
+                       <label> <input type="checkbox" name="vitals" value="temp" class="filterChkBox" checked="checked"/>&nbsp;Temperature</label></div>
+            <div class="col-lg-2">
+            <label><input type="checkbox" name="vitals" value="rr" class="filterChkBox" checked="checked"/>&nbsp;Respiration rate</label></div>
+            <div class="col-lg-1">
+            <label><input type="checkbox" name="vitals" value="pulse" class="filterChkBox" checked="checked"/>&nbsp;Pulse</label></div>
+            <div class="col-lg-2">
+            <label><input type="checkbox" name="vitals" value="pulseOx" class="filterChkBox" checked="checked"/>&nbsp;Pulse Oximetry</label></div>
+            <!--<div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary btn-sm">&nbsp;Show</button></div>
+            </div>-->
         </fieldset>
-	</form>
-	To view detailed information, place the pointer in respective position.
-	</div>
+  </form>
+  To view detailed information, place the pointer in respective position.
+  </div>
       </div>
 	  <br/>
 	  </div>
@@ -131,10 +131,11 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
 	  {% endif %}
 	  {% if '2' in vitals_list %}
 	  
-	  
+	  <div id="BPchart">
 	  <div id="bpchart" class="col-lg-6">
 	  Blood Pressure 
 	  </div>
+    </div>
 	  {% endif %}
     
 	
@@ -378,8 +379,6 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
 </div> <!-- /container -->
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 <script src="/static/js/circularHeatChart.js"></script>
 <script src="/static/js/legend.js"></script>
 <script src="http://d3js.org/colorbrewer.v1.min.js"></script>

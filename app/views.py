@@ -87,6 +87,9 @@ def showVitals():
         ppath1 = session['onepp']
         ppath2 = session['twopp']
 
+        pname1 = ppath1.split('/')[2]
+        pname2 = ppath2.split('/')[2]
+
         patient_id = session['multiple_ids'][0]
 
         plan_results1 = {}
@@ -118,7 +121,7 @@ def showVitals():
         db.close()
 
         return render_template('show_two.html', body_system = body_system,
-                               ppath1 = ppath1, ppath2=ppath2,
+                               ppath1 = ppath1, ppath2=ppath2,pname1=pname1,pname2=pname2,
                                plan_results1 = plan_results1,plan_results2 = plan_results2)
     else:
         global patient_id_single_page

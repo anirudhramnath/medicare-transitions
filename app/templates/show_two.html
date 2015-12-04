@@ -365,7 +365,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button> -->
     {% endif %}
   </div>
   <div class="text-center">
-    <form method="POST" action="/createsummary">
+    <form method="POST" action="/createsummary" onsubmit="return showConfirm();">
       <input type="hidden" name="patient_id" value="0" />
       <input type="submit" class='btn btn-primary' value="Create Summary"></input>
     </form>
@@ -787,7 +787,7 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button> -->
 
   </div>
   <div class="text-center">
-    <form method="POST" action="/createsummary">
+    <form method="POST" action="/createsummary" onsubmit="return showConfirm();">
       <input type="hidden" name="patient_id" value="1" />
       <input type="submit" class='btn btn-primary' value="Create Summary"></input>
     </form>
@@ -798,6 +798,13 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button> -->
 <script src="/static/js/circularHeatChart.js"></script>
 <script src="/static/js/legend.js"></script>
 <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script type="text/javascript">
+  function showConfirm(){
+
+    confirm ("Summary is created. Please check Summary Created time.");
+    return true;
+}
+  </script>
 <script>
 
 /* Pain score with random data 1 */

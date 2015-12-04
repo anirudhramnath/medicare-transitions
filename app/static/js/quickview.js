@@ -35,15 +35,15 @@ var treeData1 = [
                             "parent": "Medications",
                           },
                           {
-                            "name": "ASA 21mg",
+                            "name": "Edomine 250mg",
                             "parent": "Medications",
                           },
                           {
-                            "name": "Doarone 200mg",
+                            "name": "Doarone 20mg",
                             "parent": "Medications",
                           },
                           {
-                            "name": "Metoprolol 12.5mg 9/2h",
+                            "name": "Metoprolol 13mg 10/2h",
                             "parent": "Medications",
                           }
                           ]
@@ -73,19 +73,19 @@ var treeData1 = [
                             "parent": "Pulmonary",
                             "children":[
                           {
-                            "name": "Aminodarone 200mg",
+                            "name": "Amino 200mg",
                             "parent": "Medications",
                           },
                           {
-                            "name": "ASA 21mg",
+                            "name": "Ephly 2",
                             "parent": "Medications",
                           },
                           {
-                            "name": "Doarone 200mg",
+                            "name": "Doarone 20mg",
                             "parent": "Medications",
                           },
                           {
-                            "name": "Metoprolol 12.5mg 9/2h",
+                            "name": "Porolol 25mg 9/2h",
                             "parent": "Medications",
                           }
                           ]
@@ -115,11 +115,11 @@ var treeData1 = [
                             "parent": "Neurologic",
                             "children":[
                           {
-                            "name": "Aminodarone 200mg",
+                            "name": "Heltha 200mg",
                             "parent": "Medications",
                           },
                           {
-                            "name": "ASA 21mg",
+                            "name": "Asidopone 21mg",
                             "parent": "Medications",
                           },
                           {
@@ -127,7 +127,7 @@ var treeData1 = [
                             "parent": "Medications",
                           },
                           {
-                            "name": "Metoprolol 12.5mg 9/2h",
+                            "name": "Metlol 125mg 9/2h",
                             "parent": "Medications",
                           }
                           ]
@@ -167,7 +167,7 @@ var treeData2 = [
                     "parent": "Foo Bar",
                     "children": [
                      {
-                        "name": "Pain is high in knee",
+                        "name": "Severe abdominal gasterious",
                         "parent": "Problem List",
                       },
                       {

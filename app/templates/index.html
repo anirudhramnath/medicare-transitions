@@ -372,8 +372,8 @@ style="font-size: 1.5em;"></span>
     {% endif %}
 
     <div class="text-center">
-    <form method="POST" action="/createSummary">
-      <input type="submit" class='btn btn-primary' value="Create Summary"></input>
+    <form method="POST" action="/createSummary" onsubmit="return showConfirm();">
+      <input type="submit" class='btn btn-primary' value="Create Summary" ></input>
     </form>
     </div>
 
@@ -384,6 +384,13 @@ style="font-size: 1.5em;"></span>
 <script src="/static/js/circularHeatChart.js"></script>
 <script src="/static/js/legend.js"></script>
 <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script type="text/javascript">
+  function showConfirm(){
+
+    confirm ("Summary is created. Please check Summary Created time.");
+    return true;
+}
+  </script>
 <script type="text/javascript">
     function validate(){
 			 var checked = $("#frmFilter input:checked").length > 0;

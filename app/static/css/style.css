@@ -6,6 +6,9 @@
     width: 100%;
 }
 
+.bigtext {
+    font-size: large;
+}
 
 .bodySystemsPopover {
     position: fixed;

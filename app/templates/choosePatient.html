@@ -21,7 +21,7 @@
     </div>
     <hr/>
     <div class="row">
-	
+
         {% for image in patient_image %}
 		
             <div class="col-lg-2" data-name="{{ image[1] }}">
@@ -39,8 +39,8 @@
 			 <br/>
 			 <div class="patient_details" class="col-lg-1">
 
-			Name: {{ image[1] }}<br/>
-			ID : {{image[2]}}<br/>
+			Name: <span class="patientnamediv">{{ image[1] }}</span><br/>
+			ID : <span class="patientiddiv">{{image[2]}}</span><br/>
 			LOS : 1 day </br>
             {% if patient_summary.get(image[2]) != None %}
 			Summary created : Yes <br/>
@@ -51,10 +51,10 @@
             Summary created on : N/A <br/>
             {% endif %}
 			<br/>
-			<form action="/quickView" method="post">
-			Diagnosis : <button class="btn btn-xs btn-info">Quick View</button>
-		</form>
-		
+
+			Diagnosis : <button class="btn btn-xs btn-default quickViewBtn" 
+            data-toggle="modal" data-target="#myModal">Quick View</button>
+
 			</div>
 			</div>
 
@@ -62,7 +62,25 @@
 
     </div>
 </br>
-  
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script type="text/javascript">
@@ -71,8 +89,14 @@ $(document).ready(function(){
     $(".patient_img li").click(function(){
 			$(this).toggleClass('selected');
     });
-	
-    
+
+    $('.quickViewBtn').on('click',function(){
+        var patient_name = $(this).parent().find('.patientnamediv').text();
+        var patient_id = $(this).parent().find('.patientiddiv').text();
+        var file_path = "app/static/data/"+patient_name+"/quickview.json";
+
+        $('.modal-body').html('File path is : '+file_path);
+    });
 });
 
 </script>

@@ -3,11 +3,22 @@
 {% include 'header.html' %}
 
 <div class="container">
-<a href="/">Home</a>
 <div class="row" id="appTitle">
 <h2><strong>Interface for Medical Care Transitions</strong></h2>
 </div>
-    <h3> Choose Patient </h3>
+<hr/>
+    <div>
+    <div class="">
+    <p class="bigtext text-muted"> Choose patient(s) and click</p>
+    </div>
+    <form action="/bfilters/" method="post" onsubmit="return validate();">
+           <input id="patientList" type="hidden" name="alignment" value="" />
+           <input id="patientNams" type="hidden" name="pids" value="" />
+           <button class="btn btn-primary" id="viewPatients">
+              &nbsp;&nbsp;&nbsp; View Details&nbsp;&nbsp;&nbsp;
+    </button>
+        </form>
+    </div>
     <hr/>
     <div class="row">
 	
@@ -51,20 +62,8 @@
 
     </div>
 </br>
-    <div class="row">
-    	<div class="alignCenter col-lg-12">
-	<form action="/bfilters/" method="post" onsubmit="return validate();">
-           <input id="patientList" type="hidden" name="alignment" value="" />
-		   <input id="patientNams" type="hidden" name="pids" value="" />
-
-           <button class="btn btn-lg btn-large btn-primary" id="viewPatients">View</button>
-
-        </form>
-    </div>
-    </div>
+  
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript">
 

@@ -3,10 +3,21 @@
 {% include 'header.html' %}
 
 <div class="container-fluid">
-  <a href="/">Home</a>&nbsp; &gt; &nbsp;<a href="#">Body Systems</a>&nbsp; &gt; &nbsp;<a href="#">Analysis</a>
+<div class="bodySystemsPopover">
+<button class="btn btn-warning" data-toggle="popover"><span class="glyphicon glyphicon-chevron-right" 
+style="font-size: 1.5em;"></span>
+</button>
+</div>
+
+<ol class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="#">Body Systems</a></li>
+  <li class="active">Details</li>
+</ol>
+
 <br/>
-<button id="bckbutton" name="bckbutton" class="btn btn-primary btn-xs"
-style="float:left;" onclick="history.go(-1);return false;">Back</button>
+<!-- <button id="bckbutton" name="bckbutton" class="btn btn-primary btn-xs"
+style="float:left;" onclick="history.go(-1);return false;">Back</button> -->
 <div class="row" id="appTitle">
 <h2><strong>Interface for Medical Care Transitions</strong></h2>
 </div>
@@ -116,20 +127,21 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
     <form method="post">
         <fieldset>
                 <legend>Filter vitals</legend>
-                <div class="container-fluid">
-        
-        <div class="col-lg-3">
-                        <input type="checkbox" name="vitals" value="pain" class="filterChkBox" checked="checked" />&nbsp;Pain </div>
-            <div class="col-lg-3">
-                        <input type="checkbox" name="vitals" value="bp" class="filterChkBox" checked="checked"/>&nbsp;Blood Pressure</div>
-            <div class="col-lg-3">
-                        <input type="checkbox" name="vitals" value="temp" class="filterChkBox" checked="checked"/>&nbsp;Temperature</div>
-            <div class="col-lg-3">
-            <input type="checkbox" name="vitals" value="rr" class="filterChkBox" checked="checked"/>&nbsp;Respiration rate</div>
-            <div class="col-lg-3">
-            <input type="checkbox" name="vitals" value="pulse" class="filterChkBox" checked="checked"/>&nbsp;Pulse</div>
-            <div class="col-lg-3">
-            <input type="checkbox" name="vitals" value="pulseOx" class="filterChkBox" checked="checked"/>&nbsp;Pulse Oximetry</div>
+
+        <div class="row">
+        <div class="col-lg-1">
+                        <label><input type="checkbox" name="vitals" value="pain" class="filterChkBox" checked="checked" />&nbsp;Pain</label> </div>
+            <div class="col-lg-2">
+                        <label><input type="checkbox" name="vitals" value="bp" class="filterChkBox" checked="checked"/>&nbsp;Blood Pressure</label></div>
+            <div class="col-lg-2">
+                        <label><input type="checkbox" name="vitals" value="temp" class="filterChkBox" checked="checked"/>&nbsp;Temperature</label></div>
+            <div class="col-lg-2">
+            <label><input type="checkbox" name="vitals" value="rr" class="filterChkBox" checked="checked"/>&nbsp;Respiration rate</label></div>
+            <div class="col-lg-1">
+            <label><input type="checkbox" name="vitals" value="pulse" class="filterChkBox" checked="checked"/>&nbsp;Pulse</label></div>
+            <div class="col-lg-2">
+            <label><input type="checkbox" name="vitals" value="pulseOx" class="filterChkBox" checked="checked"/>&nbsp;Pulse Oximetry</label></div>
+
             <!--<div class="col-lg-2">
                         <button type="submit" class="btn btn-primary btn-sm">&nbsp;Show</button></div>-->
             
@@ -222,11 +234,13 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                <textarea rows="10" cols="15">Daily Interruption of Sedation
-*Contativan fentanyl for sedation while intubated
-*Will give sedation on holiday in attempt to extubate this morning
-*Geodon 10mg IV 9bh pm agitation
-                </textarea>
+                 <div style="color:blue">
+                  {% if plan_results1.get('neurologic')!= None %}
+                  {% for item in plan_results1.get('neurologic') %}
+                  &#x2022; {{item}}<br/>
+                  {% endfor %}
+                  {% endif %}
+                </div>
                 </p>
               </div>
           </div>
@@ -279,10 +293,13 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                <textarea rows="10" cols="15">*Metoprolol 12.5mg 9/2h
-*heparin gH for a fib
-*Goal: Net even -> lasix daily
-                </textarea>
+                <div style="color:blue">
+                  {% if plan_results1.get('cardiovascular')!= None %}
+                  {% for item in plan_results1.get('cardiovascular') %}
+                  &#x2022; {{item}}<br/>
+                  {% endfor %}
+                  {% endif %}
+                </div>
                 </p>
               </div>
           </div>
@@ -332,11 +349,13 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                  <textarea rows="15" cols="15">*Spontanoes breathing trial Wean Fio2 to keep sats >92%
-*steroids for COPD exacerbation
-*reubtubated due to Co2 retention
-*weaken steroids to 30mg
-</textarea>
+                <div style="color:blue">
+                  {% if plan_results1.get('pulmonary')!= None %}
+                  {% for item in plan_results1.get('pulmonary') %}
+                  &#x2022; {{item}}<br/>
+                  {% endfor %}
+                  {% endif %}
+                </div>
                 </p>
               </div>
           </div>
@@ -484,18 +503,20 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
         <fieldset>
                 <legend>Filter vitals</legend>
         <div class="row">
-        <div class="col-lg-3">
-                        <input type="checkbox" name="vitals" value="pain2" class="filterChkBox2" checked="checked" />&nbsp;Pain </div>
-            <div class="col-lg-3">
-                        <input type="checkbox" name="vitals" value="bp2" class="filterChkBox2" checked="checked"/>&nbsp;Blood Pressure</div>
-            <div class="col-lg-3">
-                        <input type="checkbox" name="vitals" value="temp2" class="filterChkBox2" checked="checked"/>&nbsp;Temperature</div>
-            <div class="col-lg-3">
-            <input type="checkbox" name="vitals" value="rr2" class="filterChkBox2" checked="checked"/>&nbsp;Respiration rate</div>
-            <div class="col-lg-3">
-            <input type="checkbox" name="vitals" value="pulse2" class="filterChkBox2" checked="checked"/>&nbsp;Pulse</div>
-            <div class="col-lg-3">
-            <input type="checkbox" name="vitals" value="pulseOx2" class="filterChkBox2" checked="checked"/>&nbsp;Pulse Oximetry</div>
+
+        <div class="col-lg-1">
+                        <label><input type="checkbox" name="vitals" value="pain2" class="filterChkBox2" checked="checked" />&nbsp;Pain</label> </div>
+            <div class="col-lg-2">
+                        <label><input type="checkbox" name="vitals" value="bp2" class="filterChkBox2" checked="checked"/>&nbsp;Blood Pressure</label></div>
+            <div class="col-lg-2">
+                        <label><input type="checkbox" name="vitals" value="temp2" class="filterChkBox2" checked="checked"/>&nbsp;Temperature</label></div>
+            <div class="col-lg-2">
+            <label><input type="checkbox" name="vitals" value="rr2" class="filterChkBox2" checked="checked"/>&nbsp;Respiration rate</label></div>
+            <div class="col-lg-1">
+            <label><input type="checkbox" name="vitals" value="pulse2" class="filterChkBox2" checked="checked"/>&nbsp;Pulse</label></div>
+            <div class="col-lg-2">
+            <label><input type="checkbox" name="vitals" value="pulseOx2" class="filterChkBox2" checked="checked"/>&nbsp;Pulse Oximetry</label></div>
+
             <!--<div class="col-lg-2">
                         <button type="submit" class="btn btn-primary btn-sm">&nbsp;Show</button></div>
             </div>-->
@@ -590,11 +611,13 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                <textarea rows="10" cols="15">Daily Interruption of Sedation
-*Contativan fentanyl for sedation while intubated
-*Will give sedation on holiday in attempt to extubate this morning
-*Geodon 10mg IV 9bh pm agitation
-                </textarea>
+                <div style="color:blue">
+                  {% if plan_results2.get('neurologic')!= None %}
+                  {% for item in plan_results2.get('neurologic') %}
+                  &#x2022; {{item}}<br/>
+                  {% endfor %}
+                  {% endif %}
+                </div>
                 </p>
               </div>
           </div>
@@ -647,10 +670,13 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                <textarea rows="10" cols="15">*Metoprolol 12.5mg 9/2h
-*heparin gH for a fib
-*Goal: Net even -> lasix daily
-                </textarea>
+                  <div style="color:blue">
+                  {% if plan_results2.get('cardiovascular')!= None %}
+                  {% for item in plan_results2.get('cardiovascular') %}
+                  &#x2022; {{item}}<br/>
+                  {% endfor %}
+                  {% endif %}
+                </div>
                 </p>
               </div>
           </div>
@@ -700,11 +726,13 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
               <p class=""><strong>Resident Plan</strong></p>
               <div class="text-justify">
                 <p>
-                  <textarea rows="15" cols="15">*Spontanoes breathing trial Wean Fio2 to keep sats >92%
-*steroids for COPD exacerbation
-*reubtubated due to Co2 retention
-*weaken steroids to 30mg
-</textarea>
+                <div style="color:blue">
+                  {% if plan_results2.get('pulmonary')!= None %}
+                  {% for item in plan_results2.get('pulmonary') %}
+                  &#x2022; {{item}}<br/>
+                  {% endfor %}
+                  {% endif %}
+                </div>
                 </p>
               </div>
           </div>
@@ -767,9 +795,6 @@ style="float:left;" onclick="history.go(-1);return false;">Back</button>
   </div>
 </div> <!-- /container -->
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 <script src="/static/js/circularHeatChart.js"></script>
 <script src="/static/js/legend.js"></script>
 <script src="http://d3js.org/colorbrewer.v1.min.js"></script>

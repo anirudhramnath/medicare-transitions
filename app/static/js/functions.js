@@ -1,4 +1,41 @@
 $(document).ready(function () {
+    $(".bodySystemsPopover button").popover({
+        title: 'Select Body Systems',
+        content: '<form class="form-horizontal" method="POST" action="/showVitals">'+
+        '<fieldset>'+
+        '<legend>Select Filters</legend>'+
+        '<div class="form-group">'+
+          '<label class="col-md-4 control-label" for="checkboxes">Body Systems</label>'+
+          '<div class="col-md-4">'+
+          '<div class="checkbox">'+
+            '<label for="checkboxes-0">'+
+              '<input type="checkbox" name="bodySystem" id="checkboxes-0" value="1">'+
+              'Neurologic'+
+            '</label>'+
+            '</div>'+
+          '<div class="checkbox">'+
+            '<label for="checkboxes-1">'+
+              '<input type="checkbox" name="bodySystem" id="checkboxes-1" value="2">'+
+              'Cardiovascular'+
+            '</label>'+
+            '</div>'+
+            '<div class="checkbox">'+
+              '<label for="checkboxes-2">'+
+                '<input type="checkbox" name="bodySystem" id="checkboxes-2" value="3">'+
+                'Pulmonary'+
+              '</label>'+
+            '</div>'+
+            '<br/>'+
+            '<div>'+
+              '<button id="singlebutton" name="singlebutton" class="btn btn-primary">Go</button>'+
+          '</div>'+
+          '</div>'+
+        '</div>'+
+        '</fieldset>'+
+        '<input id="vitalsLow" type="hidden" name="vitals" value="0" />'+
+        '</form>',
+        html: true
+    });
 
     $(".filterChkBox").click(function(){
 
@@ -135,7 +172,5 @@ $(document).ready(function () {
         setTimeout(function(){ spanElement.toggleClass('hide');}, 3000);
     });
 
-    $("#bodySystemsPopover a").popover({
-        title : 'Default Title Text'
-    });
+
 });

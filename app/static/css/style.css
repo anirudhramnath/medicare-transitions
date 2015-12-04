@@ -6,6 +6,18 @@
     width: 100%;
 }
 
+.bigtext {
+    font-size: large;
+}
+
+.bodySystemsPopover {
+    position: fixed;
+    width: 100%;
+    top:50%;
+    left: 0;
+    z-index: 100;
+}
+
 .navbar-brand a {
     color:#ececec;
 }

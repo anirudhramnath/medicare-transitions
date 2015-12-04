@@ -11,6 +11,10 @@ font-weight:bold;
 #appTitle{
 	text-align:center;
 }
+.alignCenter{
+	text-align:center;
+
+}
 /* Patient Image and Select */
 .patientThumb{
 	cursor:pointer;

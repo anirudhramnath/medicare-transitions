@@ -8,7 +8,7 @@ function circularHeatChart() {
     accessor = function(d) {return d;},
     radialLabels = segmentLabels = [];
 	sampleNumerical = [0,1,2,3,4,5];
-	sampleThreshold=d3.scale.threshold().domain(sampleNumerical).range(["#f1eef6","#d4b9da","#c994c7","#df65b0","#dd1c77","#980043"]);
+	sampleThreshold=d3.scale.threshold().domain(sampleNumerical).range(["#f1eef6","#dfbed2","#cd8fae","#bc5f8b","#aa3067","#980043"]);
 	horizontalLegend = d3.svg.legend().units("Score").cellWidth(40).cellHeight(25).inputScale(sampleThreshold).cellStepping(100);
   
     function chart(selection) {
@@ -65,7 +65,7 @@ function circularHeatChart() {
                 .append("text")
                 .append("textPath")
                 .attr("xlink:href", function(d, i) {return "#radial-label-path-"+id+"-"+i;})
-                .style("font-size", 0.4 * segmentHeight + 'px')
+                .style("font-size", 0.2 * segmentHeight + 'px')
                 .text(function(d) {return d;});
 
             //Segment labels

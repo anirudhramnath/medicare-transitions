@@ -1,6 +1,6 @@
 d3.svg.legend = function() {
     
-    var legendValues=[{color: "#f1eef6", stop: [0,1]},{color: "#d7b5d8", stop: [1,2]},{color: "#df65b0", stop: [2,3]},{color: "#dd1c77", stop: [3,4]},{color: "#980043", stop: [4,5]}];
+    var legendValues=[{color: "#f1eef6", stop: [0,1]},{color: "#ffffff", stop: [1,2]},{color: "#df65b0", stop: [2,3]},{color: "#dd1c77", stop: [3,4]},{color: "#980043", stop: [4,5]}];
     var legendScale;
     var cellWidth = 30;
     var cellHeight = 20;

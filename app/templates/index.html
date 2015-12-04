@@ -880,11 +880,7 @@ var marginP = {top: 30, right: 20, bottom: 30, left: 50},
 // Parse the date / time
 var parseDateP = d3.time.format("%d-%b-%y %I:%M%p").parse;
 
-//Get the Amount of alerts for tooltip
-var bisectDate = d3.bisector(function(d) {
-	return d.Time;
-}).left;
-		
+
 // Set the ranges
 var xP = d3.time.scale().range([0, widthP]);
 var yP = d3.scale.linear().range([heightP, 0]);
@@ -894,11 +890,10 @@ var xAxisP = d3.svg.axis().scale(xP)
 var yAxisP = d3.svg.axis().scale(yP)
     .orient("left").ticks(5);
 
-// Define area curve
-var areaP = d3.svg.area()
+// Define valueline
+var valuelineP = d3.svg.line()
     .x(function(d) { return xP(d.Time); })
-    .y0(heightP)
-    .y1(function(d) { return yP(d.PulseRate); });
+    .y(function(d) { return yP(d.PulseRate); });
 
 // Adds the svg canvas
 var svgP = d3.select("#pulsechart")
@@ -924,11 +919,12 @@ yP.domain([0, d3.max(dataP, function(d) { return d.PulseRate; })+20]);
 			
 // Add the valueline path.
 svgP.append("path")
-	.datum(dataP)
-	.attr("class", "area")
-	.style("fill","#c0c225")
-	.attr("d", areaP);	
-		
+  .attr("class", "lineO")
+  .style("stroke", "#c0c225")
+  .style("stroke-width",1)
+  .style("fill","none")
+  .attr("d", valuelineP(dataP));  
+
 // Add the X Axis
 svgP.append("g")
 	.attr("class", "x axis")
@@ -953,42 +949,7 @@ svgP.append("g")
   .style("text-anchor", "end")
   .text("Pulse rate");
   
-// Tooltip
-/*
-var focus = svgP.append("g")
-			.attr("class", "focus")
-			.style("display", "none");
-	focus.append("circle")
-                .attr("r", 4.5);
-	focus.append("text")
-                .attr("x", 9)
-                .attr("dy", ".35em");
-	svgP.append("rect")
-                .attr("class", "overlay")
-                .attr("width", widthP)
-                .attr("height", heightP)
-                .on("mouseover", function() {
-					
-                    focus.style("display", null);
-                })
-                .on("mouseout", function() {
-                    focus.style("display", "none");
-                })
-                .on("mousemove", mousemove);
-	
-	function mousemove() {
-                var x0 = xP.invert(event.pageX),
-                    i = bisectDate(dataP, x0, 1),				
-                    d0 = dataP[i - 1],
-                   d1 = dataP[i-],
-                   d = x0 - xP(d0.Time) > xP(d1.Time) - x0 ? d1 : d0; 
-				console.log(d);
-				console.log(xP(d.Time) + "," + yP(d.PulseRate) + " - "+ event.clientX);
-                focus.attr("transform", "translate(" + xP(d.Time) + "," + yP(d.PulseRate) + ")");
-                focus.select("text").text((d.PulseRate) + ' at ' + parseDateP(d.Time));
-            }
-
-	*/			
+		
 });  
 
 /* Pulse chart end */

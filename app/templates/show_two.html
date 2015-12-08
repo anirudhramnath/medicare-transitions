@@ -973,7 +973,6 @@ var svg = d3.select("#bpchart")
 var sbpFlag = 0;
 var dbpFlag = 0;
 d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
-data.forEach(function(d){
     data.forEach(function(d){
           if( parseInt(d.DiastolicBP) < 30)
             dbpFlag = 1;
@@ -2249,7 +2248,35 @@ var svgO2 = d3.select("#poxchart2")
     .append("g")
         .attr("transform","translate(" + marginO2.left + "," + marginO2.top + ")");
 
-        
+//Clinician Alert function
+var poxFlag2 = 0;
+var alerMessage2 = [];
+d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.PulseOx) > 85)
+        poxFlag2 = 1;
+      if( parseInt(d.PulseOx) <= 70)
+        poxFlag2 = 1;
+    });
+
+    if (sbpFlag2 == 1) 
+      alerMessage.push("SystolicBP");
+    if (dbpFlag2 == 1)
+      alerMessage.push("DiastolicBP");
+    if (tempFlag2 == 1)
+      alerMessage.push("Temperature");
+    if (repFlag2 == 1)
+      alerMessage.push("Respiration");
+    if (pulseFlag2 == 1)
+      alerMessage.push("Pulse");
+    if (poxFlag2 == 1)
+      alerMessage2.push("Pulse Oximetry");
+
+    alert("Need attention on below Vitals for Patient 2:" + "\n"+alerMessage2);
+});
+
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, dataO2) {
     dataO2.forEach(function(d) {

@@ -23,14 +23,14 @@
       </form>
   </div>
   <div class="col-lg-6">
-    
+
         <form id="sortFunc" action="/sortPatients/" method="post">
           <select name="sortBy">
           <option value="1">Patient ID</option>
           <option value="2">LOS</option>
           <option value="3">Bed #</option>
           </select>
-           <button class="btn btn-primary" id="sortPatients">
+           <button class="" id="sortPatients">
               &nbsp;&nbsp;&nbsp; Sort Patients&nbsp;&nbsp;&nbsp;
     </button>
         </form>
@@ -44,13 +44,13 @@
     <div class="row">
 
         {% for image in patient_image %}
-		
+
             <div class="col-lg-2" data-name="{{ image[1] }}">
 				<div class="patient_img" class="col-lg-1">
 				<li class="border">
 				<input type="hidden" class="hiddenNam" value="{{image[0]}}" />
 				<input type="hidden" class="hiddenId" value="{{image[2]}}" />
-			 <img src="{{ image[0] }}" class="patientThumb"/> 
+			 <img src="{{ image[0] }}" class="patientThumb"/>
 			 <span>
 			 <img src = "../static/images/symbol-check-icon.png"/>
 			 </span>
@@ -73,7 +73,7 @@
             {% endif %}
 			<br/>
 
-			Diagnosis : <button class="btn btn-xs btn-default quickViewBtn" 
+			Diagnosis : <button class="btn btn-xs btn-default quickViewBtn"
             data-toggle="modal" data-target="#myModal">Quick View</button>
 
 			</div>
@@ -125,7 +125,7 @@ $(document).ready(function(){
             var margin = {top: 20, right: 20, bottom: 20, left: 80},
               width = 960 - margin.right - margin.left,
               height = 600 - margin.top - margin.bottom;
-              
+
             var i = 0,
               duration = 750,
               root;
@@ -157,10 +157,10 @@ $(document).ready(function(){
             else{
               root = treeData4[0];
             }
-            
+
             root.x0 = height / 2;
             root.y0 = 0;
-              
+
             update(root);
 
             d3.select(self.frameElement).style("height", "500px");

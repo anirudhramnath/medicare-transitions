@@ -152,7 +152,7 @@ def showVitals():
     if num_patients > 1:
         ppath1 = session['onepp']
         ppath2 = session['twopp']
-        print 'Path p1',ppath1
+
         pname1 = ppath1.split('/')[3]
         pname2 = ppath2.split('/')[3]
 
@@ -210,7 +210,7 @@ def showVitals():
         ppath = session['onepp']
         print '########',ppath
         return render_template('index.html', body_system = body_system, vitals_list = vitals_list,
-            plan_results = plan_results,ppath = ppath)
+            plan_results = plan_results,ppath = ppath, pname=ppath.split("/")[3])
 
 @app.route('/updateResidentPlan',methods=['POST'])
 def updateResidentPlan():

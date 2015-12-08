@@ -13,7 +13,7 @@ var treeData1 = [
                       },
                       {
                         "name": "Kidney pain",
-                        "parent": "Problem List", 
+                        "parent": "Problem List",
                       }
                       ]
                      },
@@ -22,48 +22,6 @@ var treeData1 = [
                     "name": "Body Systems",
                     "parent": "Deora Baes",
                     "children": [
-                     {
-                        "name": "Cardiovascular",
-                        "parent": "Deora Baes",
-                        "children": [
-                          {
-                          "name": "Medications",
-                          "parent": "Cardiovascular",
-                          "children":[
-                          {
-                            "name": "Aminodarone 200mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "Edomine 250mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "Doarone 20mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "Metoprolol 13mg 10/2h",
-                            "parent": "Medications",
-                          }
-                          ]
-                         },
-                        {
-                          "name": "Problems",
-                          "parent": "Cardiovascular",
-                          "children":[
-                          {
-                            "name":"acture pain moment aided",
-                            "parent":"Problems"
-                          },
-                          {
-                            "name":"pumping on boold level",
-                            "parent":"Problems"
-                          }
-                          ]
-                        }
-                      ]
-                      },
                       {
                         "name": "Pulmonary",
                         "parent": "Deora Baes",
@@ -149,9 +107,9 @@ var treeData1 = [
                         ]
                        }
                        ]
-                       }  
-                      
-                      
+                       }
+
+
                 ]
               }
             ];
@@ -172,7 +130,7 @@ var treeData2 = [
                       },
                       {
                         "name": "Kidney pain",
-                        "parent": "Problem List", 
+                        "parent": "Problem List",
                       }
                       ]
                      },
@@ -223,48 +181,6 @@ var treeData2 = [
                         }
                       ]
                       },
-                      {
-                        "name": "Pulmonary",
-                        "parent": "Foo Bar",
-                        "children": [
-                          {
-                            "name": "Medications",
-                            "parent": "Pulmonary",
-                            "children":[
-                          {
-                            "name": "Aminodarone 200mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "ASA 21mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "Doarone 200mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "Metoprolol 12.5mg 9/2h",
-                            "parent": "Medications",
-                          }
-                          ]
-                          },
-                          {
-                            "name": "Problems",
-                            "parent": "Pulmonary",
-                             "children":[
-                          {
-                            "name":"acture pain moment aided",
-                            "parent":"Problems"
-                          },
-                          {
-                            "name":"pumping on boold level",
-                            "parent":"Problems"
-                          }
-                          ]
-                          }
-                        ]
-                      },
                        {
                         "name": "Neurologic",
                         "parent": "Foo Bar",
@@ -308,12 +224,12 @@ var treeData2 = [
                         ]
                        }
                        ]
-                       }  
-                      
-                      
+                       }
+
+
                 ]
               }
-            ];            
+            ];
 
 //Data 3
 var treeData3 = [
@@ -331,7 +247,7 @@ var treeData3 = [
                       },
                       {
                         "name": "Kidney pain",
-                        "parent": "Problem List", 
+                        "parent": "Problem List",
                       }
                       ]
                      },
@@ -423,56 +339,14 @@ var treeData3 = [
                           ]
                           }
                         ]
-                      },
-                       {
-                        "name": "Neurologic",
-                        "parent": "John Doe",
-                        "children": [
-                          {
-                            "name": "Medications",
-                            "parent": "Neurologic",
-                            "children":[
-                          {
-                            "name": "Aminodarone 200mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "ASA 21mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "Doarone 200mg",
-                            "parent": "Medications",
-                          },
-                          {
-                            "name": "Metoprolol 12.5mg 9/2h",
-                            "parent": "Medications",
-                          }
-                          ]
-                          },
-                          {
-                            "name": "Problems",
-                            "parent": "Neurologic",
-                             "children":[
-                          {
-                            "name":"acture pain moment aided",
-                            "parent":"Problems"
-                          },
-                          {
-                            "name":"pumping on boold level",
-                            "parent":"Problems"
-                          }
-                          ]
-                          }
-                        ]
-                       }
+                      }
                        ]
-                       }  
-                      
-                      
+                       }
+
+
                 ]
               }
-            ];     
+            ];
 
 // Data 4
 var treeData4 = [
@@ -490,7 +364,7 @@ var treeData4 = [
                       },
                       {
                         "name": "Kidney pain",
-                        "parent": "Problem List", 
+                        "parent": "Problem List",
                       }
                       ]
                      },
@@ -626,9 +500,9 @@ var treeData4 = [
                         ]
                        }
                        ]
-                       }  
-                      
-                      
+                       }
+
+
                 ]
               }
-            ];                                  
+            ];

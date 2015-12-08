@@ -4,6 +4,7 @@ from flask import request
 import os, json
 import MySQLdb
 from flask import Flask, session, redirect, url_for
+from collections import OrderedDict
 
 PATH_TO_DATA = os.getcwd()+'/app/static/data'
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
@@ -11,15 +12,54 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 num_patients = 0
 patient_id_single_page = 1
 
+@app.route('/sortPatients/',methods=['POST'])
+def sortPatients():
+    
+    patient_image = []
+    patient_summary = {}
+    patient_image = session['patient_image']
+
+    print patient_image
+    print '\n'
+    btemp = []
+    for i in patient_image:
+        btemp.append(int(i[2]))
+
+    patient_image = sorted(patient_image, key=lambda tup: tup[2])
+
+    atemp = []
+    for i in patient_image:
+        atemp.append(int(i[2]))
+
+    print btemp, atemp
+    print "After $$$$$$$$$"
+    print patient_image
+    print '\n'
+
+    temp_summary = dict(session['patient_summary'])
+    patient_summary = {}
+    for key, value in temp_summary.iteritems():
+        patient_summary[int(key)] = value
+    print patient_summary
+    print '\n'
+    print patient_summary
+    print '\n'
+
+    return render_template('choosePatient.html', patient_image=patient_image,
+        patient_summary=patient_summary)
+
 @app.route('/')
 def index():
     patient_image = []
     patient_summary = {}
-    id = 1
+    id = 4
+    los = 0
     patients = os.listdir(PATH_TO_DATA)
     for patient in patients:
-        patient_image.append( ('static/data/'+patient+'/image.png', patient,id) )
-        id+=1
+        los = random.random(1,3)
+        print los
+        patient_image.append( ('../static/data/'+patient+'/image.png', patient,id,los) )
+        id-=1
 
     db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
     cursor = db.cursor()
@@ -31,6 +71,11 @@ def index():
 
     db.close()
 
+    session['patient_image'] = patient_image
+    session['patient_summary'] = patient_summary
+    print '\n'
+    print patient_summary
+    print '\n'
     return render_template('choosePatient.html', patient_image=patient_image,
         patient_summary=patient_summary)
 

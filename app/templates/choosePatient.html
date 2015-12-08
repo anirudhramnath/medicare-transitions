@@ -11,13 +11,32 @@
     <div class="">
     <p class="bigtext text-muted"> Choose patient(s) and click</p>
     </div>
+    <div class="row">
+
+    <div class="col-lg-6">
     <form action="/bfilters/" method="post" onsubmit="return validate();">
            <input id="patientList" type="hidden" name="alignment" value="" />
            <input id="patientNams" type="hidden" name="pids" value="" />
            <button class="btn btn-primary" id="viewPatients">
               &nbsp;&nbsp;&nbsp; View Details&nbsp;&nbsp;&nbsp;
     </button>
+      </form>
+  </div>
+  <div class="col-lg-6">
+        <form action="/sortPatients/" method="post">
+          <select name="sortBy">
+          <option value="1">Patient ID</option>
+          <option value="2">LOS</option>
+          <option value="3">Bed #</option>
+          </select>
+           <button class="btn btn-primary" id="sortPatients">
+              &nbsp;&nbsp;&nbsp; Sort Patients&nbsp;&nbsp;&nbsp;
+    </button>
         </form>
+      </div>
+    </div>
+
+
     </div>
     <hr/>
     <div class="row">
@@ -38,7 +57,6 @@
 			 <br/>
 			 <br/>
 			 <div class="patient_details" class="col-lg-1">
-
 			Name: <span class="patientnamediv">{{ image[1] }}</span><br/>
 			ID : <span class="patientiddiv">{{image[2]}}</span><br/>
 			LOS : 1 day </br>

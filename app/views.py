@@ -170,6 +170,34 @@ def updateResidentPlan():
 
     return json.dumps({'status':'OK'})
 
+@app.route('/updateResidentPlanTwo',methods=['POST'])
+def updateResidentPlanTwo():
+
+    id1, id2 = session['multiple_ids'][0], session['multiple_ids'][1]
+
+    new_plan = request.form['residentplan']
+    body_system = request.form['body_system']
+    patientNum = request.form['patientNum']
+    new_plan = '^'.join(new_plan.split("\n"))
+
+    patient_id = id1 if patientNum == '1' else id2
+
+    db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
+
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+
+    q = "UPDATE body_systems set plan1='%s' WHERE body_system='%s' AND patient_id='%s'" % (
+        new_plan, body_system, patient_id)
+    print "Query: %s " %(q)
+    cursor.execute(q)
+    db.commit()
+
+    # disconnect from server
+    db.close()
+
+    return json.dumps({'status':'OK'})
+
 @app.route('/createSummary',methods=['POST'])
 def createSummary():
     global patient_id_single_page

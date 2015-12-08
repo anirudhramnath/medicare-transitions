@@ -144,30 +144,76 @@ $(document).ready(function () {
     });
 
     $(".pulmonaryUpdate").click(function(){
-        $.post( "/updateResidentPlan", { residentplan: $('.pulmonaryplan').val(),
-            body_system: 'pulmonary' })
-          .done(function( data ) {
-          });
+        var patientNum = $(this).parent().find(".patientNumber").val();
+        console.log("inside pulmonaryUpdate. patientNum is "+patientNum);
+        console.log($(this).parent().find('.pulmonaryplan').val());
+        if(patientNum === undefined)
+        {
+            $.post( "/updateResidentPlan", { residentplan: $('.pulmonaryplan').val(),
+                body_system: 'pulmonary' })
+              .done(function( data ) {
+            });
+        }
+        else {
+            $.post( "/updateResidentPlanTwo", {
+                residentplan: $(this).parent().find('.pulmonaryplan').val(),
+                patientNum: patientNum,
+                body_system: 'pulmonary'
+            })
+              .done(function( data ) {
+                console.log(data);
+            });
+        }
         var spanElement = $(this).parent().find('span');
         spanElement.toggleClass('hide');
         setTimeout(function(){ spanElement.toggleClass('hide');}, 3000);
     });
 
     $(".cardiovascularUpdate").click(function(){
-        $.post( "/updateResidentPlan", { residentplan: $('.cardiovascularplan').val(),
-            body_system: 'cardiovascular' })
-          .done(function( data ) {
-          });
+        var patientNum = $(this).parent().find(".patientNumber").val();
+        console.log("inside cardiovascularUpdate. patientNum is "+patientNum);
+        if(patientNum === undefined)
+        {
+            $.post( "/updateResidentPlan", { residentplan: $('.cardiovascularplan').val(),
+                body_system: 'cardiovascular' })
+              .done(function( data ) {
+              });
+        }
+        else {
+            $.post( "/updateResidentPlanTwo", { 
+                residentplan: $(this).parent().find('.cardiovascularplan').val(),
+                patientNum: patientNum,
+                body_system: 'cardiovascular' })
+              .done(function( data ) {
+              });
+        }
         var spanElement = $(this).parent().find('span');
         spanElement.toggleClass('hide');
         setTimeout(function(){ spanElement.toggleClass('hide');}, 3000);
     });
     $(".neurologicUpdate").click(function(){
-        $.post( "/updateResidentPlan", { residentplan: $('.neurologicplan').val(),
-            body_system: 'neurologic' })
-          .done(function( data ) {
-          });
-          var spanElement = $(this).parent().find('span');
+
+        var patientNum = $(this).parent().find(".patientNumber").val();
+        console.log("inside neurologicUpdate. patientNum is "+patientNum);
+        if(patientNum === undefined)
+        {
+            $.post( "/updateResidentPlan", { 
+                residentplan: $('.neurologicplan').val(),
+                body_system: 'neurologic' })
+              .done(function( data ) {
+                console.log(data);
+              });
+        }
+        else {
+            $.post( "/updateResidentPlanTwo", { 
+                residentplan: $(this).parent().find('.neurologicplan').val(),
+                 patientNum: patientNum,
+                body_system: 'neurologic' })
+              .done(function( data ) {
+                console.log(data);
+              });
+        }
+        var spanElement = $(this).parent().find('span');
         spanElement.toggleClass('hide');
         setTimeout(function(){ spanElement.toggleClass('hide');}, 3000);
     });

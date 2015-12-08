@@ -30,8 +30,8 @@
           <option value="2">LOS</option>
           <option value="3">Bed #</option>
           </select>
-           <button class="" id="sortPatients">
-              &nbsp;&nbsp;&nbsp; Sort Patients&nbsp;&nbsp;&nbsp;
+           <button class="btn btn-primary" id="sortPatients">
+              &nbsp;&nbsp; Sort Patients&nbsp;&nbsp;
     </button>
         </form>
 
@@ -57,7 +57,6 @@
 			 </li>
 			 </div>
 			 <br/>
-			 <br/>
 			 <div class="patient_details" class="col-lg-1">
 			Name: <span class="patientnamediv">{{ image[1] }}</span><br/>
 			ID : <span class="patientiddiv">{{image[2]}}</span><br/>
@@ -71,11 +70,12 @@
             Summary created : No <br/>
             Summary created on : N/A <br/>
             {% endif %}
-			<br/>
 
 			Diagnosis : <button class="btn btn-xs btn-default quickViewBtn"
             data-toggle="modal" data-target="#myModal">Quick View</button>
-
+      <br/>
+      <br/>
+      <br/>
 			</div>
 			</div>
 
@@ -154,8 +154,23 @@ $(document).ready(function(){
             else if(patient_id == "3"){
               root = treeData3[0];
             }
-            else{
+            else if(patient_id == "4"){
               root = treeData4[0];
+            }
+            else if(patient_id == "5"){
+              root = treeData5[0];
+            }
+            else if(patient_id == "6"){
+              root = treeData6[0];
+            }
+            else if(patient_id == "7"){
+              root = treeData7[0];
+            }
+            else if(patient_id == "8"){
+              root = treeData8[0];
+            }
+            else{
+              root = treeData9[0];
             }
 
             root.x0 = height / 2;

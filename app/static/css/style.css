@@ -1,3 +1,6 @@
+#sortFunc{
+	float: right;
+}
 /* Tree */
 .node {
 	cursor: pointer;

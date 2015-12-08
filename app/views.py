@@ -15,9 +15,10 @@ patient_id_single_page = 1
 
 @app.route('/sortPatients/',methods=['POST'])
 def sortPatients():
-    
+    sortBy = request.form['sortBy']
+
+
     patient_image = []
-    patient_summary = {}
     patient_image = session['patient_image']
 
     print patient_image
@@ -26,13 +27,27 @@ def sortPatients():
     for i in patient_image:
         btemp.append(int(i[2]))
 
-    patient_image = sorted(patient_image, key=lambda tup: tup[2])
+    if int(sortBy) == 1:
+        patient_image = sorted(patient_image, key=lambda tup: tup[2])
+    elif int(sortBy) == 2:
+        patient_image = sorted(patient_image, key=lambda tup: tup[3])
+    else:
+        patient_image = sorted(patient_image, key=lambda tup: tup[4])
 
     atemp = []
     for i in patient_image:
         atemp.append(int(i[2]))
 
     print btemp, atemp
+    diffCount = sum(i != j for i, j in zip(btemp, atemp))
+    if diffCount == 0:
+        if int(sortBy) == 1:
+            patient_image = sorted(patient_image, key=lambda tup: tup[2],reverse=True)
+        elif int(sortBy) == 2:
+            patient_image = sorted(patient_image, key=lambda tup: tup[3],reverse=True)
+        else:
+            patient_image = sorted(patient_image, key=lambda tup: tup[4],reverse=True)
+
     print "After $$$$$$$$$"
     print patient_image
     print '\n'
@@ -46,6 +61,9 @@ def sortPatients():
     print patient_summary
     print '\n'
 
+    session['patient_image'] = patient_image
+    session['patient_summary'] = patient_summary
+
     return render_template('choosePatient.html', patient_image=patient_image,
         patient_summary=patient_summary)
 
@@ -53,14 +71,16 @@ def sortPatients():
 def index():
     patient_image = []
     patient_summary = {}
-    id = 4
+    id = 1
     los = 0
+    bedNo = 0
     patients = os.listdir(PATH_TO_DATA)
     for patient in patients:
         los = random.randrange(1,3)
+        bedNo = random.randrange(100,300)
         print los
-        patient_image.append( ('../static/data/'+patient+'/image.png', patient,id,los) )
-        id-=1
+        patient_image.append( ('../static/data/'+patient+'/image.png', patient,id,los,bedNo) )
+        id+=1
 
     db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
     cursor = db.cursor()

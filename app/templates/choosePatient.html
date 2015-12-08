@@ -23,7 +23,8 @@
       </form>
   </div>
   <div class="col-lg-6">
-        <form action="/sortPatients/" method="post">
+    
+        <form id="sortFunc" action="/sortPatients/" method="post">
           <select name="sortBy">
           <option value="1">Patient ID</option>
           <option value="2">LOS</option>
@@ -33,6 +34,7 @@
               &nbsp;&nbsp;&nbsp; Sort Patients&nbsp;&nbsp;&nbsp;
     </button>
         </form>
+
       </div>
     </div>
 
@@ -59,7 +61,8 @@
 			 <div class="patient_details" class="col-lg-1">
 			Name: <span class="patientnamediv">{{ image[1] }}</span><br/>
 			ID : <span class="patientiddiv">{{image[2]}}</span><br/>
-			LOS : 1 day </br>
+			LOS : {{image[3]}} day </br>
+      Bed # : {{image[4]}}</br>
             {% if patient_summary.get(image[2]) != None %}
 			Summary created : Yes <br/>
 			Summary created on : {{patient_summary.get(image[2])}} <br/>

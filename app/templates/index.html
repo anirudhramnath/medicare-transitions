@@ -31,7 +31,7 @@ style="font-size: 1.5em;"></span>
 		</div>
 		<div class="col-lg-8">
 		<div class="row">
-		<div class="pdtlsText col-lg-3"><span class="text-primary">Name:</span> John Doe</div>
+		<div class="pdtlsText col-lg-3"><span class="text-primary">Name:</span> {{pname}}</div>
           <div class="pdtlsText col-lg-3"><span class="text-primary">Age:</span> 35</div>
           <div class="pdtlsText col-lg-3"><span class="text-primary">Gender:</span> Male</div>
           <div class="pdtlsText col-lg-3"><span class="text-primary">Code Status:</span> WF</div>
@@ -507,14 +507,17 @@ var svg = d3.select("#bpchart")
     .append("g")
         .attr("transform", 
               "translate(" + margin.left + "," + margin.top + ")");
-        //Clinician Alert function
+//Clinician Alert function
+var sbpFlag = 0;
+var dbpFlag = 0;
 d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
+
 data.forEach(function(d){
       if( parseInt(d.DiastolicBP) < 30)
-        alert("Diastolic BP is low : " + d.DiastolicBP);
+        dbpFlag = 1;
 
       if( parseInt(d.SystolicBP) > 120)
-        alert("Systolic BP is high : " + d.SystolicBP);
+        sbpFlag = 1;
     });
     
 });
@@ -707,6 +710,19 @@ var svgT = d3.select("#tempchart")
     .append("g")
         .attr("transform", 
               "translate(" + marginT.left + "," + marginT.top + ")");
+//Clinician Alert function
+var tempFlag = 0;
+d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.Temperature) > 40)
+        tempFlag = 1;
+      if( parseInt(d.Temperature) <= 30)
+        tempFlag = 1;
+    });
+
+});
+
 
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT) {
@@ -847,7 +863,20 @@ var svgR = d3.select("#respchart")
         .attr("height", heightR + marginR.top + marginR.bottom)
     .append("g")
         .attr("transform","translate(" + marginR.left + "," + marginR.top + ")");
-		
+
+//Clinician Alert function
+var repFlag = 0;
+d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.RespRate) > 30)
+        repFlag = 1;
+      if( parseInt(d.RespRate) <= 19)
+        repFlag = 1;
+    });
+    
+});
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, dataR) {
     dataR.forEach(function(d) {
@@ -923,6 +952,20 @@ var svgP = d3.select("#pulsechart")
         .attr("height", heightP + marginP.top + marginP.bottom)
     .append("g")
         .attr("transform","translate(" + marginP.left + "," + marginP.top + ")");
+//Clinician Alert function
+var pulseFlag = 0;
+d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.PulseRate) > 81)
+        pulseFlag = 1;
+      if( parseInt(d.PulseRate) <= 71)
+        pulseFlag = 1;
+    });
+    
+});
+
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, dataP) {
 	if (error) throw error;
@@ -1003,6 +1046,36 @@ var svgO = d3.select("#poxchart")
         .attr("height", heightO + marginO.top + marginO.bottom)
     .append("g")
         .attr("transform","translate(" + marginO.left + "," + marginO.top + ")");
+
+//Clinician Alert function
+var poxFlag = 0;
+var alerMessage = [];
+d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.PulseOx) > 85)
+        poxFlag = 1;
+      if( parseInt(d.PulseOx) <= 70)
+        poxFlag = 1;
+    });
+
+    if (sbpFlag == 1) 
+      alerMessage.push("SystolicBP");
+    if (dbpFlag == 1)
+      alerMessage.push("DiastolicBP");
+    if (tempFlag == 1)
+      alerMessage.push("Temperature");
+    if (repFlag == 1)
+      alerMessage.push("Respiration");
+    if (pulseFlag == 1)
+      alerMessage.push("Pulse");
+    if (poxFlag == 1)
+      alerMessage.push("Pulse Oximetry");
+
+    alert("Need attention on below Vitals :" + "\n"+alerMessage);
+});
+
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, dataO) {
     dataO.forEach(function(d) {

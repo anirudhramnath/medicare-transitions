@@ -4,6 +4,8 @@ from flask import request
 import os, json
 import MySQLdb
 from flask import Flask, session, redirect, url_for
+from collections import OrderedDict
+import random
 
 PATH_TO_DATA = os.getcwd()+'/app/static/data'
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
@@ -11,14 +13,73 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 num_patients = 0
 patient_id_single_page = 1
 
+@app.route('/sortPatients/',methods=['POST'])
+def sortPatients():
+    sortBy = request.form['sortBy']
+
+
+    patient_image = []
+    patient_image = session['patient_image']
+
+    print patient_image
+    print '\n'
+    btemp = []
+    for i in patient_image:
+        btemp.append(int(i[2]))
+
+    if int(sortBy) == 1:
+        patient_image = sorted(patient_image, key=lambda tup: tup[2])
+    elif int(sortBy) == 2:
+        patient_image = sorted(patient_image, key=lambda tup: tup[3])
+    else:
+        patient_image = sorted(patient_image, key=lambda tup: tup[4])
+
+    atemp = []
+    for i in patient_image:
+        atemp.append(int(i[2]))
+
+    print btemp, atemp
+    diffCount = sum(i != j for i, j in zip(btemp, atemp))
+    if diffCount == 0:
+        if int(sortBy) == 1:
+            patient_image = sorted(patient_image, key=lambda tup: tup[2],reverse=True)
+        elif int(sortBy) == 2:
+            patient_image = sorted(patient_image, key=lambda tup: tup[3],reverse=True)
+        else:
+            patient_image = sorted(patient_image, key=lambda tup: tup[4],reverse=True)
+
+    print "After $$$$$$$$$"
+    print patient_image
+    print '\n'
+
+    temp_summary = dict(session['patient_summary'])
+    patient_summary = {}
+    for key, value in temp_summary.iteritems():
+        patient_summary[int(key)] = value
+    print patient_summary
+    print '\n'
+    print patient_summary
+    print '\n'
+
+    session['patient_image'] = patient_image
+    session['patient_summary'] = patient_summary
+
+    return render_template('choosePatient.html', patient_image=patient_image,
+        patient_summary=patient_summary)
+
 @app.route('/')
 def index():
     patient_image = []
     patient_summary = {}
     id = 1
+    los = 0
+    bedNo = 0
     patients = os.listdir(PATH_TO_DATA)
     for patient in patients:
-        patient_image.append( ('static/data/'+patient+'/image.png', patient,id) )
+        los = random.randrange(1,3)
+        bedNo = random.randrange(100,300)
+        print los
+        patient_image.append( ('../static/data/'+patient+'/image.png', patient,id,los,bedNo) )
         id+=1
 
     db = MySQLdb.connect("52.33.170.186","hciuser","hciproject","hci" )
@@ -31,6 +92,11 @@ def index():
 
     db.close()
 
+    session['patient_image'] = patient_image
+    session['patient_summary'] = patient_summary
+    print '\n'
+    print patient_summary
+    print '\n'
     return render_template('choosePatient.html', patient_image=patient_image,
         patient_summary=patient_summary)
 
@@ -87,9 +153,8 @@ def showVitals():
         ppath1 = session['onepp']
         ppath2 = session['twopp']
 
-        pname1 = ppath1.split('/')[2]
-        print pname1
-        pname2 = ppath2.split('/')[2]
+        pname1 = ppath1.split('/')[3]
+        pname2 = ppath2.split('/')[3]
 
         patient_id = session['multiple_ids'][0]
 
@@ -145,7 +210,7 @@ def showVitals():
         ppath = session['onepp']
         print '########',ppath
         return render_template('index.html', body_system = body_system, vitals_list = vitals_list,
-            plan_results = plan_results,ppath = ppath)
+            plan_results = plan_results,ppath = ppath, pname=ppath.split("/")[3])
 
 @app.route('/updateResidentPlan',methods=['POST'])
 def updateResidentPlan():

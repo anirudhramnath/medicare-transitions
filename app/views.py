@@ -5,6 +5,7 @@ import os, json
 import MySQLdb
 from flask import Flask, session, redirect, url_for
 from collections import OrderedDict
+import random
 
 PATH_TO_DATA = os.getcwd()+'/app/static/data'
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
@@ -56,7 +57,7 @@ def index():
     los = 0
     patients = os.listdir(PATH_TO_DATA)
     for patient in patients:
-        los = random.random(1,3)
+        los = random.randrange(1,3)
         print los
         patient_image.append( ('../static/data/'+patient+'/image.png', patient,id,los) )
         id-=1
@@ -131,9 +132,9 @@ def showVitals():
     if num_patients > 1:
         ppath1 = session['onepp']
         ppath2 = session['twopp']
-
-        pname1 = ppath1.split('/')[2]
-        pname2 = ppath2.split('/')[2]
+        print 'Path p1',ppath1
+        pname1 = ppath1.split('/')[3]
+        pname2 = ppath2.split('/')[3]
 
         patient_id = session['multiple_ids'][0]
 

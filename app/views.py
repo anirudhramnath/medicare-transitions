@@ -88,6 +88,7 @@ def showVitals():
         ppath2 = session['twopp']
 
         pname1 = ppath1.split('/')[2]
+        print pname1
         pname2 = ppath2.split('/')[2]
 
         patient_id = session['multiple_ids'][0]

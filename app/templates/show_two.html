@@ -969,14 +969,18 @@ var svg = d3.select("#bpchart")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 //Clinician Alert function
+//Clinician Alert function
+var sbpFlag = 0;
+var dbpFlag = 0;
 d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
 data.forEach(function(d){
-      if( parseInt(d.DiastolicBP) < 30)
-        alert("Diastolic BP is low : " + d.DiastolicBP);
+    data.forEach(function(d){
+          if( parseInt(d.DiastolicBP) < 30)
+            dbpFlag = 1;
 
-      if( parseInt(d.SystolicBP) > 120)
-        alert("Systolic BP is high : " + d.SystolicBP);
-    });
+          if( parseInt(d.SystolicBP) > 120)
+            sbpFlag = 1;
+        });
 
 });
 
@@ -1172,14 +1176,17 @@ var svgb2 = d3.select("#bpchart2")
         .attr("transform",
               "translate(" + marginb2.left + "," + marginb2.top + ")");
 
+
 //Clinician Alert function
+var sbpFlag2 = 0;
+var dbpFlag2 = 0;
 d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
 data.forEach(function(d){
-      if( parseInt(d.DiastolicBP) < 30)
-        alert("Diastolic BP is low : " + d.DiastolicBP);
+     if( parseInt(d.DiastolicBP) < 30)
+        dbpFlag2 = 1;
 
       if( parseInt(d.SystolicBP) > 120)
-        alert("Systolic BP is high : " + d.SystolicBP);
+        sbpFlag2 = 1;
     });
 
 });
@@ -1370,6 +1377,20 @@ var svgT = d3.select("#tempchart")
         .attr("transform",
               "translate(" + marginT.left + "," + marginT.top + ")");
 
+//Clinician Alert function
+var tempFlag = 0;
+d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.Temperature) > 40)
+        tempFlag = 1;
+      if( parseInt(d.Temperature) <= 30)
+        tempFlag = 1;
+    });
+
+});
+
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT) {
     dataT.forEach(function(d) {
@@ -1520,6 +1541,20 @@ var svgT2 = d3.select("#tempchart2")
         .attr("transform",
               "translate(" + marginT2.left + "," + marginT2.top + ")");
 
+//Clinician Alert function
+var tempFlag2 = 0;
+d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.Temperature) > 40)
+        tempFlag2 = 1;
+      if( parseInt(d.Temperature) <= 30)
+        tempFlag2 = 1;
+    });
+
+});
+
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT2) {
     dataT2.forEach(function(d) {
@@ -1660,6 +1695,19 @@ var svgR = d3.select("#respchart")
     .append("g")
         .attr("transform","translate(" + marginR.left + "," + marginR.top + ")");
 
+//Clinician Alert function
+var repFlag = 0;
+d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.RespRate) > 30)
+        repFlag = 1;
+      if( parseInt(d.RespRate) <= 19)
+        repFlag = 1;
+    });
+    
+});
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, dataR) {
     dataR.forEach(function(d) {
@@ -1738,6 +1786,19 @@ var svgR2 = d3.select("#respchart2")
         .attr("height", heightR2 + marginR2.top + marginR2.bottom)
     .append("g")
         .attr("transform","translate(" + marginR2.left + "," + marginR2.top + ")");
+
+//Clinician Alert function
+var repFlag2 = 0;
+d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.RespRate) > 30)
+        repFlag2 = 1;
+      if( parseInt(d.RespRate) <= 19)
+        repFlag2 = 1;
+    });
+    
+});
 
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, dataR2) {
@@ -1819,6 +1880,19 @@ var svgP = d3.select("#pulsechart")
         .attr("height", heightP + marginP.top + marginP.bottom)
     .append("g")
         .attr("transform","translate(" + marginP.left + "," + marginP.top + ")");
+//Clinician Alert function
+var pulseFlag = 0;
+d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.PulseRate) > 81)
+        pulseFlag = 1;
+      if( parseInt(d.PulseRate) <= 71)
+        pulseFlag = 1;
+    });
+    
+});
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, dataP) {
   if (error) throw error;
@@ -1940,6 +2014,20 @@ var svgP2 = d3.select("#pulsechart2")
         .attr("height", heightP2 + marginP2.top + marginP2.bottom)
     .append("g")
         .attr("transform","translate(" + marginP2.left + "," + marginP2.top + ")");
+
+//Clinician Alert function
+var pulseFlag2 = 0;
+d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.PulseRate) > 81)
+        pulseFlag2 = 1;
+      if( parseInt(d.PulseRate) <= 71)
+        pulseFlag2 = 1;
+    });
+    
+});
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, dataP2) {
   if (error) throw error;
@@ -2056,6 +2144,36 @@ var svgO = d3.select("#poxchart")
         .attr("height", heightO + marginO.top + marginO.bottom)
     .append("g")
         .attr("transform","translate(" + marginO.left + "," + marginO.top + ")");
+//Clinician Alert function
+var poxFlag = 0;
+var alerMessage = [];
+d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, data) {
+
+data.forEach(function(d){
+      if( parseInt(d.PulseOx) > 85)
+        poxFlag = 1;
+      if( parseInt(d.PulseOx) <= 70)
+        poxFlag = 1;
+    });
+
+    if (sbpFlag == 1) 
+      alerMessage.push("SystolicBP");
+    if (dbpFlag == 1)
+      alerMessage.push("DiastolicBP");
+    if (tempFlag == 1)
+      alerMessage.push("Temperature");
+    if (repFlag == 1)
+      alerMessage.push("Respiration");
+    if (pulseFlag == 1)
+      alerMessage.push("Pulse");
+    if (poxFlag == 1)
+      alerMessage.push("Pulse Oximetry");
+
+    alert("Need attention on below Vitals for Patient 1:" + "\n"+alerMessage);
+});
+
+
+
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, dataO) {
     dataO.forEach(function(d) {
@@ -2130,6 +2248,8 @@ var svgO2 = d3.select("#poxchart2")
         .attr("height", heightO2 + marginO2.top + marginO2.bottom)
     .append("g")
         .attr("transform","translate(" + marginO2.left + "," + marginO2.top + ")");
+
+        
 // Get the data
 d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, dataO2) {
     dataO2.forEach(function(d) {

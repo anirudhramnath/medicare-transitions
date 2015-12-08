@@ -972,7 +972,7 @@ var svg = d3.select("#bpchart")
 //Clinician Alert function
 var sbpFlag = 0;
 var dbpFlag = 0;
-d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
+d3.csv("../static/data/{{pname1}}/vitals/data.csv", function(error, data) {
     data.forEach(function(d){
           if( parseInt(d.DiastolicBP) < 30)
             dbpFlag = 1;
@@ -984,7 +984,7 @@ d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
 });
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
+d3.csv("../static/data/{{pname1}}/vitals/data.csv", function(error, data) {
     data.forEach(function(d) {
         d.Time = parseDate(d.Time);
         d.DiastolicBP = +d.DiastolicBP;
@@ -1179,7 +1179,7 @@ var svgb2 = d3.select("#bpchart2")
 //Clinician Alert function
 var sbpFlag2 = 0;
 var dbpFlag2 = 0;
-d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, data) {
+d3.csv("../static/data/{{pname2}}/vitals/data.csv", function(error, data) {
 data.forEach(function(d){
      if( parseInt(d.DiastolicBP) < 30)
         dbpFlag2 = 1;
@@ -1191,7 +1191,7 @@ data.forEach(function(d){
 });
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/data.csv", function(error, datab2) {
+d3.csv("../static/data/{{pname2}}/vitals/data.csv", function(error, datab2) {
     datab2.forEach(function(d) {
         d.Time = parseDateb2(d.Time);
         d.DiastolicBP = +d.DiastolicBP;
@@ -1378,7 +1378,7 @@ var svgT = d3.select("#tempchart")
 
 //Clinician Alert function
 var tempFlag = 0;
-d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, data) {
+d3.csv("../static/data/{{pname1}}/vitals/temp.csv", function(error, data) {
 
 data.forEach(function(d){
       if( parseInt(d.Temperature) > 40)
@@ -1391,7 +1391,7 @@ data.forEach(function(d){
 
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT) {
+d3.csv("../static/data/{{pname1}}/vitals/temp.csv", function(error, dataT) {
     dataT.forEach(function(d) {
         d.Time = parseDateT(d.Time);
         d.Temperature = +d.Temperature;
@@ -1542,7 +1542,7 @@ var svgT2 = d3.select("#tempchart2")
 
 //Clinician Alert function
 var tempFlag2 = 0;
-d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, data) {
+d3.csv("../static/data/{{pname2}}/vitals/temp.csv", function(error, data) {
 
 data.forEach(function(d){
       if( parseInt(d.Temperature) > 40)
@@ -1555,7 +1555,7 @@ data.forEach(function(d){
 
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/temp.csv", function(error, dataT2) {
+d3.csv("../static/data/{{pname2}}/vitals/temp.csv", function(error, dataT2) {
     dataT2.forEach(function(d) {
         d.Time = parseDateT2(d.Time);
         d.Temperature = +d.Temperature;
@@ -1696,7 +1696,7 @@ var svgR = d3.select("#respchart")
 
 //Clinician Alert function
 var repFlag = 0;
-d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, data) {
+d3.csv("../static/data/{{pname1}}/vitals/respRate.csv", function(error, data) {
 
 data.forEach(function(d){
       if( parseInt(d.RespRate) > 30)
@@ -1708,7 +1708,7 @@ data.forEach(function(d){
 });
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, dataR) {
+d3.csv("../static/data/{{pname1}}/vitals/respRate.csv", function(error, dataR) {
     dataR.forEach(function(d) {
         d.Time = parseDateR(d.Time);
         d.RespRate = +d.RespRate;
@@ -1788,7 +1788,7 @@ var svgR2 = d3.select("#respchart2")
 
 //Clinician Alert function
 var repFlag2 = 0;
-d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, data) {
+d3.csv("../static/data/{{pname2}}/vitals/respRate.csv", function(error, data) {
 
 data.forEach(function(d){
       if( parseInt(d.RespRate) > 30)
@@ -1800,7 +1800,7 @@ data.forEach(function(d){
 });
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/respRate.csv", function(error, dataR2) {
+d3.csv("../static/data/{{pname2}}/vitals/respRate.csv", function(error, dataR2) {
     dataR2.forEach(function(d) {
         d.Time = parseDateR2(d.Time);
         d.RespRate = +d.RespRate;
@@ -1881,7 +1881,7 @@ var svgP = d3.select("#pulsechart")
         .attr("transform","translate(" + marginP.left + "," + marginP.top + ")");
 //Clinician Alert function
 var pulseFlag = 0;
-d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, data) {
+d3.csv("../static/data/{{pname1}}/vitals/pulse.csv", function(error, data) {
 
 data.forEach(function(d){
       if( parseInt(d.PulseRate) > 81)
@@ -1893,7 +1893,7 @@ data.forEach(function(d){
 });
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, dataP) {
+d3.csv("../static/data/{{pname1}}/vitals/pulse.csv", function(error, dataP) {
   if (error) throw error;
     dataP.forEach(function(d) {
         d.Time = parseDateP(d.Time);
@@ -2016,7 +2016,7 @@ var svgP2 = d3.select("#pulsechart2")
 
 //Clinician Alert function
 var pulseFlag2 = 0;
-d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, data) {
+d3.csv("../static/data/{{pname2}}/vitals/pulse.csv", function(error, data) {
 
 data.forEach(function(d){
       if( parseInt(d.PulseRate) > 81)
@@ -2028,7 +2028,7 @@ data.forEach(function(d){
 });
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/pulse.csv", function(error, dataP2) {
+d3.csv("../static/data/{{pname2}}/vitals/pulse.csv", function(error, dataP2) {
   if (error) throw error;
     dataP2.forEach(function(d) {
         d.Time = parseDateP2(d.Time);
@@ -2146,7 +2146,7 @@ var svgO = d3.select("#poxchart")
 //Clinician Alert function
 var poxFlag = 0;
 var alerMessage = [];
-d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, data) {
+d3.csv("../static/data/{{pname1}}/vitals/pulseox.csv", function(error, data) {
 
 data.forEach(function(d){
       if( parseInt(d.PulseOx) > 85)
@@ -2174,7 +2174,7 @@ data.forEach(function(d){
 
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, dataO) {
+d3.csv("../static/data/{{pname1}}/vitals/pulseox.csv", function(error, dataO) {
     dataO.forEach(function(d) {
         d.Time = parseDateO(d.Time);
         d.PulseOx = +d.PulseOx;
@@ -2251,7 +2251,7 @@ var svgO2 = d3.select("#poxchart2")
 //Clinician Alert function
 var poxFlag2 = 0;
 var alerMessage2 = [];
-d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, data) {
+d3.csv("../static/data/{{pname2}}/vitals/pulseox.csv", function(error, data) {
 
 data.forEach(function(d){
       if( parseInt(d.PulseOx) > 85)
@@ -2261,15 +2261,15 @@ data.forEach(function(d){
     });
 
     if (sbpFlag2 == 1) 
-      alerMessage.push("SystolicBP");
+      alerMessage2.push("SystolicBP");
     if (dbpFlag2 == 1)
-      alerMessage.push("DiastolicBP");
+      alerMessage2.push("DiastolicBP");
     if (tempFlag2 == 1)
-      alerMessage.push("Temperature");
+      alerMessage2.push("Temperature");
     if (repFlag2 == 1)
       alerMessage.push("Respiration");
     if (pulseFlag2 == 1)
-      alerMessage.push("Pulse");
+      alerMessage2.push("Pulse");
     if (poxFlag2 == 1)
       alerMessage2.push("Pulse Oximetry");
 
@@ -2278,7 +2278,7 @@ data.forEach(function(d){
 
 
 // Get the data
-d3.csv("../static/data/Foo Bar/vitals/pulseox.csv", function(error, dataO2) {
+d3.csv("../static/data/{{pname2}}/vitals/pulseox.csv", function(error, dataO2) {
     dataO2.forEach(function(d) {
         d.Time = parseDateO2(d.Time);
         d.PulseOx = +d.PulseOx;
